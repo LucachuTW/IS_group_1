@@ -1,0 +1,1 @@
+El usuario quiere poder modificar la localizacion de cada objeto y sus propiedades
