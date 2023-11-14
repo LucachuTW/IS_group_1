@@ -1,0 +1,1 @@
+El usuario quiere poder tener distintas vistas del entorno y no tener que ver todo el entorno a la vez
