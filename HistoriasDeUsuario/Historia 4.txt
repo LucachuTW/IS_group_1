@@ -1,0 +1,1 @@
+El sistema debe registrar la ubicación de cada agente y objeto en el entorno para garantizar un seguimiento preciso.
