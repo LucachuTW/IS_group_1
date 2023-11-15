@@ -1,3 +1,0 @@
-Como usuario, quiero que el sistema registre la ubicación de cada agente y objeto en el entorno para garantizar un seguimiento preciso.
-
-Criterios de aceptación: El sistema debe ser capaz de proporcionar la percepción "at(Ag, Place)" y "at(Thing, Place)" para cada agente y objeto respectivamente, indicando su posición en el grid.
