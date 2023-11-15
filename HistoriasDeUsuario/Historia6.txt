@@ -1,1 +1,0 @@
-El usuario desea poder modificar la ubicación de cada objeto y sus propiedades para adaptar el entorno según sea necesario.
