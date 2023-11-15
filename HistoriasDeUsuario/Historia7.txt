@@ -1,0 +1,1 @@
+El propietario quiere informar al entorno que está abriendo el armario de medicinas para acceder al stock de fármacos.
