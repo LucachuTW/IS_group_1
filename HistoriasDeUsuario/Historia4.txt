@@ -1,1 +1,0 @@
-El susario quiere que se registre la ubicación de cada agente y objeto en el entorno para garantizar un seguimiento preciso.
