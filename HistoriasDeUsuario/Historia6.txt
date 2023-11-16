@@ -1,0 +1,1 @@
+El repartidor quiere informar al entorno sobre la cantidad de farmacos entregados para actualizar el stock.
