@@ -9,5 +9,6 @@
             "y": 7
         },
         "numberDrugs": 2
-    }
+    },
+    "walls": {"position":[[3,2],[4,5]]}
 }
