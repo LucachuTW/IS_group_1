@@ -3,7 +3,7 @@ import houseModel
 
 
 class testing(unittest.TestCase):
-    def test_env_2(self):
+    def test_addDrug(self):
         # @SantiagoRR2004
         a = houseModel.HouseModel()
         number = a.getDrug()
