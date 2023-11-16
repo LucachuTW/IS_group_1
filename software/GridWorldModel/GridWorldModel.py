@@ -1,133 +1,56 @@
-# Este codigo fue creado por @antonvm2004
-# Consiste en el desarrollo del GridWorldModel la creacion de la cuadricula en Tkinter y las opciones graficas de la misma
+import tkinter as tk
+import json
 
-from tkinter import *
-from tkinter import PhotoImage
+class App():
+    def __init__(self, L_QUADRADO):
 
-import os 
+        # Cargar la lista desde un archivo JSON
+        with open('datos_lista.json', 'r') as archivo_entrada:
+            self.gs = json.load(archivo_entrada)
 
-class GridWorldModel(Tk):
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args, **kwargs)
-        #self.geometry("640x640+500+150")
-        self.plan=Canvas(self)
-        self.plan.pack(fill="both", expand=True)
+
+        self.L_QUADRADO = L_QUADRADO
         self.imagenes = {}
 
-        self.square()
-        #self.cargarImagenes()
-        #self.mostrarPiezas()
-        #self.load_images()
-    
-    def square(self):
+        self.ventana = tk.Tk()
+        self.ventana.title("casa")
+        self.ventana.geometry(f"{str(L_QUADRADO * 24)}x{str(L_QUADRADO * 12)}")
+        self.ventana.resizable(0, 0)
+
+        self.interfaz = tk.Canvas(self.ventana)
+        self.interfaz.pack(fill="both", expand=True)
+
+    def __call__(self):
+        self.ventana.mainloop()
+
+    def dibujarTablero(self):
         for i in range(24):
             for j in range(12):
-                
-                # Creacion de paredes
-                # Paredes Verticales
-                if (i==8):
-                    for a in range(11):
-                        print(a)
-                        if (a == 6):
-                            pass
-                        else:
-                            self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                
+                self.interfaz.create_rectangle(i * self.L_QUADRADO, j * self.L_QUADRADO,
+                                               (i + 1) * self.L_QUADRADO, (j + 1) * self.L_QUADRADO)
 
-                elif (i==14 and j== 0):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==14 and j== 1):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==14 and j== 2):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
+    def cargarImagenes(self):
+        piezas = ["0", "1", "2"]
+        for pieza in piezas:
+            # Cargar la imagen original
+            img = tk.PhotoImage(file="./imagenes/" + pieza + ".png")
 
+            # Ajustar la imagen al tamaño del cuadrado
+            img = img.subsample(int(img.width() / self.L_QUADRADO), int(img.height() / self.L_QUADRADO))
 
-                # Paredes Horizontales
-                elif (i==1 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==2 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==3 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==4 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")          
-                elif (i==5 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==6 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==7 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==8 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==9 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==10 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")          
-                elif (i==11 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==13 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==14 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==15 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==16 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==17 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==18 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")          
-                elif (i==19 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==20 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==21 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==22 and j== 7):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
+            self.imagenes[pieza] = img
 
-                elif (i==9 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==10 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==11 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==13 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==14 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==15 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==16 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==17 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==18 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==19 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==20 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==21 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")
-                elif (i==22 and j== 4):
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60, fill="black")                    
-                
-                else:
-                    self.plan.create_rectangle(i*60, j*60, (i+1)*60, (j+1)*60)
+    def mostrarPiezas(self):
+        for indice_i, i in enumerate(self.gs):
+            for indice_j, j in enumerate(i):
+                if j != "--":
+                    self.interfaz.create_image(indice_j * self.L_QUADRADO, indice_i * self.L_QUADRADO,
+                                               image=self.imagenes[j], anchor='nw')
 
-    def load_images(self):
-        # Cambia 'ruta_de_la_imagen.png' por la ruta de tu imagen
-        image_path = 'a.png'
-        
-        # Carga la imagen
-        img = PhotoImage(file=image_path)
+# Crear la aplicación y ejecutarla
+MotorDeAjedrez = App(70)
+MotorDeAjedrez.dibujarTablero()
+MotorDeAjedrez.cargarImagenes()
+MotorDeAjedrez.mostrarPiezas()
 
-        # Añade la imagen al canvas en la posición 0x0
-        self.imagenes['imagen_0x0'] = img
-        self.plan.create_image(0, 0, anchor=NW, image=img)
-
-if __name__=="__main__":
-
-    app = GridWorldModel()
-    app.mainloop()
+MotorDeAjedrez()
