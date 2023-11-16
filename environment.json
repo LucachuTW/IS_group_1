@@ -1,0 +1,13 @@
+{
+    "gridSize": {
+        "x": 24,
+        "y": 12
+    },
+    "cabinet": {
+        "position": {
+            "x": 5,
+            "y": 7
+        },
+        "numberDrugs": 2
+    }
+}
