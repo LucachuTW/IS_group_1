@@ -1,0 +1,9 @@
+Responsibilities:
+The state of objects
+Change the states of objects
+The position of objects
+Change the position of objects
+
+Collaborators:
+HouseEnv
+HouseView
