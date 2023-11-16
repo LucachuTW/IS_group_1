@@ -1,5 +1,3 @@
-import math
-
-class HouseEnv():
+class HouseView():
     def __init__(self) -> None:
         pass
