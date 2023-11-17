@@ -1,8 +1,10 @@
 import unittest
 import houseView
+import houseModel
 
 
 class testing(unittest.TestCase):
-    def test_env_2(self):
-        a = houseView.HouseView()
-        self.assertEqual(5, 5)
+    def test_createsViewer(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getView()
+        self.assertIsInstance(control, houseView.HouseView)
