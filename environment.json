@@ -317,5 +317,13 @@
         "numberDrugs": 2,
         "open": false,
         "maxCapacity": 7
+    },
+    "owner": {
+        "numberDrugs": 0,
+        "maxCapacity": 1
+    },
+    "symbols": {
+        "0": "space",
+        "1": "wall"
     }
 }

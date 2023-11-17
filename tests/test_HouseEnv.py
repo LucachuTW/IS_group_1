@@ -20,3 +20,13 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         control.getModel().setCabinetStatus(True)
         self.assertEqual(control.addDrug(5), True)
+
+    def test_removeDrugsCorrectly(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        control.getModel().setCabinetStatus(True)
+        initialValue = control.getModel().getDrug()
+        maximun = control.getModel().getCabinetCapacity()
+        control.getModel().setDrug(maximun - initialValue)
+        self.assertEqual(control.removeDrug(maximun - 1), True)
+        self.assertEqual(control.getModel().getDrug(), 1)
