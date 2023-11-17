@@ -13,6 +13,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             data = json.load(file)
         self.grid = data["grid"]
         self._availableDrugs: int = data["cabinet"]["numberDrugs"]
+        self._cabinetOpen: bool = data["cabinet"].get("isOpen", False)
 
     def addDrug(self, quantity):
         # @Ventupentu
@@ -21,6 +22,10 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getDrug(self):
         # @Ventupentu
         return self._availableDrugs
+
+    def getCabinetStatus(self):
+        # @Ventupentu
+        return self._cabinetOpen
 
     def changePosition(self, originX, originY, destinationX, destinationY):
         # Created by @SantiagoRR2004-@antonvm2004
