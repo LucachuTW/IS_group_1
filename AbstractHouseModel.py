@@ -4,10 +4,10 @@ import AbstractHouseView
 
 
 class AbstractHouseModel(ABC):
-    def __init__(self) -> None:
-        a = AbstractHouseEnv.AbstractHouseEnv(self)
-        b = AbstractHouseView.AbstractHouseView(self)
-        b.setController(a)
-        a.setView(b)
-        self.view = b
-        self.controler = a
+    def setRelationships(self):
+        controler = AbstractHouseEnv.AbstractHouseEnv(self)
+        view = AbstractHouseView.AbstractHouseView(self)
+        view.setController(controler)
+        controler.setView(view)
+        self.view = view
+        self.controler = controler
