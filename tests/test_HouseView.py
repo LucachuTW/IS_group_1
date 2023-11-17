@@ -20,3 +20,16 @@ class testing(unittest.TestCase):
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("Cabinet")
         self.assertIsInstance(drawing, dict)
+
+    def test_existsWall(self):
+         # @antonoterof
+         model = houseModel.HouseModel()
+         exists = model.existsWall()
+         self.assertEqual(exists, '1')
+
+    def test_existsCabinet(self):
+        # @antonoterof
+        model = houseModel.HouseModel()
+        exists = model.existsCabinet()
+        self.assertEqual(exists, '3')
+
