@@ -35,3 +35,9 @@ class testing(unittest.TestCase):
         model = houseModel.HouseModel()
         model.setCabinetStatus(False)
         self.assertEqual(model.getCabinetStatus(), False)
+
+    def test_getCabinetCapacity(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        number = model.getCabinetCapacity()
+        self.assertEqual(type(number), int)

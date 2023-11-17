@@ -315,6 +315,7 @@
     ],
     "cabinet": {
         "numberDrugs": 2,
-        "open" : false
+        "open": false,
+        "maxCapacity": 7
     }
 }
