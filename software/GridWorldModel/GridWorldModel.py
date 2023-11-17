@@ -32,7 +32,7 @@ class App():
                                                (i + 1) * self.L_QUADRADO, (j + 1) * self.L_QUADRADO)
 
     def cargarImagenes(self):
-        piezas = ["0", "1", "2"]
+        piezas = ["1", "2", "3"]
         for pieza in piezas:
             # Cargar la imagen original
             img = tk.PhotoImage(file="./software/GridWorldModel/imagenes/" + pieza + ".png")
@@ -45,7 +45,7 @@ class App():
     def mostrarPiezas(self):
         for indice_i, i in enumerate(self.gs):
             for indice_j, j in enumerate(i):
-                if j != "--":
+                if j != "0":
                     self.interfaz.create_image(indice_j * self.L_QUADRADO, indice_i * self.L_QUADRADO,
                                                image=self.imagenes[j], anchor='nw')
 
