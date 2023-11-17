@@ -14,6 +14,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         self.grid = data["grid"]
         self._availableDrugs: int = data["cabinet"]["numberDrugs"]
         self._cabinetOpen: bool = data["cabinet"].get("isOpen", False)
+        self._gabinetCapacity: int = data["cabinet"]["maxCapacity"]
 
     def addDrug(self, quantity):
         # @Ventupentu
@@ -30,6 +31,10 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def setCabinetStatus(self, status):
         # @Ventupentu-@LucachuTW
         self._cabinetOpen = status
+
+    def getCabinetCapacity(self):
+        # @Ventupentu
+        return self._gabinetCapacity
 
     def changePosition(self, originX, originY, destinationX, destinationY):
         # Created by @SantiagoRR2004-@antonvm2004
