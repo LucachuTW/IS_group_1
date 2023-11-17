@@ -20,7 +20,17 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         return self._availableDrugs
     
     def changePosition(self,originX,originY,destinationX,destinationY):
-        # Created by @SantiagoRR2004
-        value = self.grid[originX,originY]
-        self.grid[originX,originY] = "--"
-        self.grid[destinationX,destinationY] = value
+        # Created by @SantiagoRR2004-@antonvm2004
+        value = self.getPosition[originX,originY]
+        self.setPosition(originX,originY, "--") 
+        self.setPositoin(destinationX,destinationY, "value")
+
+    def getPosition(self, x, y):
+        # Created by @antonvm2004
+        return self.grid[x,y]
+    
+    def setPosition(self, x, y, value):
+        #Created by @antonvm2004
+        self.grid[x,y] = value
+
+    

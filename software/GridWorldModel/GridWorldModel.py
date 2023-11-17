@@ -1,3 +1,5 @@
+# Realizado por @antonvm2004
+
 import tkinter as tk
 import json
 
