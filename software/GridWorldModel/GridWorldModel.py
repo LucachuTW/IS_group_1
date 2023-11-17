@@ -5,7 +5,7 @@ class App():
     def __init__(self, L_QUADRADO):
 
         # Cargar la lista desde un archivo JSON
-        with open('datos_lista.json', 'r') as archivo_entrada:
+        with open('./software/GridWorldModel/datos_lista.json', 'r') as archivo_entrada:
             self.gs = json.load(archivo_entrada)
 
 
@@ -33,7 +33,7 @@ class App():
         piezas = ["0", "1", "2"]
         for pieza in piezas:
             # Cargar la imagen original
-            img = tk.PhotoImage(file="./imagenes/" + pieza + ".png")
+            img = tk.PhotoImage(file="./software/GridWorldModel/imagenes/" + pieza + ".png")
 
             # Ajustar la imagen al tamaño del cuadrado
             img = img.subsample(int(img.width() / self.L_QUADRADO), int(img.height() / self.L_QUADRADO))
