@@ -314,6 +314,7 @@
         ]
     ],
     "cabinet": {
-        "numberDrugs": 2
+        "numberDrugs": 2,
+        "open" : false
     }
 }
