@@ -1,6 +1,7 @@
 import json
+import AbstractHouseModel
 
-class HouseModel():
+class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def __init__(self):
         #@Ventupentu
         #@SantiagoRR2004 added the environment.json
