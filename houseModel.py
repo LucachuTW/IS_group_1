@@ -24,8 +24,12 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         return self._availableDrugs
 
     def getCabinetStatus(self):
-        # @Ventupentu
+        # @Ventupentu-@LucachuTW
         return self._cabinetOpen
+
+    def setCabinetStatus(self, status):
+        # @Ventupentu-@LucachuTW
+        self._cabinetOpen = status
 
     def changePosition(self, originX, originY, destinationX, destinationY):
         # Created by @SantiagoRR2004-@antonvm2004
