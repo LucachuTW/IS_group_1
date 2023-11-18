@@ -15,13 +15,37 @@ class testing(unittest.TestCase):
         drawing = view.draw()
         self.assertIsInstance(drawing, list)
 
+    def test_drawWalls(self):
+        # @antonvm2004
+        view = houseModel.HouseModel().getView()
+        drawing = view.drawAgent("walls")
+        self.assertIsInstance(drawing, dict)
+    
+    def test_drawDoors(self):
+        # @antonvm2004
+        view = houseModel.HouseModel().getView()
+        drawing = view.drawAgent("doors")
+        self.assertIsInstance(drawing, dict)
+    
     def test_drawCabinet(self):
         # @SantiagoRR2004
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("cabinet")
         self.assertIsInstance(drawing, dict)
+       
+    def test_drawOwner(self):
+        # @antonvm2004
+        view = houseModel.HouseModel().getView()
+        drawing = view.drawAgent("owner")
+        self.assertIsInstance(drawing, dict)
     
+    def test_drawRobot(self):
+        # @antonvm2004
+        view = houseModel.HouseModel().getView()
+        drawing = view.drawAgent("robot")
+        self.assertIsInstance(drawing, dict)
     def test_exists_elements_valid(self):
+        
         # @antonvm2004
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
