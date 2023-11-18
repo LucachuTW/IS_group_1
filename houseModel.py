@@ -58,21 +58,21 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
     def removeValue(self, value):
         # @antonoterof
-        simbolValue=self.data[value]["symbol"]
-        for file in range (len(self.grid)):
-            for simbol in range(len(self.grid[file])):
-                if self.grid[file][simbol]==simbolValue:
-                    self.grid[file].remove(simbolValue)
+        simbolValue=self.getAttributeFromDict(value,"symbol")
+        for file in range (len(self.getAttribute("grid"))):
+            for simbol in range(len(self.getAttributeFromDict("grid",file))):
+                if self.getAttributeFromDict("grid",file)[simbol]==simbolValue:
+                    self.getAttributeFromDict("grid",file).remove(simbolValue)
                     break
             
     def getPositionOf(self, value):
         # @antonoterof
-        simbolValue=self.data[value]["symbol"]
+        simbolValue=self.getAttributeFromDict(value,"symbol")
         position= False
         found= False
-        for file in range (len(self.grid)):
-            for simbol in range(len(self.grid[file])):
-                if self.grid[file][simbol]==simbolValue:
+        for file in range (len(self.getAttribute("grid"))):
+            for simbol in range(len(self.getAttributeFromDict("grid",file))):
+                if self.getAttributeFromDict("grid",file)[simbol]==simbolValue:
                     position=[file,simbol]
                     found= True
                     break
