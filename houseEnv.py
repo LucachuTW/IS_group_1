@@ -10,4 +10,4 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         if model.getOpenStatus(object)== False:
             return False
         else:
-            model.addDrug(object, quantity)
+            return True
