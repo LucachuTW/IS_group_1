@@ -64,3 +64,11 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                 if self.grid[file][simbol]==simbolValue:
                     self.grid[file].remove(simbolValue)
                     break
+            
+    def getPositionOf(self, value):
+        # @antonoterof
+        simbolValue=self.data[value]["symbol"]
+        for file in range (len(self.grid)):
+            for simbol in range(len(self.grid[file])):
+                if self.grid[file][simbol]==simbolValue:
+                    return [file,simbol]
