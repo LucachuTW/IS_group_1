@@ -13,29 +13,62 @@
         ["0", "0", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "5", "0", "0", "0", "0", "0", "0", "0", "0"],
         ["2", "0", "0", "0", "0", "0", "0", "0", "2", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]
     ],
+    "walls": {
+        "unique": false,
+        "symbol": 1,
+        "moving": {
+            "auto": false,
+            "mover": false,
+            "moved": false
+        }
+    },
     "doors": {
         "unique": false,
         "symbol": 2,
-        "subset":[{"location":[14,3],"open":false},{"location":[12,4],"open":true},{"location":[24,3],"open":false}]
+        "subset":[{"location":[14,3],"open":false},{"location":[12,4],"open":true},{"location":[24,3],"open":false}],
+        "moving": {
+            "auto": false,
+            "mover": false,
+            "moved": false
+        }
     },
     "cabinet": {
         "unique": true,
         "numberDrugs": 2,
         "open": false,
         "maxCapacity": 7,
-        "symbol": 3
+        "symbol": 3,
+        "moving": {
+            "auto": false,
+            "mover": false,
+            "moved": true
+        }
     },
     "owner": {
         "unique": true,
         "numberDrugs": 0,
         "maxCapacity": 1,
-        "symbol": 4
+        "symbol": 4,
+        "moving": {
+            "auto": true,
+            "mover": true,
+            "moved": true
+        }
     },
     "robot": {
         "unique": true,
         "numberDrugs": 1,
         "maxCapacity": 2,
-        "symbol": 5
+        "symbol": 5,
+        "moving": {
+            "auto": true,
+            "mover": true,
+            "moved": false
+        }
     },
-    "notElements":["grid","symbols","notElements"]
+    "notElements": [
+        "grid",
+        "symbols",
+        "notElements"
+    ]
 }
