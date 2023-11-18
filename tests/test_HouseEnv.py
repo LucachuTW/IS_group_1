@@ -21,6 +21,90 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus("cabinet", True)
         self.assertEqual(control.addDrug("cabinet", 5), True)
 
+    def test_nextToEachOther1(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, 1, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+
+    def test_nextToEachOther2(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+
+    def test_nextToEachOther3(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+
+    def test_nextToEachOther4(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            0, 1, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+
+    def test_nextToEachOther5(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            1, 1, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
+
+    def test_nextToEachOther6(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.remove("cabinet")
+        model.remove("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, 2, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
+
     def test_removeDrugsCorrectly(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
