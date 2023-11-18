@@ -12,21 +12,21 @@ class testing(unittest.TestCase):
     def test_cabinetClosed(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
-        control.getModel().setCabinetStatus(False)
-        self.assertEqual(control.addDrug(5), False)
+        control.getModel().setOpenStatus("cabinet", False)
+        self.assertEqual(control.addDrug("cabinet", 5), False)
 
     def test_cabinetOpen(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
-        control.getModel().setCabinetStatus(True)
-        self.assertEqual(control.addDrug(5), True)
+        control.getModel().setOpenStatus("cabinet", True)
+        self.assertEqual(control.addDrug("cabinet", 5), True)
 
     def test_removeDrugsCorrectly(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
-        control.getModel().setCabinetStatus(True)
-        initialValue = control.getModel().getDrug()
-        maximun = control.getModel().getCabinetCapacity()
-        control.getModel().setDrug(maximun - initialValue)
+        control.getModel().setOpenStatus("cabinet", True)
+        initialValue = control.getModel().getDrug("cabinet")
+        maximun = control.getModel().getCapacity("cabinet")
+        control.getModel().addDrug("cabinet", maximun - initialValue)
         self.assertEqual(control.removeDrug(maximun - 1), True)
-        self.assertEqual(control.getModel().getDrug(), 1)
+        self.assertEqual(control.getModel().getDrug("cabinet"), 1)

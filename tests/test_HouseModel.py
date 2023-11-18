@@ -6,9 +6,9 @@ class testing(unittest.TestCase):
     def test_addDrug(self):
         # @SantiagoRR2004
         a = houseModel.HouseModel()
-        number = a.getDrug()
-        a.addDrug(3)
-        self.assertEqual(a.getDrug(), number + 3)
+        number = a.getDrug("cabinet")
+        a.addDrug("cabinet", 3)
+        self.assertEqual(a.getDrug("cabinet"), number + 3)
 
     def test_ChangePosition(self):
         # @SantiagoRR2004
@@ -21,23 +21,23 @@ class testing(unittest.TestCase):
     def test_getCabinetStatus(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        status = model.getCabinetStatus()
+        status = model.getOpenStatus("cabinet")
         self.assertEqual(type(status), bool)
 
     def test_openCabinet(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        model.setCabinetStatus(True)
-        self.assertEqual(model.getCabinetStatus(), True)
+        model.setOpenStatus("cabinet", True)
+        self.assertEqual(model.getOpenStatus("cabinet"), True)
 
     def test_closeCabinet(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        model.setCabinetStatus(False)
-        self.assertEqual(model.getCabinetStatus(), False)
+        model.setOpenStatus("cabinet", False)
+        self.assertEqual(model.getOpenStatus("cabinet"), False)
 
     def test_getCabinetCapacity(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        number = model.getCabinetCapacity()
+        number = model.getCapacity("cabinet")
         self.assertEqual(type(number), int)

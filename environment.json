@@ -25,5 +25,6 @@
     "symbols": {
         "0": "space",
         "1": "wall"
-    }
+    },
+    "notElements":["grid","symbols","notElements"]
 }

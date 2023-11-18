@@ -8,33 +8,40 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def __init__(self):
         self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
         # @Ventupentu
-        # @SantiagoRR2004 added the environment.json
+        # Modified by @SantiagoRR2004
         with open("environment.json", "r") as file:
             data = json.load(file)
+
         self.grid = data["grid"]
-        self._availableDrugs: int = data["cabinet"]["numberDrugs"]
-        self._cabinetOpen: bool = data["cabinet"].get("isOpen", False)
-        self._gabinetCapacity: int = data["cabinet"]["maxCapacity"]
 
-    def addDrug(self, quantity):
+        for key, value in data.items():
+            if key not in data["notElements"]:
+                self.setAttribute(key, value)
+
+    def addDrug(self, object, quantity):
         # @Ventupentu
-        self._availableDrugs += quantity
+        # Modified by @SantiagoRR2004
+        self.modifyNumericalAttributeFromDict(object, "numberDrugs", quantity)
 
-    def getDrug(self):
+    def getDrug(self, object):
         # @Ventupentu
-        return self._availableDrugs
+        # Modified by @SantiagoRR2004
+        return self.getAttributeFromDict(object, "numberDrugs")
 
-    def getCabinetStatus(self):
+    def getOpenStatus(self, object):
         # @Ventupentu-@LucachuTW
-        return self._cabinetOpen
+        # Modified by @SantiagoRR2004
+        return self.getAttributeFromDict(object, "open")
 
-    def setCabinetStatus(self, status):
+    def setOpenStatus(self, object, status):
         # @Ventupentu-@LucachuTW
-        self._cabinetOpen = status
+        # Modified by @SantiagoRR2004
+        self.setAttributeFromDict(object, "open", status)
 
-    def getCabinetCapacity(self):
+    def getCapacity(self, object):
         # @Ventupentu
-        return self._gabinetCapacity
+        # Modified by @SantiagoRR2004
+        return self.getAttributeFromDict(object, "maxCapacity")
 
     def changePosition(self, originX, originY, destinationX, destinationY):
         # Created by @SantiagoRR2004-@antonvm2004
