@@ -68,7 +68,14 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getPositionOf(self, value):
         # @antonoterof
         simbolValue=self.data[value]["symbol"]
+        position= False
+        found= False
         for file in range (len(self.grid)):
             for simbol in range(len(self.grid[file])):
                 if self.grid[file][simbol]==simbolValue:
-                    return [file,simbol]
+                    position=[file,simbol]
+                    found= True
+                    break
+            if found== True:
+                break
+        return position

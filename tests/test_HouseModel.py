@@ -61,5 +61,5 @@ class testing(unittest.TestCase):
     def test_positionInGrid3(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        model.remove("cabinet")
+        model.removeValue("cabinet")
         self.assertEqual(model.getPositionOf("cabinet"), False)
