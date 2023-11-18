@@ -1,17 +1,18 @@
 import AbstractHouseEnv
 
+
 class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def __init__(self) -> None:
         pass
 
     def addDrug(self, object, quantity):
         # @antonoterof
-        model= self.getModel()
-        if model.getOpenStatus(object)== False:
+        model = self.getModel()
+        if model.getOpenStatus(object) == False:
             return False
         else:
             return True
-        
+
     def areAdjacent(self, object1, object2, position1="", position2=""):
         # @SantiagoRR2004
         model = self.getModel()
@@ -33,3 +34,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return True
         else:
             return False
+
+    def transferDrugs(self, mover, giver, reciever, quantity):
+        pass
