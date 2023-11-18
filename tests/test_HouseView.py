@@ -18,18 +18,17 @@ class testing(unittest.TestCase):
     def test_drawCabinet(self):
         # @SantiagoRR2004
         view = houseModel.HouseModel().getView()
-        drawing = view.drawAgent("Cabinet")
+        drawing = view.drawAgent("cabinet")
         self.assertIsInstance(drawing, dict)
 
     def test_existsWall(self):
-         # @antonoterof
-         model = houseModel.HouseModel()
-         exists = model.existsWall()
-         self.assertEqual(exists, '1')
+        # @antonoterof
+        model = houseModel.HouseModel()
+        exists = model.existsWall()
+        self.assertEqual(exists, "1")
 
     def test_existsCabinet(self):
         # @antonoterof
         model = houseModel.HouseModel()
         exists = model.existsCabinet()
-        self.assertEqual(exists, '3')
-
+        self.assertEqual(exists, "3")

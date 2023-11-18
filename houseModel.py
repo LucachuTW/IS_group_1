@@ -46,7 +46,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def changePosition(self, originX, originY, destinationX, destinationY):
         # Created by @SantiagoRR2004-@antonvm2004
         value = self.getPosition(originX, originY)
-        self.setPosition(originX, originY, "--")
+        self.setPosition(originX, originY, "0")
         self.setPosition(destinationX, destinationY, value)
 
     def getPosition(self, x, y):

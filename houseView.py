@@ -1,14 +1,16 @@
 import AbstractHouseView
 
+
 class HouseView(AbstractHouseView.AbstractHouseView):
     def __init__(self) -> None:
         pass
 
-    def getView(self):
-        pass
-
     def draw(self):
-        return []
+        # @SantiagoRR2004
+        model = self.getModel()
+        return model.getAttribute("grid")
 
-    def drawAgent(self, cabinet):
-        return {}
+    def drawAgent(self, object):
+        # @SantiagoRR2004
+        model = self.getModel()
+        return model.getAttribute(object)
