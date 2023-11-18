@@ -50,3 +50,7 @@ class AbstractHouseModel(ABC):
         # @SantiagoRR2004
         original = self.getAttribute(name)[key]
         self.setAttributeFromDict(name, key, original + value)
+
+    def calculateDistanceBetween2Points(self, x1, y1, x2, y2):
+        # @SantiagoRR2004
+        return (abs(x1 - x2) ** 2 + abs(y1 - y2) ** 2) ** (1 / 2)
