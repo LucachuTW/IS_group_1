@@ -13,6 +13,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return True
         
     def areAdjacent(self, object1, object2):
+        # @antonoterof
         model= self.getModel()
         if (model.getPositionOf(object1)==[0,0] and model.getPositionOf(object2)==[0,1]
              or  model.getPositionOf(object1)==[0,0] and model.getPositionOf(object2)==[1,0] 
