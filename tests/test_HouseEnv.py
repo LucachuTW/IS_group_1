@@ -25,8 +25,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
@@ -39,8 +39,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
@@ -53,8 +53,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             1, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
@@ -67,8 +67,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             0, 1, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
@@ -81,8 +81,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
@@ -95,8 +95,8 @@ class testing(unittest.TestCase):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         model = control.getModel()
-        model.remove("cabinet")
-        model.remove("owner")
+        model.removeValue("cabinet")
+        model.removeValue("owner")
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
         )
