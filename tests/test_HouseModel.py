@@ -45,7 +45,7 @@ class testing(unittest.TestCase):
     def test_positionInGrid1(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        model.remove("cabinet")
+        model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
         self.assertEqual(
             model.getPosition(0, 0), model.getAttributeFromDict("cabinet", "symbol")
@@ -54,7 +54,7 @@ class testing(unittest.TestCase):
     def test_positionInGrid2(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
-        model.remove("cabinet")
+        model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
         self.assertEqual(model.getPositionOf("cabinet"), [0, 0])
 

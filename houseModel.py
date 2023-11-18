@@ -56,7 +56,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         # Created by @antonvm2004
         self.grid[x][y] = value
 
-    def remove(self, value):
+    def removeValue(self, value):
         # @antonoterof
         simbolValue=self.data[value]["symbol"]
         for file in range (len(self.grid)):
