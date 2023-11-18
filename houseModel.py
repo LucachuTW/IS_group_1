@@ -11,9 +11,8 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         # Modified by @SantiagoRR2004
         with open("environment.json", "r") as file:
             data = json.load(file)
-
+        self.data=data
         self.grid = data["grid"]
-
         for key, value in data.items():
             if key not in data["notElements"]:
                 self.setAttribute(key, value)
@@ -56,3 +55,12 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def setPosition(self, x, y, value):
         # Created by @antonvm2004
         self.grid[x][y] = value
+
+    def remove(self, value):
+        # @antonoterof
+        simbolValue=self.data[value]["symbol"]
+        for file in range (len(self.grid)):
+            for simbol in range(len(self.grid[file])):
+                if self.grid[file][simbol]==simbolValue:
+                    self.grid[file].remove(simbolValue)
+                    break
