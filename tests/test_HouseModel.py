@@ -41,3 +41,25 @@ class testing(unittest.TestCase):
         model = houseModel.HouseModel()
         number = model.getCapacity("cabinet")
         self.assertEqual(type(number), int)
+
+    def test_positionInGrid1(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        model.remove("cabinet")
+        model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
+        self.assertEqual(
+            model.getPosition(0, 0), model.getAttributeFromDict("cabinet", "symbol")
+        )
+
+    def test_positionInGrid2(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        model.remove("cabinet")
+        model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
+        self.assertEqual(model.getPositionOf("cabinet"), [0, 0])
+
+    def test_positionInGrid3(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        model.remove("cabinet")
+        self.assertEqual(model.getPositionOf("cabinet"), False)
