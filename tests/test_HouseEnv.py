@@ -254,8 +254,8 @@ class testing(unittest.TestCase):
         control.getModel().addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
-        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1)
+        self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Fails because mover can't transfer because it can't move on it's own
 
     def test_transferDrugs4(self):
@@ -287,8 +287,8 @@ class testing(unittest.TestCase):
         control.getModel().addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
-        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1)
+        self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Fails because they aren't adjacent
 
     def test_transferDrugs5(self):
@@ -322,8 +322,8 @@ class testing(unittest.TestCase):
         self.assertEqual(
             control.transferDrugs(mover, giver, reciever, maximun2 + 1), False
         )
-        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
-        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1)
+        self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Not enough space on the reciever
 
     def test_transferDrugs6(self):
@@ -357,8 +357,8 @@ class testing(unittest.TestCase):
         self.assertEqual(
             control.transferDrugs(mover, giver, reciever, maximun1 + 1), False
         )
-        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
-        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1)
+        self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Not enough drugs on the giver
 
     def test_transferDrugs7(self):
@@ -390,6 +390,6 @@ class testing(unittest.TestCase):
         control.getModel().addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
-        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1)
+        self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Cabinet isn't open

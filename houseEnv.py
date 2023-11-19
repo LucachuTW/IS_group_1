@@ -14,9 +14,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                 return False
         if (model.getDrug(object) + quantity) < 0:
             return False
-        if (
-            quantity + model.getDrug(object)
-        ) > model.getCapacity(object):
+        if (quantity + model.getDrug(object)) > model.getCapacity(object):
             return False
         else:
             return True
@@ -46,19 +44,18 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
 
     def transferDrugs(self, mover, giver, reciever, quantity):
-        #@Ventupentu
+        # @Ventupentu
+        # Modified by @SantiagoRR2004
         model = self.getModel()
-        if self.checkAddDrug(reciever, quantity) == False:
-            return False
-        elif self.checkAddDrug(giver, -quantity) == False:
-            return False
-        elif mover =="cabinet":
-            return False
-        elif self.areAdjacent(mover, reciever) == False:
-            return False
-        else:
+        if (
+            self.checkAddDrug(reciever, quantity)
+            and self.checkAddDrug(giver, -quantity)
+            and self.areAdjacent(mover, reciever)
+            and model.getAttributeFromDict(mover, "moving")["auto"]
+        ):
             model.addDrug(reciever, quantity)
             model.addDrug(giver, -quantity)
             return True
-        
-        pass
+
+        else:
+            return False
