@@ -1,0 +1,1 @@
+Como la enfermera, quiero poder saber dónde se encuentran todos los agentes y objetos de interacción en el entorno domótico, abrir el armario de las medicinas para obtener medicamentos para el propietario, coger una medicación del armario de las medicinas para dársela al propietario, y cerrar el armario de las medicinas después de obtener un medicamento.

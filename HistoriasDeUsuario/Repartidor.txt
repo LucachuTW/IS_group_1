@@ -1,0 +1,1 @@
+Como el repartidor, quiero poder informar al entorno de la cantidad de producto que he repartido para que el entorno pueda actualizar la cantidad de producto que habrá en el armario de medicamentos.

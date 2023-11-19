@@ -1,7 +1,0 @@
-Responsibilities:
-Draw the environment model, allowing parts to be omitted based on user preferences.
-Generate customized views of the environment.
-Collaborate closely with HouseModel to efficiently obtain and represent environment data.
-
-Collaborators:
-HouseModel

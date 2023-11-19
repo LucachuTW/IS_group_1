@@ -1,0 +1,22 @@
+{
+  "Description": "Es una clase que representa el entorno de una casa en nuestro sistema.",
+  "Attributes": [],
+  "Responsibilities": [
+    {
+      "Name": "Inicializar el entorno",
+      "Collaborator": null
+    },
+    {
+      "Name": "Ejecutar acciones",
+      "Collaborator": "HouseModel"
+    },
+    {
+      "Name": "Actualizar percepciones",
+      "Collaborator": null
+    }
+  ],
+  "Collaborators": [
+    "HouseModel",
+    "HouseView"
+  ]
+}

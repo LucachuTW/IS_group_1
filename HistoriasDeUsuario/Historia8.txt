@@ -1,1 +1,0 @@
-The delivery person wants to indicate that a package has been delivered in the environment to keep the delivery record up to date.

@@ -1,1 +1,0 @@
-The user wants to be able to have different views of the environment and not have to see the entire environment at once.

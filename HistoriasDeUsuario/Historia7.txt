@@ -1,1 +1,0 @@
-The user wants to indicate to the environment that they are closing the medicine cabinet after accessing the stock.

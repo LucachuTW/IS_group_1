@@ -1,1 +1,0 @@
-The nurse wants to be able to move towards the owner to indicate that they are waiting for a medication.

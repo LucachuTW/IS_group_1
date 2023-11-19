@@ -1,1 +1,0 @@
-The user wants to be able to modify the location of each object and its properties.

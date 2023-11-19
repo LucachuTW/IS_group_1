@@ -1,0 +1,48 @@
+{
+  "Description": "Es una clase que representa el modelo de una casa en nuestro sistema.",
+  "Attributes": [
+    {
+      "Name": "availableMedicine",
+      "Description": "Representa la cantidad de medicina disponible."
+    },
+    {
+      "Name": "sipCount",
+      "Description": "Lleva la cuenta de medicina tomada."
+    },
+    {
+      "Name": "fridgeOpen",
+      "Description": "Indica si la nevera está abierta."
+    },
+    {
+      "Name": "carryingMedicine",
+      "Description": "Indica si se está llevando la medicina."
+    }
+  ],
+  "Responsibilities": [
+    {
+      "Name": "Abrir nevera"
+    },
+    {
+      "Name": "Cerrar nevera"
+    },
+    {
+      "Name": "Mover al agente hacia un objeto"
+    },
+    {
+      "Name": "Obtener la dirección hacia la que se debe mover el agente"
+    },
+    {
+      "Name": "Obtener medicina"
+    },
+    {
+      "Name": "Añadir medicina"
+    },
+    {
+      "Name": "Entregar medicina"
+    },
+    {
+      "Name": "Hacer que el agente tome la medicina"
+    }
+  ],
+  "Collaborators": []
+}
