@@ -2,6 +2,9 @@ Responsibilities:
 Initialize the program
 Change the environment
 Update the perception of the environment
+Record and respond to specific events such as opening/closing the medicine cabinet.
+Interact with the user and other systems to reflect changes in real time.
 
 Collaborators:
 HouseModel
+HouseView

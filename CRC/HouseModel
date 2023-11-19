@@ -1,8 +1,8 @@
 Responsibilities:
-The state of objects
-Change the states of objects
-The position of objects
-Change the position of objects
+Maintain the state of objects.
+Change the states and positions of objects as per user needs.
+Facilitate individual object state updates.
+Support the movement of characters (like the nurse) within the environment.
 
 Collaborators:
 HouseEnv
