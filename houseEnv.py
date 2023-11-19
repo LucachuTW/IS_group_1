@@ -45,4 +45,15 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
 
     def transferDrugs(self, mover, giver, reciever, quantity):
+        #@Ventupentu
+        model = self.getModel()
+        if model.getAttributeFromDict(giver, "numberDrugs") < quantity:
+            return False
+        if model.getAttributeFromDict(reciever, "numberDrugs") + quantity > model.getAttributeFromDict(reciever, "maxCapacity"):
+            return False
+        else:
+            model.setAttributeFromDict(giver, "numberDrugs", model.getAttributeFromDict(giver, "numberDrugs") - quantity)
+            model.setAttributeFromDict(reciever, "numberDrugs", model.getAttributeFromDict(reciever, "numberDrugs") + quantity)
+            return True
+        
         pass
