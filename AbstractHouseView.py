@@ -24,8 +24,8 @@ class AbstractHouseView(ABC):
         return self.model
 
     def __repr__(self):
-        # @SantiagoRR2004
+        # @antonvm2004
         attributes = ", ".join(
             f"{key}={value!r}" for key, value in self.__dict__.items()
         )
-        return f"{self.__class__.__name__}({attributes})"
+        return f"[{self.__class__.__name__}]: [({attributes})]"

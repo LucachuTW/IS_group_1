@@ -1,58 +1,54 @@
 # Realizado por @antonvm2004
-
 import tkinter as tk
 import json
 
-class App():
-    def __init__(self, L_QUADRADO):
-
-        # Cargar la lista desde un archivo JSON
+class GridWorldModel:
+    def __init__(self, square):
         with open('./software/GridWorldModel/datos_lista.json', 'r') as archivo_entrada:
-            self.gs = json.load(archivo_entrada)
+            self.matrix = json.load(archivo_entrada)
 
+        self.square = square
+        self.images = {}
 
-        self.L_QUADRADO = L_QUADRADO
-        self.imagenes = {}
+        self.windows = tk.Tk()
+        self.windows.title("HOUSE")
+        self.windows.geometry(f"{str(square * 24)}x{str(square * 12)}")
+        self.windows.resizable(0, 0)
 
-        self.ventana = tk.Tk()
-        self.ventana.title("casa")
-        self.ventana.geometry(f"{str(L_QUADRADO * 24)}x{str(L_QUADRADO * 12)}")
-        self.ventana.resizable(0, 0)
-
-        self.interfaz = tk.Canvas(self.ventana)
-        self.interfaz.pack(fill="both", expand=True)
+        self.interface = tk.Canvas(self.windows)
+        self.interface.pack(fill="both", expand=True)
 
     def __call__(self):
-        self.ventana.mainloop()
+        self.windows.mainloop()
 
-    def dibujarTablero(self):
+    def print_interface(self):
         for i in range(24):
             for j in range(12):
-                self.interfaz.create_rectangle(i * self.L_QUADRADO, j * self.L_QUADRADO,
-                                               (i + 1) * self.L_QUADRADO, (j + 1) * self.L_QUADRADO)
+                self.interface.create_rectangle(i * self.square, j * self.square,
+                                               (i + 1) * self.square, (j + 1) * self.square)
 
-    def cargarImagenes(self):
-        piezas = ["1", "2", "3"]
-        for pieza in piezas:
-            # Cargar la imagen original
-            img = tk.PhotoImage(file="./software/GridWorldModel/imagenes/" + pieza + ".png")
+    def load_images(self):
+        img = ["1", "2", "3", "4", "5"]
+        for piece in img:
+            img_path = f"./software/GridWorldModel/imagenes/{piece}.png"
+            img = tk.PhotoImage(file=img_path)
+            img = img.subsample(int(img.width() / self.square), int(img.height() / self.square))
+            self.images[piece] = img
 
-            # Ajustar la imagen al tamaño del cuadrado
-            img = img.subsample(int(img.width() / self.L_QUADRADO), int(img.height() / self.L_QUADRADO))
-
-            self.imagenes[pieza] = img
-
-    def mostrarPiezas(self):
-        for indice_i, i in enumerate(self.gs):
-            for indice_j, j in enumerate(i):
+    def show_piece(self):
+        for index_i, i in enumerate(self.matrix):
+            for index_j, j in enumerate(i):
                 if j != "0":
-                    self.interfaz.create_image(indice_j * self.L_QUADRADO, indice_i * self.L_QUADRADO,
-                                               image=self.imagenes[j], anchor='nw')
+                    self.interface.create_image(index_j * self.square, index_i * self.square,
+                                               image=self.images[j], anchor='nw')
 
-# Crear la aplicación y ejecutarla
-MotorDeAjedrez = App(70)
-MotorDeAjedrez.dibujarTablero()
-MotorDeAjedrez.cargarImagenes()
-MotorDeAjedrez.mostrarPiezas()
+# Create an instance of GridWorldModel
+grid = GridWorldModel(70)
 
-MotorDeAjedrez()
+# Call the methods
+grid.print_interface()
+grid.load_images()
+grid.show_piece()
+
+# Start the Tkinter main loop
+grid()

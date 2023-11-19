@@ -1,8 +1,8 @@
 import AbstractHouseView
-
+import software.GridWorldModel.GridWorldModel
 
 class HouseView(AbstractHouseView.AbstractHouseView):
-    def __init__(self) -> None:
+    def __init__(self):
         pass
 
     def draw(self):
