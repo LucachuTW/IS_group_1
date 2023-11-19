@@ -5,31 +5,40 @@ import GridWorldModel
 from typing import List
 
 class HouseModel2(GridWorldModel):
-	def openCabinet(self) -> long:
-		pass
-
-	def closeCabinet(self) -> long:
-		pass
-
-	def moveTowards(self) -> long:
+	def addDrug(self) -> long:
 		pass
 
 	def getDrug(self) -> long:
 		pass
 
-	def addBeer(self) -> long:
+	def getOpenStatus(self) -> long:
 		pass
 
-	def handInDrug(self) -> long:
+	def setOpenStatus(self) -> long:
 		pass
 
-	def sipDrug(self) -> long:
+	def getCapacity(self) -> long:
+		pass
+
+	def changePosition(self) -> long:
+		pass
+
+	def getPosition(self) -> long:
+		pass
+
+	def setPosition(self) -> long:
+		pass
+
+	def removeValue(self) -> long:
+		pass
+
+	def getPositionOf(self) -> long:
 		pass
 
 	def __init__(self):
-		self._availableBeers : int = None
+		self._availableDrugs : int = None
 		self._sipCount : int = None
 		self._cabinetOpen : long = None
-		self._carryingDrug : long = None
+		self._position : long = None
 		self._model : HouseEnv = None
 
