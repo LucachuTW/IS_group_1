@@ -4,7 +4,7 @@ import HouseEnv
 import GridWorldModel
 from typing import List
 
-class HouseModel2(GridWorldModel):
+class HouseModel(GridWorldModel):
 	def addDrug(self) -> long:
 		pass
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import HouseModel2
+import HouseModel
 import Enviroment
 from typing import List
 
@@ -18,5 +18,5 @@ class HouseEnv(Enviroment):
 		pass
 
 	def __init__(self):
-		self._model : HouseModel2 = None
+		self._model : HouseModel = None
 
