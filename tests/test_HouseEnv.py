@@ -4,13 +4,16 @@ import houseModel
 
 
 class testing(unittest.TestCase):
+
     def test_createsController(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control, houseEnv.HouseEnv)
+        # Check that houseEnv is instantiated
 
     def test_addDrugs1(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, False)
@@ -22,6 +25,7 @@ class testing(unittest.TestCase):
 
     def test_addDrugs2(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -33,6 +37,7 @@ class testing(unittest.TestCase):
 
     def test_addDrugs3(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -46,6 +51,7 @@ class testing(unittest.TestCase):
 
     def test_addDrugs4(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -57,6 +63,7 @@ class testing(unittest.TestCase):
 
     def test_addDrugs5(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "robot"
         control = houseModel.HouseModel().getController()
         maximun = control.getModel().getCapacity(tester)
@@ -67,6 +74,7 @@ class testing(unittest.TestCase):
 
     def test_addDrugs6(self):
         # @SantiagoRR2004
+        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -88,6 +96,7 @@ class testing(unittest.TestCase):
             0, 1, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+        # Check that the agents are nearby
 
     def test_nextToEachOther2(self):
         # @SantiagoRR2004
@@ -102,6 +111,7 @@ class testing(unittest.TestCase):
             1, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+        # Check that the agents are nearby
 
     def test_nextToEachOther3(self):
         # @SantiagoRR2004
@@ -116,6 +126,7 @@ class testing(unittest.TestCase):
             0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+        # Check that the agents are nearby
 
     def test_nextToEachOther4(self):
         # @SantiagoRR2004
@@ -130,6 +141,7 @@ class testing(unittest.TestCase):
             0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
+        # Check that the agents are nearby
 
     def test_nextToEachOther5(self):
         # @SantiagoRR2004
@@ -144,6 +156,7 @@ class testing(unittest.TestCase):
             1, 1, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
+        # Check that the agents are nearby
 
     def test_nextToEachOther6(self):
         # @SantiagoRR2004
@@ -158,6 +171,8 @@ class testing(unittest.TestCase):
             0, 2, control.getModel().getAttributeFromDict("owner", "symbol")
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
+        # Check that the agents are nearby
+
 
     def test_transferDrugs1(self):
         # @SantiagoRR2004

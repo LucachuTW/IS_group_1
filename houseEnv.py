@@ -7,7 +7,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
     def checkAddDrug(self, object, quantity):
         # @antonoterof
-        # modified by @Ventupentu
+        # Modified by @Ventupentu
         model = self.getModel()
         if object == "cabinet":
             if model.getOpenStatus(object) == False:

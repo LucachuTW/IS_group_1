@@ -56,24 +56,28 @@ class testing(unittest.TestCase):
         model = houseModel.HouseModel()
         status = model.getOpenStatus("cabinet")
         self.assertEqual(type(status), bool)
+        # Check the status of the cabinet
 
     def test_openCabinet(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", True)
         self.assertEqual(model.getOpenStatus("cabinet"), True)
+        # Check that the cabinet can be opened
 
     def test_closeCabinet(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", False)
         self.assertEqual(model.getOpenStatus("cabinet"), False)
+        # Check that the cabinet can be closed
 
     def test_getCabinetCapacity(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
         number = model.getCapacity("cabinet")
         self.assertEqual(type(number), int)
+        # Check that the capacity can be accesed
 
     def test_positionInGrid1(self):
         # @SantiagoRR2004

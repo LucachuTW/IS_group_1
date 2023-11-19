@@ -6,11 +6,13 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         pass
 
     def draw(self):
-        # @SantiagoRR2004
+        # @antonoterof
+        # Modified by @SantiagoRR2004
         model = self.getModel()
         return model.getAttribute("grid")
 
     def drawAgent(self, object):
-        # @SantiagoRR2004
+        # @antonoterof
+        # Modified by @SantiagoRR2004
         model = self.getModel()
         return model.getAttribute(object)

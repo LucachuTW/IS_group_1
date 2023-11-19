@@ -4,10 +4,12 @@ import houseModel
 
 
 class testing(unittest.TestCase):
+
     def test_createsViewer(self):
         # @SantiagoRR2004
         view = houseModel.HouseModel().getView()
         self.assertIsInstance(view, houseView.HouseView)
+        # Check that houseView is instantiated
 
     def test_draw(self):
         # @SantiagoRR2004
