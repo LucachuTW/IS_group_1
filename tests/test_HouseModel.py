@@ -10,6 +10,39 @@ class testing(unittest.TestCase):
         a.addDrug("cabinet", 3)
         self.assertEqual(a.getDrug("cabinet"), number + 3)
 
+    def test_addDrugsCorrectly1(self):
+        # @antonoterof
+        control = houseModel.HouseModel()
+        tester = "cabinet"
+        control.setOpenStatus(tester, True)
+        maximun = control.getCapacity(tester)
+        initialValue = control.getDrug(tester)
+        control.addDrug(tester, -initialValue)
+        self.assertEqual(control.getDrug(tester), 0)
+        # If we remove the drugs they are subtracted correctly
+
+    def test_addDrugsCorrectly2(self):
+        # @antonoterof
+        control = houseModel.HouseModel()
+        tester = "cabinet"
+        control.setOpenStatus(tester, True)
+        maximun = control.getCapacity(tester)
+        initialValue = control.getDrug(tester)
+        control.addDrug(tester, maximun - initialValue)
+        self.assertEqual(control.getDrug(tester), maximun)
+        # If we add drugs they are added correctly
+
+    def test_addDrugsCorrectly3(self):
+        # @antonoterof
+        control = houseModel.HouseModel()
+        tester = "cabinet"
+        control.setOpenStatus(tester, True)
+        maximun = control.getCapacity(tester)
+        initialValue = control.getDrug(tester)
+        control.addDrug(tester, 0)
+        self.assertEqual(control.getDrug(tester), initialValue)
+        # If we add nothing no changes are made
+
     def test_ChangePosition(self):
         # @SantiagoRR2004
         model = houseModel.HouseModel()
