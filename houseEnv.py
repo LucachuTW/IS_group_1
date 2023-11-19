@@ -5,15 +5,17 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def __init__(self) -> None:
         pass
 
-    def addDrug(self, object, quantity):
+    def checkAddDrug(self, object, quantity):
         # @antonoterof
         model = self.getModel()
-        if object=="cabinet":
+        if object == "cabinet":
             if model.getOpenStatus(object) == False:
                 return False
-        if ((model.getAttributeFromDict(object, "numberDrugs")+quantity)<0):
+        if (model.getAttributeFromDict(object, "numberDrugs") + quantity) < 0:
             return False
-        if ((quantity+model.getAttributeFromDict(object, "numberDrugs"))>model.getAttributeFromDict(object, "maxCapacity")):
+        if (
+            quantity + model.getAttributeFromDict(object, "numberDrugs")
+        ) > model.getAttributeFromDict(object, "maxCapacity"):
             return False
         else:
             return True

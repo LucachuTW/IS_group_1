@@ -16,7 +16,7 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, False)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug("cabinet", maximun - initialValue), False)
+        self.assertEqual(control.checkAddDrug("cabinet", maximun - initialValue), False)
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
         # Fails because it isn't open
 
@@ -27,8 +27,9 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug(tester, maximun - initialValue), True)
-        # Fills up the tester without problems
+        self.assertEqual(control.checkAddDrug(tester, maximun - initialValue), True)
+        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        # The tester can be filled
 
     def test_addDrugs3(self):
         # @SantiagoRR2004
@@ -37,7 +38,9 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug(tester, maximun - initialValue + 1), False)
+        self.assertEqual(
+            control.checkAddDrug(tester, maximun - initialValue + 1), False
+        )
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
         # Overfills the tester
 
@@ -48,7 +51,7 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug(tester, -maximun - 1), False)
+        self.assertEqual(control.checkAddDrug(tester, -maximun - 1), False)
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
         # Tries to remove too many from tester
 
@@ -58,8 +61,9 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug(tester, maximun - initialValue), True)
-        # Fills up the tester that doesn't have attribute open without problems
+        self.assertEqual(control.checkAddDrug(tester, maximun - initialValue), True)
+        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        # Could fill up the tester that doesn't have attribute open without problems
 
     def test_addDrugs6(self):
         # @SantiagoRR2004
@@ -67,9 +71,8 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.addDrug(tester, -initialValue), True)
-        control.getModel().addDrug(tester, -initialValue)
-        self.assertEqual(control.getModel().getDrug(tester), 0)
+        self.assertEqual(control.checkAddDrug(tester, -initialValue), True)
+        self.assertEqual(control.getModel().getDrug(tester), initialValue)
         # Empties up the tester without problems
 
     def test_nextToEachOther1(self):
