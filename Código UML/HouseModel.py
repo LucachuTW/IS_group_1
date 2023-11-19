@@ -5,6 +5,7 @@ import GridWorldModel
 from typing import List
 
 class HouseModel(GridWorldModel):
+	# @LucachuTW-@Ventupentu
 	def addDrug(self) -> long:
 		pass
 
