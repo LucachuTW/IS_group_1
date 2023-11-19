@@ -37,7 +37,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             position1[0], position1[1], position2[0], position2[1]
         )
 
-        if distance == 1:
+        if (
+            distance <= 1
+        ):  # This means you are on the same position, 1 horizontally or 1 vertically
             return True
         else:
             return False
