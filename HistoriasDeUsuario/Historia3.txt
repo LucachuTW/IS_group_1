@@ -1,1 +1,1 @@
-El usuario quiere poder modificar la localizacion de cada objeto y sus propiedades
+The user wants to be able to modify the location of each object and its properties.

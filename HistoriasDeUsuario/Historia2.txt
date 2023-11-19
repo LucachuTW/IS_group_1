@@ -1,1 +1,1 @@
-El usuario quiere poder tener distintas vistas del entorno y no tener que ver todo el entorno a la vez
+The user wants to be able to have different views of the environment and not have to see the entire environment at once.

@@ -1,1 +1,1 @@
-El usuario quiere que el entorno guarde dónde está cada objeto y sus propiedades
+The user wants the environment to keep track of where each object is and its properties.

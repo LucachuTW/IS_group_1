@@ -1,1 +1,1 @@
-El repartidor quiere informar al entorno sobre la cantidad de farmacos entregados para actualizar el stock.
+The delivery person wants to inform the environment about the quantity of pharmaceuticals delivered to update the stock.

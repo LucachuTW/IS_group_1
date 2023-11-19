@@ -1,1 +1,1 @@
-El propietario quiere informar al entorno que está abriendo el armario de medicinas para acceder al stock de fármacos.
+The owner wants to inform the environment that they are opening the medicine cabinet to access the stock of pharmaceuticals.

@@ -1,1 +1,1 @@
-La enfermera quiere poder desplazarse hacia el propietario para indicar que él está esperando un medicamento.
+The nurse wants to be able to move towards the owner to indicate that they are waiting for a medication.

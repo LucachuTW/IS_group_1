@@ -1,1 +1,1 @@
-El usuario quiere indicar al entorno que está cerrando el armario de medicinas después de acceder al stock.
+The user wants to indicate to the environment that they are closing the medicine cabinet after accessing the stock.
