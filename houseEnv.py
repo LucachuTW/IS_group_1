@@ -54,8 +54,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
         elif mover =="cabinet":
             return False
-        elif giver == "cabinet" and model.getOpenStatus(giver) == False:
-            return False
         elif self.areAdjacent(mover, reciever) == False:
             return False
         else:
