@@ -8,3 +8,11 @@ class GridWorldModel(object):
 		self._unnamed_GridWorldView_ : GridWorldView = None
 		"""# @AssociationMultiplicity 0..1"""
 
+	def drawBoard(self):
+		pass
+
+	def chargePictures(self):
+		pass
+
+	def showPieces(self):
+		pass
