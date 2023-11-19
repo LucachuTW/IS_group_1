@@ -11,7 +11,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         # Modified by @SantiagoRR2004
         with open("environment.json", "r") as file:
             data = json.load(file)
-        self.data=data
+
         self.grid = data["grid"]
         for key, value in data.items():
             if key not in data["notElements"]:
@@ -58,24 +58,24 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
     def removeValue(self, value):
         # @antonoterof
-        simbolValue=self.getAttributeFromDict(value,"symbol")
-        for file in range (len(self.getAttribute("grid"))):
-            for simbol in range(len(self.getAttributeFromDict("grid",file))):
-                if self.getAttributeFromDict("grid",file)[simbol]==simbolValue:
-                    self.getAttributeFromDict("grid",file).remove(simbolValue)
+        simbolValue = self.getAttributeFromDict(value, "symbol")
+        for file in range(len(self.getAttribute("grid"))):
+            for simbol in range(len(self.getAttributeFromDict("grid", file))):
+                if self.getAttributeFromDict("grid", file)[simbol] == simbolValue:
+                    self.getAttributeFromDict("grid", file).remove(simbolValue)
                     break
-            
+
     def getPositionOf(self, value):
         # @antonoterof
-        simbolValue=self.getAttributeFromDict(value,"symbol")
-        position= False
-        found= False
-        for file in range (len(self.getAttribute("grid"))):
-            for simbol in range(len(self.getAttributeFromDict("grid",file))):
-                if self.getAttributeFromDict("grid",file)[simbol]==simbolValue:
-                    position=[file,simbol]
-                    found= True
+        simbolValue = self.getAttributeFromDict(value, "symbol")
+        position = False
+        found = False
+        for file in range(len(self.getAttribute("grid"))):
+            for simbol in range(len(self.getAttributeFromDict("grid", file))):
+                if self.getAttributeFromDict("grid", file)[simbol] == simbolValue:
+                    position = [file, simbol]
+                    found = True
                     break
-            if found== True:
+            if found == True:
                 break
         return position

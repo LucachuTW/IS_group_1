@@ -32,11 +32,11 @@ class AbstractHouseModel(ABC):
 
     def getAttribute(self, name):
         # @SantiagoRR2004
-        return getattr(self, name)
+        return getattr(self, name.lower())
 
     def setAttribute(self, name, value):
         # @SantiagoRR2004
-        return setattr(self, name, value)
+        return setattr(self, name.lower(), value)
 
     def getAttributeFromDict(self, name, key):
         # @SantiagoRR2004
