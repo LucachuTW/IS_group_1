@@ -14,6 +14,9 @@ class HouseEnv(Enviroment):
 	def updatePercepts(self):
 		pass
 
+	def transferDrug(self):
+		pass
+
 	def __init__(self):
 		self._model : HouseModel2 = None
 
