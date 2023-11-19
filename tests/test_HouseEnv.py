@@ -169,14 +169,15 @@ class testing(unittest.TestCase):
 
         model.removeValue(mover)
         model.removeValue(giver)
+        model.removeValue(reciever)
 
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
         )
         model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(mover, "symbol")
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
         )
-        control.getModel().setOpenStatus("cabinet", True)
+        control.getModel().setOpenStatus(giver, True)
 
         initialValue1 = control.getModel().getDrug(giver)
         maximun1 = control.getModel().getCapacity(giver)
@@ -188,4 +189,207 @@ class testing(unittest.TestCase):
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
         self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
-        self.assertEqual(control.getModel().getDrug(giver), 1)
+        self.assertEqual(control.getModel().getDrug(reciever), 1)
+        # No failures, it transfers 1 Drug
+
+    def test_transferDrugs2(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        giver = "robot"
+        reciever = "cabinet"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(reciever, True)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
+        self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
+        self.assertEqual(control.getModel().getDrug(reciever), 1)
+        # No failures, it transfers 1 Drug
+
+    def test_transferDrugs3(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "cabinet"
+        giver = "robot"
+        reciever = "cabinet"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(reciever, True)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
+        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
+        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        # Fails because mover can't transfer because it can't move on it's own
+
+    def test_transferDrugs4(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        giver = "robot"
+        reciever = "cabinet"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 1, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(reciever, True)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
+        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
+        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        # Fails because they aren't adjacent
+
+    def test_transferDrugs5(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        giver = "cabinet"
+        reciever = "robot"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(giver, True)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(
+            control.transferDrugs(mover, giver, reciever, maximun2 + 1), False
+        )
+        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
+        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        # Not enough space on the reciever
+
+    def test_transferDrugs6(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        giver = "robot"
+        reciever = "cabinet"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(reciever, True)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(
+            control.transferDrugs(mover, giver, reciever, maximun1 + 1), False
+        )
+        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
+        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        # Not enough drugs on the giver
+
+    def test_transferDrugs7(self):
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        giver = "cabinet"
+        reciever = "robot"
+
+        model.removeValue(mover)
+        model.removeValue(giver)
+        model.removeValue(reciever)
+
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
+        )
+        model.setPosition(
+            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
+        )
+        control.getModel().setOpenStatus(giver, False)
+
+        initialValue1 = control.getModel().getDrug(giver)
+        maximun1 = control.getModel().getCapacity(giver)
+        initialValue2 = control.getModel().getDrug(reciever)
+        maximun2 = control.getModel().getCapacity(reciever)
+
+        control.getModel().addDrug(giver, maximun1 - initialValue1)
+        control.getModel().addDrug(reciever, -initialValue2)
+
+        self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
+        self.assertEqual(control.getModel().getDrug(giver), initialValue1)
+        self.assertEqual(control.getModel().getDrug(reciever), initialValue2)
+        # Cabinet isn't open
