@@ -7,15 +7,16 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
     def checkAddDrug(self, object, quantity):
         # @antonoterof
+        # modified by @Ventupentu
         model = self.getModel()
         if object == "cabinet":
             if model.getOpenStatus(object) == False:
                 return False
-        if (model.getAttributeFromDict(object, "numberDrugs") + quantity) < 0:
+        if (model.getDrug(object) + quantity) < 0:
             return False
         if (
-            quantity + model.getAttributeFromDict(object, "numberDrugs")
-        ) > model.getAttributeFromDict(object, "maxCapacity"):
+            quantity + model.getDrug(object)
+        ) > model.getCapacity(object):
             return False
         else:
             return True
@@ -47,13 +48,19 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def transferDrugs(self, mover, giver, reciever, quantity):
         #@Ventupentu
         model = self.getModel()
-        if model.getAttributeFromDict(giver, "numberDrugs") < quantity:
+        if self.checkAddDrug(reciever, quantity) == False:
             return False
-        if model.getAttributeFromDict(reciever, "numberDrugs") + quantity > model.getAttributeFromDict(reciever, "maxCapacity"):
+        elif self.checkAddDrug(giver, -quantity) == False:
+            return False
+        elif mover =="cabinet":
+            return False
+        elif giver == "cabinet" and model.getOpenStatus(giver) == False:
+            return False
+        elif self.areAdjacent(mover, reciever) == False:
             return False
         else:
-            model.setAttributeFromDict(giver, "numberDrugs", model.getAttributeFromDict(giver, "numberDrugs") - quantity)
-            model.setAttributeFromDict(reciever, "numberDrugs", model.getAttributeFromDict(reciever, "numberDrugs") + quantity)
+            model.addDrug(reciever, quantity)
+            model.addDrug(giver, -quantity)
             return True
         
         pass
