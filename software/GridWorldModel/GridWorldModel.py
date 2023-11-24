@@ -42,13 +42,15 @@ class GridWorldModel:
                     self.interface.create_image(index_j * self.square, index_i * self.square,
                                                image=self.images[j], anchor='nw')
 
-# Create an instance of GridWorldModel
-grid = GridWorldModel(70)
 
-# Call the methods
-grid.print_interface()
-grid.load_images()
-grid.show_piece()
+if __name__ == "__main__":
+    # Create an instance of GridWorldModel
+    grid = GridWorldModel(70)
 
-# Start the Tkinter main loop
-grid()
+    # Call the methods
+    grid.print_interface()
+    grid.load_images()
+    grid.show_piece()
+
+    # Start the Tkinter main loop
+    grid()
