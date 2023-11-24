@@ -100,3 +100,13 @@ class testing(unittest.TestCase):
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
         self.assertEqual(model.getPositionOf("cabinet"), False)
+
+    def test_getOpenStatus(self):
+        # @Ventupentu
+        self.model.setOpenStatus("cabinet", True)
+        self.assertEqual(self.model.getOpenStatus("cabinet"), True)
+
+    def test_setOpenStatus(self):
+        # @Ventupentu
+        self.model.setOpenStatus("cabinet", True)
+        self.assertEqual(self.model.getOpenStatus("cabinet"), True)
