@@ -22,7 +22,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def checkOpeneable(self, object):
         # @Ventupentu
         model = self.getModel()
-        if model.getAttributeFromDict(object, "openeable"):
+        if model.getAttributeFromDict(object, "openable"):
             return True
         else:
             return False
