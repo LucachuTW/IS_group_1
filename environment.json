@@ -16,6 +16,7 @@
     "walls": {
         "unique": false,
         "symbol": 1,
+        "openable": false,
         "moving": {
             "auto": false,
             "mover": false,
@@ -26,6 +27,7 @@
         "unique": false,
         "symbol": 2,
         "subset":[{"location":[14,3],"open":false},{"location":[12,4],"open":true},{"location":[24,4],"open":false},{"location":[0,7],"open":false},{"location":[0,11],"open":false},{"location":[24,7],"open":false}],
+        "openable": true,
         "moving": {
             "auto": false,
             "mover": false,
@@ -38,6 +40,7 @@
         "open": false,
         "maxCapacity": 7,
         "symbol": 3,
+        "openable": true,
         "moving": {
             "auto": false,
             "mover": false,
@@ -49,6 +52,7 @@
         "numberDrugs": 0,
         "maxCapacity": 1,
         "symbol": 4,
+        "openable": true,
         "moving": {
             "auto": true,
             "mover": true,
@@ -60,6 +64,7 @@
         "numberDrugs": 1,
         "maxCapacity": 2,
         "symbol": 5,
+        "openable": true,
         "moving": {
             "auto": true,
             "mover": true,
