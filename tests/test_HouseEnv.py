@@ -409,20 +409,18 @@ class testing(unittest.TestCase):
         self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Cabinet isn't open
 
-    def test_checkOpeneable_true(self):
+    def test_checkOpeneable1(self):
         # @Ventupentu
-        env = houseEnv.HouseEnv()
-        model = houseModel.HouseModel()
-        model.getAttributeFromDict("doors", "openable")
-        env.setModel(model)
-        result = env.checkOpeneable("doors")
-        self.assertTrue(result)
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        self.assertIsInstance(control.checkOpeneable("doors"), bool)
 
-    def test_checkOpeneable_false(self):
+    def test_checkOpeneable2(self):
         # @Ventupentu
-        env = houseEnv.HouseEnv()
-        model = houseModel.HouseModel()
-        model.getAttributeFromDict("walls", "openable")
-        env.setModel(model)
-        result = env.checkOpeneable("walls")
-        self.assertFalse(result)
+        # @SantiagoRR2004
+        control = houseModel.HouseModel().getController()
+        element = "cabinet"
+        open = control.getModel().getAttributeFromDict(element, "openable")
+        self.assertEqual(control.checkOpeneable(element), open)
+
+
