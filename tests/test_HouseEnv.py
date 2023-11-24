@@ -408,3 +408,21 @@ class testing(unittest.TestCase):
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
         # Cabinet isn't open
+        
+    def test_checkOpeneable_true(self):
+        # @Ventupentu
+        env = houseEnv.HouseEnv()
+        model = houseModel.HouseModel()
+        model.getAttributeFromDict("door", "openeable")
+        env.setModel(model)
+        result = env.checkOpeneable("door")
+        self.assertTrue(result)
+
+    def test_checkOpeneable_false(self):
+        # @Ventupentu
+        env = houseEnv.HouseEnv()
+        model = houseModel.HouseModel()
+        model.getAttributeFromDict("walls", "openeable", False)
+        env.setModel(model)
+        result = env.checkOpeneable("window")
+        self.assertFalse(result)

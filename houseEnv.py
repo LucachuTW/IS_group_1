@@ -18,6 +18,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
         else:
             return True
+        
+    def checkOpeneable(self, object):
+        # @Ventupentu
+        model = self.getModel()
+        if model.getAttributeFromDict(object, "openeable"):
+            return True
+        else:
+            return False
 
     def areAdjacent(self, object1, object2, position1="", position2=""):
         # @SantiagoRR2004
