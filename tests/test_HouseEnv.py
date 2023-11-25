@@ -421,6 +421,63 @@ class testing(unittest.TestCase):
         open = control.getModel().getAttributeFromDict(element, "openable")
         self.assertEqual(control.checkOpeneable(element), open)
 
+    def test_checkIfShareable1(self):
+        # @SantiagoRR2004
+        # No problems
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", True)
+        model.setAttributeFromDict(element, "open", True)
+
+        self.assertEqual(control.checkIfShareable(element), True)
+
+    def test_checkIfShareable2(self):
+        # @SantiagoRR2004
+        # It isn't open
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", False)
+        model.setAttributeFromDict(element, "open", False)
+
+        self.assertEqual(control.checkIfShareable(element), False)
+
+    def test_checkIfShareable3(self):
+        # @SantiagoRR2004
+        # No problems
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", False)
+
+        booleans = [True, False]
+        for dontCareIfOpen in booleans:
+            model.setAttributeFromDict(element, "open", dontCareIfOpen)
+            self.assertEqual(control.checkIfShareable(element), True)
+
+    def test_checkIfShareable4(self):
+        # @SantiagoRR2004
+        # Object can't share the space
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+
+        model.setAttributeFromDict(element, "semisolid", False)
+
+        booleans = [True, False]
+        for dontCareIfOpenable in booleans:
+            model.setAttributeFromDict(element, "openable", dontCareIfOpenable)
+            for dontCareIfOpen in booleans:
+                model.setAttributeFromDict(element, "open", dontCareIfOpen)
+                self.assertEqual(control.checkIfShareable(element), False)
+
     def test_checkIfMovableTo1(self):
         # @SantiagoRR2004
         # No problems

@@ -68,5 +68,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         else:
             return False
 
+    def checkIfShareable(self, element: str) -> bool:
+        # The element can share space with another right now
+        pass
+
     def checkIfMovableTo(self, x: int, y: int) -> bool:
         pass
