@@ -79,3 +79,11 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             if found == True:
                 break
         return position
+
+    def getOpenableStatus(self, object):
+        # @antonoterof
+        return self.getAttributeFromDict(object, "openable")
+
+    def getSemisolidStatus(self, object):
+        # @antonoterof
+        return self.getAttributeFromDict(object, "semisolid")
