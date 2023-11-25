@@ -46,16 +46,17 @@ class testing(unittest.TestCase):
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("robot")
         self.assertIsInstance(drawing, dict)
+
     def test_exists_elements_valid(self):
-        
         # @antonvm2004
+        # Modified by @antonoterof
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
         # Allowed elements in the list
-        allowed_elements = ["0", "1", "2", "3", "4", "5"]
+        allowed_elements = ["0", "2", "3", "5", "7", "11"]
 
-        # Verify that all elements in all inner lists are "0", "1", "2", "3", "4", "5"
+        # Verify that all elements in all inner lists are "0", "2", "3", "5", "7", "11"
         self.assertTrue(all(element in allowed_elements for inner_list in drawing for element in inner_list))
 
     def test_existsEmptyBox(self):
@@ -72,18 +73,19 @@ class testing(unittest.TestCase):
 
     def test_existsWalls(self):
         # @antonvm2004
+        # Modified by @antonoterof
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
         # item number to verify
-        itemNumber = "1"
+        itemNumber = "2"
 
         # verify that the element is in the view
         self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
         self.assertTrue(drawing)
 
-    def test_existsCabinet(self):
-        # @antonvm2004
+    def test_existsDoors(self):
+        # @antonoterof
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -94,13 +96,27 @@ class testing(unittest.TestCase):
         self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
         self.assertTrue(drawing)
 
-    def test_existsOwner(self):
+    def test_existsCabinet(self):
         # @antonvm2004
+        # Modified by @antonoterof
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
         # item number to verify
-        itemNumber = "4"
+        itemNumber = "5"
+
+        # verify that the element is in the view
+        self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
+        self.assertTrue(drawing)
+
+    def test_existsOwner(self):
+        # @antonvm2004
+        # Modified by @antonoterof
+        view = houseModel.HouseModel().getView()
+        drawing = view.draw()
+
+        # item number to verify
+        itemNumber = "7"
 
         # verify that the element is in the view
         self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
@@ -108,11 +124,12 @@ class testing(unittest.TestCase):
 
     def test_existsRobot(self):
         # @antonvm2004
+        # Modified by antón OF
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
         # item number to verify
-        itemNumber = "5"
+        itemNumber = "11"
 
         # verify that the element is in the view
         self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
