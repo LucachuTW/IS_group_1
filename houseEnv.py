@@ -70,19 +70,30 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
     def checkIfShareable(self, element: str) -> bool:
         # The element can share space with another right now
-        model= self.getModel()
+        # Antón Of
+        model = self.getModel()
         if (model.getSemisolidStatus(element)==False):
             return False
         if (model.getOpenableStatus(element)==True):
             if(model.getOpenStatus(element)==True):
                 return True
+            else:
+                return False
         if (model.getOpenableStatus(element)==False):
             return True
-        else:
-            return False
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
-        pass
+        # @antonoterof
+        model = self.getModel()
+        if (model.getPosition(x,y)==0):
+            return True
+        if (model.getPosition(x,y)!=0):
+            value = 
+            if (self.checkIfShareable==True):
+                return True
+            else:
+                return False
+        
 
     def moveTo(self, mover, moved, x, y):
         pass

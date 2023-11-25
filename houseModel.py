@@ -62,7 +62,8 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         for file in range(len(self.getAttribute("grid"))):
             for simbol in range(len(self.getAttributeFromDict("grid", file))):
                 if self.getAttributeFromDict("grid", file)[simbol] == simbolValue:
-                    self.getAttributeFromDict("grid", file).remove(simbolValue)
+                    index = self.getAttributeFromDict("grid", file).index(simbolValue)
+                    self.getAttributeFromDict("grid", file)[index] = 0
                     break
 
     def getPositionOf(self, value):
@@ -87,3 +88,4 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getSemisolidStatus(self, object):
         # @antonoterof
         return self.getAttributeFromDict(object, "semisolid")
+    
