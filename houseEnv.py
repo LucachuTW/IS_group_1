@@ -74,3 +74,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
         pass
+
+    def moveTo(self, mover, moved, x, y):
+        pass

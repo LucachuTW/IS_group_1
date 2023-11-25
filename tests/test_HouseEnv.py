@@ -562,3 +562,117 @@ class testing(unittest.TestCase):
         model.setAttributeFromDict(element, "open", False)
 
         self.assertEqual(control.checkIfMovableTo(0, 0), False)
+
+    def test_moveTo1(self):
+        # @SantiagoRR2004
+        # No problem
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(0, 0, moverSymbol)
+        model.setPosition(1, 0, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 1, 0), True)
+        self.assertEqual(model.getPosition(0, 0), 0)
+        self.assertEqual(model.getPosition(1, 0), moverSymbol)
+
+    def test_moveTo2(self):
+        # @SantiagoRR2004
+        # No problem
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(0, 0, moverSymbol)
+        model.setPosition(0, 1, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 0, 1), True)
+        self.assertEqual(model.getPosition(0, 0), 0)
+        self.assertEqual(model.getPosition(0, 1), moverSymbol)
+
+    def test_moveTo3(self):
+        # @SantiagoRR2004
+        # No problem
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(1, 0, moverSymbol)
+        model.setPosition(0, 0, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 0, 0), True)
+        self.assertEqual(model.getPosition(1, 0), 0)
+        self.assertEqual(model.getPosition(0, 0), moverSymbol)
+
+    def test_moveTo4(self):
+        # @SantiagoRR2004
+        # No problem
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(0, 1, moverSymbol)
+        model.setPosition(0, 0, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 0, 0), True)
+        self.assertEqual(model.getPosition(0, 1), 0)
+        self.assertEqual(model.getPosition(0, 0), moverSymbol)
+
+    def test_moveTo5(self):
+        # @SantiagoRR2004
+        # Can't move diagonally
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(0, 0, moverSymbol)
+        model.setPosition(1, 1, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 1, 1), False)
+        self.assertEqual(model.getPosition(0, 0), moverSymbol)
+        self.assertEqual(model.getPosition(1, 1), 0)
+
+    def test_moveTo6(self):
+        # @SantiagoRR2004
+        # Can't move too far away
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+
+        model.removeValue(mover)
+
+        model.setPosition(0, 0, moverSymbol)
+        model.setPosition(2, 2, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 2, 2), False)
+        self.assertEqual(model.getPosition(0, 0), moverSymbol)
+        self.assertEqual(model.getPosition(2, 2), 0)
