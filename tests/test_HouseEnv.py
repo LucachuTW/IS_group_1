@@ -4,7 +4,6 @@ import houseModel
 
 
 class testing(unittest.TestCase):
-
     def test_createsController(self):
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
@@ -172,7 +171,6 @@ class testing(unittest.TestCase):
         )
         self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
         # Check that the agents are nearby
-
 
     def test_transferDrugs1(self):
         # @SantiagoRR2004
@@ -423,4 +421,87 @@ class testing(unittest.TestCase):
         open = control.getModel().getAttributeFromDict(element, "openable")
         self.assertEqual(control.checkOpeneable(element), open)
 
+    def test_checkIfMovableTo1(self):
+        # @SantiagoRR2004
+        # No problems
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.setPosition(0, 0, 0)
+        self.assertEqual(control.checkIfMovableTo(0, 0), True)
 
+    def test_checkIfMovableTo2(self):
+        # @SantiagoRR2004
+        # Number is prime
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.setPosition(0, 0, 6)
+        self.assertEqual(control.checkIfMovableTo(0, 0), False)
+
+    def test_checkIfMovableTo3(self):
+        # @SantiagoRR2004
+        # No problems
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setPosition(0, 0, elementSymbol)
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", True)
+        model.setAttributeFromDict(element, "open", True)
+
+        self.assertEqual(control.checkIfMovableTo(0, 0), True)
+
+    def test_checkIfMovableTo4(self):
+        # @SantiagoRR2004
+        # No problems
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setPosition(0, 0, elementSymbol)
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", False)
+
+        booleans = [True, False]
+        for dontCareIfOpen in booleans:
+            model.setAttributeFromDict(element, "open", dontCareIfOpen)
+            self.assertEqual(control.checkIfMovableTo(0, 0), True)
+
+    def test_checkIfMovableTo5(self):
+        # @SantiagoRR2004
+        # Object isn't semisolid
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setPosition(0, 0, elementSymbol)
+
+        model.setAttributeFromDict(element, "semisolid", False)
+
+        booleans = [True, False]
+        for dontCareIfOpenable in booleans:
+            model.setAttributeFromDict(element, "openable", dontCareIfOpenable)
+            for dontCareIfOpen in booleans:
+                model.setAttributeFromDict(element, "open", dontCareIfOpen)
+                self.assertEqual(control.checkIfMovableTo(0, 0), False)
+
+    def test_checkIfMovableTo6(self):
+        # @SantiagoRR2004
+        # Object isn't open
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setPosition(0, 0, elementSymbol)
+
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", True)
+        model.setAttributeFromDict(element, "open", False)
+
+        self.assertEqual(control.checkIfMovableTo(0, 0), False)

@@ -18,7 +18,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
         else:
             return True
-        
+
     def checkOpeneable(self, object):
         # @Ventupentu
         model = self.getModel()
@@ -67,3 +67,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
         else:
             return False
+
+    def checkIfMovableTo(self, x: int, y: int) -> bool:
+        pass
