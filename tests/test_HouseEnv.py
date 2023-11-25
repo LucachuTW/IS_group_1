@@ -442,7 +442,7 @@ class testing(unittest.TestCase):
         element = "cabinet"
 
         model.setAttributeFromDict(element, "semisolid", True)
-        model.setAttributeFromDict(element, "openable", False)
+        model.setAttributeFromDict(element, "openable", True)
         model.setAttributeFromDict(element, "open", False)
 
         self.assertEqual(control.checkIfShareable(element), False)
