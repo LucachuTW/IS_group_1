@@ -52,8 +52,21 @@ class AbstractHouseModel(ABC):
         original = self.getAttribute(name)[key]
         self.setAttributeFromDict(name, key, original + value)
 
-    def calculateDistanceBetween2Points(
-        self, x1: int, y1: int, x2: int, y2: int
-    ) -> float:
+    @staticmethod
+    def calculateDistanceBetween2Points(x1: int, y1: int, x2: int, y2: int) -> float:
         # @SantiagoRR2004
         return (abs(x1 - x2) ** 2 + abs(y1 - y2) ** 2) ** (1 / 2)
+
+    @staticmethod
+    def checkIfPrime(n: int) -> bool:
+        # @SantiagoRR2004
+        # https://en.wikipedia.org/wiki/Primality_test
+        if n <= 3:
+            return n > 1
+        if n % 2 == 0 or n % 3 == 0:
+            return False
+        limit = int(n ** (1 / 2))
+        for i in range(5, limit + 1, 6):
+            if n % i == 0 or n % (i + 2) == 0:
+                return False
+        return True

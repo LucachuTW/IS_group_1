@@ -100,3 +100,19 @@ class testing(unittest.TestCase):
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
         self.assertEqual(model.getPositionOf("cabinet"), False)
+
+    def test_checkIfPrime(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        numbers = {
+            1: False,
+            2: True,
+            3: True,
+            4: False,
+            5: True,
+            39: False,
+            193: True,
+            99: False,
+        }
+        for key, value in numbers.items():
+            self.assertEqual(model.checkIfPrime(key), value)
