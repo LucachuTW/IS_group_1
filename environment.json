@@ -10,13 +10,14 @@
         ["2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2"],
         ["0", "0", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
         ["0", "0", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
-        ["0", "0", "0", "0", "0", "0", "0", "0", "1", "0", "0", "5", "0", "0", "0", "5", "0", "0", "0", "0", "0", "0", "0", "0"],
+        ["0", "0", "0", "0", "0", "0", "0", "0", "1", "0", "0", "5", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
         ["2", "0", "0", "0", "0", "0", "0", "0", "2", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]
     ],
     "walls": {
         "unique": false,
         "symbol": 1,
         "openable": false,
+        "semisolid": false,
         "moving": {
             "auto": false,
             "mover": false,
@@ -26,6 +27,7 @@
     "doors": {
         "unique": false,
         "symbol": 2,
+        "semisolid": true,
         "subset":[{"location":[14,3],"open":false},{"location":[12,4],"open":true},{"location":[24,4],"open":false},{"location":[0,7],"open":false},{"location":[0,11],"open":false},{"location":[24,7],"open":false}],
         "openable": true,
         "moving": {
@@ -41,6 +43,7 @@
         "maxCapacity": 7,
         "symbol": 3,
         "openable": true,
+        "semisolid": false,
         "moving": {
             "auto": false,
             "mover": false,
@@ -52,7 +55,8 @@
         "numberDrugs": 0,
         "maxCapacity": 1,
         "symbol": 4,
-        "openable": true,
+        "openable": false,
+        "semisolid": true,
         "moving": {
             "auto": true,
             "mover": true,
@@ -64,7 +68,8 @@
         "numberDrugs": 1,
         "maxCapacity": 2,
         "symbol": 5,
-        "openable": true,
+        "openable": false,
+        "semisolid": true,
         "moving": {
             "auto": true,
             "mover": true,
