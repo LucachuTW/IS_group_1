@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import AbstractHouseEnv
 import AbstractHouseView
-from typing import Any
+from typing import Any, List
 
 
 class AbstractHouseModel(ABC):
@@ -70,3 +70,7 @@ class AbstractHouseModel(ABC):
             if n % i == 0 or n % (i + 2) == 0:
                 return False
         return True
+
+    @staticmethod
+    def PrimeFactorization(n: int) -> List[int]:
+        pass

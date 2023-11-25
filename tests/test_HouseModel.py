@@ -116,3 +116,19 @@ class testing(unittest.TestCase):
         }
         for key, value in numbers.items():
             self.assertEqual(model.checkIfPrime(key), value)
+
+    def test_checkPrimeFactorization(self):
+        # @SantiagoRR2004
+        model = houseModel.HouseModel()
+        numbers = {
+            2: [2],
+            3: [3],
+            4: [2, 2],
+            5: [5],
+            6: [2, 3],
+            10: [2, 5],
+            35: [5, 7],
+            77: [7, 11],
+        }
+        for key, value in numbers.items():
+            self.assertEqual(model.PrimeFactorization(key), value)
