@@ -82,14 +82,15 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         if (model.getOpenableStatus(element)==False):
             return True
 
-    def checkIfMovableTo(self, x: int, y: int) -> bool:
+    def checkIfMovableTo(self, x: int, y: int, element="None") -> bool:
         # @antonoterof
         model = self.getModel()
         if (model.getPosition(x,y)==0):
             return True
         if (model.getPosition(x,y)!=0):
-            value = 
-            if (self.checkIfShareable==True):
+            if element=="None":
+                return False
+            if (self.checkIfShareable(element)==True):
                 return True
             else:
                 return False

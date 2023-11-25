@@ -508,7 +508,7 @@ class testing(unittest.TestCase):
         model.setAttributeFromDict(element, "openable", True)
         model.setAttributeFromDict(element, "open", True)
 
-        self.assertEqual(control.checkIfMovableTo(0, 0), True)
+        self.assertEqual(control.checkIfMovableTo(0, 0, element), True)
 
     def test_checkIfMovableTo4(self):
         # @SantiagoRR2004
@@ -526,7 +526,7 @@ class testing(unittest.TestCase):
         booleans = [True, False]
         for dontCareIfOpen in booleans:
             model.setAttributeFromDict(element, "open", dontCareIfOpen)
-            self.assertEqual(control.checkIfMovableTo(0, 0), True)
+            self.assertEqual(control.checkIfMovableTo(0, 0, element), True)
 
     def test_checkIfMovableTo5(self):
         # @SantiagoRR2004
@@ -545,7 +545,7 @@ class testing(unittest.TestCase):
             model.setAttributeFromDict(element, "openable", dontCareIfOpenable)
             for dontCareIfOpen in booleans:
                 model.setAttributeFromDict(element, "open", dontCareIfOpen)
-                self.assertEqual(control.checkIfMovableTo(0, 0), False)
+                self.assertEqual(control.checkIfMovableTo(0, 0, element), False)
 
     def test_checkIfMovableTo6(self):
         # @SantiagoRR2004
@@ -561,7 +561,7 @@ class testing(unittest.TestCase):
         model.setAttributeFromDict(element, "openable", True)
         model.setAttributeFromDict(element, "open", False)
 
-        self.assertEqual(control.checkIfMovableTo(0, 0), False)
+        self.assertEqual(control.checkIfMovableTo(0, 0, element), False)
 
     def test_moveTo1(self):
         # @SantiagoRR2004
