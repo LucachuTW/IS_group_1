@@ -76,6 +76,13 @@
             "moved": false
         }
     },
+    "symbols": {
+        "walls":2,
+        "doors":3,
+        "cabinet":5,
+        "owner":7,
+        "robot":11
+    },
     "notElements": [
         "grid",
         "symbols",

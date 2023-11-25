@@ -13,6 +13,8 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             data = json.load(file)
 
         self.grid = data["grid"]
+        self.symbols = data["symbols"]
+
         for key, value in data.items():
             if key not in data["notElements"]:
                 self.setAttribute(key, value)
@@ -88,4 +90,3 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getSemisolidStatus(self, object):
         # @antonoterof
         return self.getAttributeFromDict(object, "semisolid")
-    
