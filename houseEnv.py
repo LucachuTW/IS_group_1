@@ -30,13 +30,17 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def areAdjacent(self, object1, object2, position1="", position2=""):
         # @SantiagoRR2004
         model = self.getModel()
-        if model.getAttributeFromDict(object1, "unique") and model.getPositionOf(
-            object1
+        if (
+            position1 == ""
+            and model.getAttributeFromDict(object1, "unique")
+            and model.getPositionOf(object1)
         ):
             position1 = model.getPositionOf(object1)
 
-        if model.getAttributeFromDict(object2, "unique") and model.getPositionOf(
-            object2
+        if (
+            position2 == ""
+            and model.getAttributeFromDict(object2, "unique")
+            and model.getPositionOf(object2)
         ):
             position2 = model.getPositionOf(object2)
 
@@ -72,47 +76,82 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         # The element can share space with another right now
         # Antón Of
         model = self.getModel()
-        if (model.getSemisolidStatus(element)==False):
+        if model.getSemisolidStatus(element) == False:
             return False
-        if (model.getOpenableStatus(element)==True):
-            if(model.getOpenStatus(element)==True):
+        if model.getOpenableStatus(element) == True:
+            if model.getOpenStatus(element) == True:
                 return True
             else:
                 return False
-        if (model.getOpenableStatus(element)==False):
+        if model.getOpenableStatus(element) == False:
             return True
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
         # @antonoterof
         model = self.getModel()
-        if (model.getPosition(x,y)==0):
+        if int(model.getPosition(x, y)) == 0:
             return True
-        if (model.checkIfPrime(model.getPosition(x,y))!=True):
+        if not model.checkIfPrime(int(model.getPosition(x, y))):
             return False
-        if (model.getPosition(x,y)!=0):
+        if model.getPosition(x, y) != 0:
             for element in model.getAttribute("symbols"):
-                if (model.getAttributeFromDict("symbols",element)==model.getPosition(x,y)):
-                    if (self.checkIfShareable(element)==True):
+                if model.getAttributeFromDict("symbols", element) == model.getPosition(
+                    x, y
+                ):
+                    if self.checkIfShareable(element) == True:
                         return True
                     else:
                         return False
 
-    def moveTo(self, mover, moved, x, y):
+    def moveTo(self, mover: str, moved: str, x: int, y: int) -> bool:
         # @Ventupentu
+        # @SantiagoRR2004
         model = self.getModel()
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         movedSymbol = model.getAttributeFromDict(moved, "symbol")
+        moverCoord = model.getPositionOf(mover)
+        movedCoord = model.getPositionOf(moved)
 
-        if (
-            model.getAttributeFromDict(mover, "moving")["auto"]
-            and model.getPosition(x, y) == 0
-            and model.checkIfPrime(model.getPosition(x, y)) != True
-            and self.areAdjacent(mover, moved, position1=(0, 0), position2=(x, y))
-            and (x == 0 or y == 0)
+        # toret = None
+
+        if not self.checkIfMovableTo(x, y):
+            toret = False
+
+        elif mover == moved and not model.getAttributeFromDict(moved, "moving")["auto"]:
+            toret = False
+
+        elif mover != moved and (
+            not model.getAttributeFromDict(mover, "moving")["mover"]
+            or not model.getAttributeFromDict(moved, "moving")["moved"]
         ):
-            model.removeValue(mover)
-            model.setPosition(x, y, moverSymbol)
-            # set 0 in original mover position
-            return True
+            toret = False
+
+        elif not self.areAdjacent(mover, moved):
+            toret = False
+
+        elif not self.areAdjacent(moved, "None", position2=[x, y]):
+            toret = False
+
+        elif not self.checkIfShareable(moved) and int(model.getPosition(x, y)) != 0:
+            toret = False
+
         else:
-            return False
+            toret = True
+
+        if toret:
+            if int(model.getPosition(x, y)) == 0:
+                model.setPosition(x, y, movedSymbol)
+            else:
+                model.setPosition(x, y, movedSymbol * model.getPosition(x, y))
+
+            if model.getPosition(movedCoord[0], movedCoord[1]) == movedSymbol:
+                model.setPosition(movedCoord[0], movedCoord[1], 0)
+
+            else:
+                model.setPosition(
+                    movedCoord[0],
+                    movedCoord[1],
+                    model.getPosition(movedCoord[0], movedCoord[1]) / movedSymbol,
+                )
+
+        return toret
