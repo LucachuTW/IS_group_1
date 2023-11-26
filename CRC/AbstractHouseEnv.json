@@ -1,0 +1,19 @@
+{
+    "ClassName": "AbstractHouseEnv",
+    "SuperClasses": [],
+    "SubClasses": [],
+    "Description": "Esta clase proporciona una estructura base para la implementación de un entorno de casa virtual.",
+    "Attributes": {
+        "model": "Representa el modelo del entorno de la casa.",
+        "view": "Representa la vista del entorno de la casa."
+    },
+    "Responsibilities": [
+        "Inicializar el entorno.",
+        "Establecer la vista del entorno.",
+        "Obtener la vista del entorno.",
+        "Establecer el modelo del entorno.",
+        "Obtener el modelo del entorno.",
+        "Devolver una representación."
+    ],
+    "Collaborators": []
+}

@@ -1,22 +1,31 @@
 {
+  "ClassName": "HouseEnv",
+  "SuperClasses": [],
+  "SubClasses": [],
   "Description": "Es una clase que representa el entorno de una casa en nuestro sistema.",
-  "Attributes": [],
+  "Attributes": {
+      "model": "Representa el modelo del entorno de la casa."
+  },
   "Responsibilities": [
-    {
-      "Name": "Inicializar el entorno",
-      "Collaborator": null
-    },
-    {
-      "Name": "Ejecutar acciones",
-      "Collaborator": "HouseModel"
-    },
-    {
-      "Name": "Actualizar percepciones",
-      "Collaborator": null
-    }
+      {
+          "name": "Inicializar el entorno.",
+          "collaborator": ""
+      },
+      {
+          "name": "Verificar cuanto medicamento hay en el armario.",
+          "collaborator": "AbstractHouseEnv"
+      },
+      {
+          "name": "Comprobar si dos objetos son adyacentes.",
+          "collaborator": "AbstractHouseEnv"
+      },
+      {
+          "name": "Transferir medicamentos entre diferentes agentes.",
+          "collaborator": "AbstractHouseEnv"
+      }
   ],
   "Collaborators": [
-    "HouseModel",
-    "HouseView"
+      "AbstractHouseEnv"
   ]
 }
+

@@ -1,15 +1,17 @@
 {
+  "ClassName": "HouseView",
+  "SuperClasses": [],
+  "SubClasses": [],
   "Description": "Es una clase que representa visualmente la casa.",
   "Attributes": [],
   "Responsibilities": [
     {
-      "Name": "Dibujar la representación visual de la casa",
-      "Collaborator": null
+      "Name": "Dibujar la representación visual de la casa.",
+      "Collaborator": ""
     },
     {
-      "Name": "Dibujar la representación del agente en la casa",
-      "Collaborator": null
+      "Name": "Dibujar la representación del agente en la casa.",
+      "Collaborator": ""
     }
-  ],
-  "Collaborators": []
+  ]
 }

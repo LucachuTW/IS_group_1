@@ -1,48 +1,62 @@
 {
+  "ClassName": "HouseModel",
+  "SuperClasses": [],
+  "SubClasses": [],
   "Description": "Es una clase que representa el modelo de una casa en nuestro sistema.",
   "Attributes": [
     {
-      "Name": "availableMedicine",
-      "Description": "Representa la cantidad de medicina disponible."
-    },
-    {
-      "Name": "sipCount",
-      "Description": "Lleva la cuenta de medicina tomada."
-    },
-    {
-      "Name": "fridgeOpen",
-      "Description": "Indica si la nevera está abierta."
-    },
-    {
-      "Name": "carryingMedicine",
-      "Description": "Indica si se está llevando la medicina."
+      "Name": "grid",
+      "Description": "Representa la cuadrícula que define el entorno de la casa."
     }
   ],
   "Responsibilities": [
     {
-      "Name": "Abrir nevera"
+      "Name": "Inicializar el entorno",
+      "Collaborator": "HouseEnv, HouseView, json"
     },
     {
-      "Name": "Cerrar nevera"
+      "Name": "Cargar datos del entorno",
+      "Collaborator": ""
     },
     {
-      "Name": "Mover al agente hacia un objeto"
+      "Name": "Añadir medicamentos a un objeto específico",
+      "Collaborator": ""
     },
     {
-      "Name": "Obtener la dirección hacia la que se debe mover el agente"
+      "Name": "Obtener la cantidad de medicamentos de un objeto específico",
+      "Collaborator": ""
     },
     {
-      "Name": "Obtener medicina"
+      "Name": "Obtener el estado de apertura de un objeto específico",
+      "Collaborator": ""
     },
     {
-      "Name": "Añadir medicina"
+      "Name": "Establecer el estado de apertura de un objeto en específico",
+      "Collaborator": ""
     },
     {
-      "Name": "Entregar medicina"
+      "Name": "Obtener la capacidad máxima de un objeto en específico",
+      "Collaborator": ""
     },
     {
-      "Name": "Hacer que el agente tome la medicina"
+      "Name": "Cambiar la posición de un objeto",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Obtener el valor de la posición en la cuadrícula",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Establecer el valor de la posición en la cuadrícula",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Eliminar un valor específico de la cuadrícula",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Obtener la posición de un valor específico en la cuadrícula",
+      "Collaborator": ""
     }
-  ],
-  "Collaborators": []
+  ]
 }
