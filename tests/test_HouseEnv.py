@@ -584,6 +584,27 @@ class testing(unittest.TestCase):
 
     def test_moveTo2(self):
         # @SantiagoRR2004
+        # No problem if it tries to move to the same position
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        model.getAttributeFromDict(mover, "moving")["mover"] = False
+        model.getAttributeFromDict(mover, "moving")["moved"] = False
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = mover
+        model.setAttributeFromDict(moved, "semisolid", True)
+        model.setAttributeFromDict(moved, "openable", False)
+
+        model.removeValue(mover)
+
+        model.setPosition(1, 0, moverSymbol)
+
+        self.assertEqual(control.moveTo(mover, moved, 1, 0), True)
+        self.assertEqual(model.getPosition(1, 0), moverSymbol)
+
+    def test_moveTo3(self):
+        # @SantiagoRR2004
         # No problem
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -601,7 +622,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), 0)
         self.assertEqual(model.getPosition(0, 1), moverSymbol)
 
-    def test_moveTo3(self):
+    def test_moveTo4(self):
         # @SantiagoRR2004
         # No problem
         control = houseModel.HouseModel().getController()
@@ -620,7 +641,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), 0)
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
 
-    def test_moveTo4(self):
+    def test_moveTo5(self):
         # @SantiagoRR2004
         # No problem
         control = houseModel.HouseModel().getController()
@@ -639,7 +660,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 1), 0)
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
 
-    def test_moveTo5(self):
+    def test_moveTo6(self):
         # @SantiagoRR2004
         # Can't move diagonally
         control = houseModel.HouseModel().getController()
@@ -658,7 +679,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
         self.assertEqual(model.getPosition(1, 1), 0)
 
-    def test_moveTo6(self):
+    def test_moveTo7(self):
         # @SantiagoRR2004
         # Can't move too far away
         control = houseModel.HouseModel().getController()
@@ -677,7 +698,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
         self.assertEqual(model.getPosition(2, 2), 0)
 
-    def test_moveTo7(self):
+    def test_moveTo8(self):
         # @SantiagoRR2004
         # Object can't move itself
         control = houseModel.HouseModel().getController()
@@ -696,7 +717,7 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
         self.assertEqual(model.getPosition(1, 0), 0)
 
-    def test_moveTo8(self):
+    def test_moveTo9(self):
         # @SantiagoRR2004
         # Can't move to occupied by 2 others
         # Fixed by @Ventupentu line 717 (Changed 0 by 6)
@@ -716,12 +737,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
         self.assertEqual(model.getPosition(1, 0), 6) 
 
-    def test_moveTo9(self):
+    def test_moveTo10(self):
         # @SantiagoRR2004
         # No problems
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = False
         model.getAttributeFromDict(mover, "moving")["mover"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         moved = "cabinet"
@@ -741,7 +763,34 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), movedSymbol)
         self.assertEqual(model.getPosition(0, 1), moverSymbol)
 
-    def test_moveTo10(self):
+
+    def test_moveTo11(self):
+        # @SantiagoRR2004
+        # Mover and moved need to be adjacent
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = False
+        model.getAttributeFromDict(mover, "moving")["mover"] = True
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        moved = "cabinet"
+        model.getAttributeFromDict(moved, "moving")["auto"] = False
+        model.getAttributeFromDict(moved, "moving")["moved"] = True
+        movedSymbol = model.getAttributeFromDict(mover, "symbol")
+
+        model.removeValue(mover)
+        model.removeValue(moved)
+
+        model.setPosition(0, 0, movedSymbol)
+        model.setPosition(0, 2, moverSymbol)
+        model.setPosition(1, 0, 0)
+
+        self.assertEqual(control.moveTo(mover, moved, 1, 0), False)
+        self.assertEqual(model.getPosition(0, 0), movedSymbol)
+        self.assertEqual(model.getPosition(1, 0), 0)
+        self.assertEqual(model.getPosition(0, 2), moverSymbol)
+
+    def test_moveTo12(self):
         # @SantiagoRR2004
         # No problem
         control = houseModel.HouseModel().getController()
@@ -769,7 +818,35 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), 0)
         self.assertEqual(model.getPosition(1, 0), movedSymbol * elementSymbol)
 
-    def test_moveTo11(self):
+    def test_moveTo13(self):
+        # @SantiagoRR2004
+        # No problem
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moved = mover
+        model.setAttributeFromDict(moved, "semisolid", True)
+        model.setAttributeFromDict(moved, "openable", True)
+        model.setAttributeFromDict(moved, "open", True)
+        movedSymbol = model.getAttributeFromDict(moved, "symbol")
+        model.removeValue(mover)
+
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", True)
+        model.setAttributeFromDict(element, "open", True)
+
+        model.setPosition(1, 0, movedSymbol)
+        model.setPosition(2, 0, elementSymbol)
+
+        self.assertEqual(control.moveTo(mover, moved, 2, 0), True)
+        self.assertEqual(model.getPosition(1, 0), 0)
+        self.assertEqual(model.getPosition(2, 0), movedSymbol * elementSymbol)
+
+    def test_moveTo14(self):
         # @SantiagoRR2004
         # Other item isn't open so it doesn't work
         control = houseModel.HouseModel().getController()
@@ -799,7 +876,7 @@ class testing(unittest.TestCase):
             self.assertEqual(model.getPosition(0, 0), movedSymbol)
             self.assertEqual(model.getPosition(1, 0), elementSymbol)
 
-    def test_moveTo12(self):
+    def test_moveTo15(self):
         # @SantiagoRR2004
         # Other item can't share space with each other
         control = houseModel.HouseModel().getController()
@@ -836,3 +913,42 @@ class testing(unittest.TestCase):
                             self.assertEqual(control.moveTo(mover, moved, 1, 0), False)
                             self.assertEqual(model.getPosition(0, 0), movedSymbol)
                             self.assertEqual(model.getPosition(1, 0), elementSymbol)
+
+    def test_moveTo16(self):
+        # @SantiagoRR2004
+        # No problem moving out of another element
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moved = mover
+        movedSymbol = model.getAttributeFromDict(moved, "symbol")
+        model.removeValue(mover)
+
+        element = "cabinet"
+        elementSymbol = model.getAttributeFromDict(element, "symbol")
+        model.removeValue(element)
+        model.setAttributeFromDict(element, "semisolid", True)
+        model.setAttributeFromDict(element, "openable", True)
+        model.setAttributeFromDict(element, "open", True)
+
+        model.setPosition(0, 0, movedSymbol*elementSymbol)
+
+        booleans = [True, False]
+        for dontCareIfSemisolidOfMoved in booleans:
+            model.setAttributeFromDict(moved, "semisolid", dontCareIfSemisolidOfMoved)
+            for dontCareIfOpenableOfMoved in booleans:
+                model.setAttributeFromDict(moved, "openable", dontCareIfOpenableOfMoved)
+                for dontCareIfOpenOfMoved in booleans:
+                    model.setAttributeFromDict(moved, "open", dontCareIfOpenOfMoved)
+                    for dontCareIfSemisolidOfElement in booleans:
+                        model.setAttributeFromDict(element, "semisolid", dontCareIfSemisolidOfElement)
+                        for dontCareIfOpenableOfElement in booleans:
+                            model.setAttributeFromDict(
+                                element, "openable", dontCareIfOpenableOfElement
+                            )
+                            for dontCareIfOpenOfElement in booleans:
+                                model.setAttributeFromDict(element, "open", dontCareIfOpenOfElement)
+                                self.assertEqual(control.moveTo(mover, moved, 1, 0), True)
+                                self.assertEqual(model.getPosition(0, 0), elementSymbol)
+                                self.assertEqual(model.getPosition(1, 0), movedSymbol)
