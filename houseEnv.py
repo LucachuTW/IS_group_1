@@ -112,7 +112,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         ):
             model.removeValue(mover)
             model.setPosition(x, y, moverSymbol)
-            model.setPosition(0, 0, movedSymbol)
+            # set 0 in original mover position
             return True
         else:
             return False
