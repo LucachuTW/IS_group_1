@@ -756,7 +756,7 @@ class testing(unittest.TestCase):
 
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
-        model.remove(element)
+        model.removeValue(element)
         model.setAttributeFromDict(element, "semisolid", True)
         model.setAttributeFromDict(element, "openable", True)
         model.setAttributeFromDict(element, "open", True)
@@ -783,7 +783,7 @@ class testing(unittest.TestCase):
 
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
-        model.remove(element)
+        model.removeValue(element)
         model.setAttributeFromDict(element, "semisolid", True)
         model.setAttributeFromDict(element, "openable", True)
         model.setAttributeFromDict(element, "open", False)
@@ -811,7 +811,7 @@ class testing(unittest.TestCase):
 
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
-        model.remove(element)
+        model.removeValue(element)
         model.setAttributeFromDict(element, "semisolid", False)
 
         model.setPosition(0, 0, movedSymbol)
