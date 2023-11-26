@@ -699,6 +699,7 @@ class testing(unittest.TestCase):
     def test_moveTo8(self):
         # @SantiagoRR2004
         # Can't move to occupied by 2 others
+        # Fixed by @Ventupentu line 717 (Changed 0 by 6)
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -713,7 +714,7 @@ class testing(unittest.TestCase):
 
         self.assertEqual(control.moveTo(mover, moved, 1, 0), False)
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
-        self.assertEqual(model.getPosition(1, 0), 0)
+        self.assertEqual(model.getPosition(1, 0), 6) 
 
     def test_moveTo9(self):
         # @SantiagoRR2004

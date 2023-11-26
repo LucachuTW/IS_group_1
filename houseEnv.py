@@ -98,4 +98,21 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                         return False
 
     def moveTo(self, mover, moved, x, y):
-        pass
+        # @Ventupentu
+        model = self.getModel()
+        moverSymbol = model.getAttributeFromDict(mover, "symbol")
+        movedSymbol = model.getAttributeFromDict(moved, "symbol")
+
+        if (
+            model.getAttributeFromDict(mover, "moving")["auto"]
+            and model.getPosition(x, y) == 0
+            and model.checkIfPrime(model.getPosition(x, y)) != True
+            and self.areAdjacent(mover, moved, position1=(0, 0), position2=(x, y))
+            and (x == 0 or y == 0)
+        ):
+            model.removeValue(mover)
+            model.setPosition(x, y, moverSymbol)
+            model.setPosition(0, 0, movedSymbol)
+            return True
+        else:
+            return False
