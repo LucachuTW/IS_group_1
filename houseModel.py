@@ -12,7 +12,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         with open("environment.json", "r") as file:
             data = json.load(file)
 
-        self.grid = data["grid"]
+        self.grid = [[int(x) for x in row] for row in data["grid"]]
         self.symbols = data["symbols"]
 
         for key, value in data.items():
@@ -79,6 +79,15 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                     position = [file, simbol]
                     found = True
                     break
+                elif not self.checkIfPrime(
+                    self.getAttributeFromDict("grid", file)[simbol]
+                ):
+                    if simbolValue in self.PrimeFactorization(
+                        self.getAttributeFromDict("grid", file)[simbol]
+                    ):
+                        position = [file, simbol]
+                        found = True
+                        break
             if found == True:
                 break
         return position

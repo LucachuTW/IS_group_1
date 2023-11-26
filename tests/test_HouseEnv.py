@@ -932,6 +932,7 @@ class testing(unittest.TestCase):
         model.setAttributeFromDict(element, "open", True)
 
         model.setPosition(0, 0, movedSymbol * elementSymbol)
+        model.setPosition(1, 0, 0)
 
         booleans = [True, False]
         for dontCareIfSemisolidOfMoved in booleans:
@@ -952,6 +953,10 @@ class testing(unittest.TestCase):
                                 model.setAttributeFromDict(
                                     element, "open", dontCareIfOpenOfElement
                                 )
+
+                                model.setPosition(0, 0, movedSymbol * elementSymbol)
+                                model.setPosition(1, 0, 0)
+
                                 self.assertEqual(
                                     control.moveTo(mover, moved, 1, 0), True
                                 )
