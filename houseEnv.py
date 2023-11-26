@@ -1,35 +1,45 @@
 import AbstractHouseEnv
+from typing import List
 
 
 class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def __init__(self) -> None:
         pass
 
-    def checkAddDrug(self, object, quantity):
+    def checkAddDrug(self, element: str, quantity: int) -> bool:
         # @antonoterof
         # Modified by @Ventupentu
-        model = self.getModel()
-        if object == "cabinet":
-            if model.getOpenStatus(object) == False:
-                return False
-        if (model.getDrug(object) + quantity) < 0:
-            return False
-        if (quantity + model.getDrug(object)) > model.getCapacity(object):
-            return False
-        else:
-            return True
-
-    def checkOpeneable(self, object):
-        # @Ventupentu
-        model = self.getModel()
-        if model.getAttributeFromDict(object, "openable"):
-            return True
-        else:
-            return False
-
-    def areAdjacent(self, object1, object2, position1="", position2=""):
         # @SantiagoRR2004
         model = self.getModel()
+
+        toret = False
+
+        if (
+            (quantity + model.getDrug(element)) <= model.getCapacity(element)
+            and (model.getDrug(element) + quantity) >= 0
+            and (not self.checkOpeneable(element) or model.getOpenStatus(element))
+        ):
+            toret = True
+
+        return toret
+
+    def checkOpeneable(self, element: str) -> bool:
+        # @Ventupentu
+        # @SantiagoRR2004
+        model = self.getModel()
+        return model.getAttributeFromDict(element, "openable")
+
+    def areAdjacent(
+        self,
+        object1: str,
+        object2: str,
+        position1: List[int] = "",
+        position2: List[int] = "",
+    ) -> bool:
+        # @SantiagoRR2004
+        model = self.getModel()
+        toret = False
+
         if (
             position1 == ""
             and model.getAttributeFromDict(object1, "unique")
@@ -51,14 +61,18 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         if (
             distance <= 1
         ):  # This means you are on the same position, 1 horizontally or 1 vertically
-            return True
-        else:
-            return False
+            toret = True
 
-    def transferDrugs(self, mover, giver, reciever, quantity):
+        return toret
+
+    def transferDrugs(
+        self, mover: str, giver: str, reciever: str, quantity: int
+    ) -> bool:
         # @Ventupentu
         # Modified by @SantiagoRR2004
         model = self.getModel()
+        toret = False
+
         if (
             self.checkAddDrug(reciever, quantity)
             and self.checkAddDrug(giver, -quantity)
@@ -67,41 +81,37 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         ):
             model.addDrug(reciever, quantity)
             model.addDrug(giver, -quantity)
-            return True
+            toret = True
 
-        else:
-            return False
+        return toret
 
     def checkIfShareable(self, element: str) -> bool:
         # The element can share space with another right now
         # Antón Of
+        # @SantiagoRR2004
         model = self.getModel()
-        if model.getSemisolidStatus(element) == False:
-            return False
-        if model.getOpenableStatus(element) == True:
-            if model.getOpenStatus(element) == True:
-                return True
-            else:
-                return False
-        if model.getOpenableStatus(element) == False:
-            return True
+
+        return model.getSemisolidStatus(element) and (
+            not self.checkOpeneable(element) or model.getOpenStatus(element)
+        )
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
         # @antonoterof
+        # @SantiagoRR2004
         model = self.getModel()
-        if int(model.getPosition(x, y)) == 0:
-            return True
-        if not model.checkIfPrime(int(model.getPosition(x, y))):
-            return False
-        if model.getPosition(x, y) != 0:
-            for element in model.getAttribute("symbols"):
-                if model.getAttributeFromDict("symbols", element) == model.getPosition(
-                    x, y
-                ):
-                    if self.checkIfShareable(element) == True:
-                        return True
-                    else:
-                        return False
+        char = model.getPosition(x, y)
+        symbols = model.getAttribute("symbols")
+        toret = False
+
+        if char == 0 or (
+            model.checkIfPrime(char)
+            and self.checkIfShareable(
+                list(symbols.keys())[list(symbols.values()).index(char)]
+            )
+        ):
+            toret = True
+
+        return toret
 
     def moveTo(self, mover: str, moved: str, x: int, y: int) -> bool:
         # @Ventupentu
@@ -109,10 +119,11 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         movedSymbol = model.getAttributeFromDict(moved, "symbol")
+        movedToSymbol = model.getPosition(x, y)
         moverCoord = model.getPositionOf(mover)
         movedCoord = model.getPositionOf(moved)
 
-        # toret = None
+        toret = True
 
         if not self.checkIfMovableTo(x, y):
             toret = False
@@ -132,17 +143,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         elif not self.areAdjacent(moved, "None", position2=[x, y]):
             toret = False
 
-        elif not self.checkIfShareable(moved) and int(model.getPosition(x, y)) != 0:
+        elif not self.checkIfShareable(moved) and movedToSymbol != 0:
             toret = False
 
-        else:
-            toret = True
-
         if toret:
-            if int(model.getPosition(x, y)) == 0:
+            if movedToSymbol == 0:
                 model.setPosition(x, y, movedSymbol)
             else:
-                model.setPosition(x, y, movedSymbol * model.getPosition(x, y))
+                model.setPosition(x, y, movedSymbol * movedToSymbol)
 
             if model.getPosition(movedCoord[0], movedCoord[1]) == movedSymbol:
                 model.setPosition(movedCoord[0], movedCoord[1], 0)
