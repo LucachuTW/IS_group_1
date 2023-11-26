@@ -28,12 +28,12 @@ class GridWorldModel:
                                                (i + 1) * self.square, (j + 1) * self.square)
 
     def load_images(self):
-        img = ["1", "2", "3", "4", "5"]
-        for piece in img:
+        images = ["1", "2", "3", "4", "5","7","11"]
+        for piece in images:
             img_path = f"./software/GridWorldModel/imagenes/{piece}.png"
-            img = tk.PhotoImage(file=img_path)
-            img = img.subsample(int(img.width() / self.square), int(img.height() / self.square))
-            self.images[piece] = img
+            image = tk.PhotoImage(file=img_path)
+            formattedImage = image.subsample(int(image.width() / self.square), int(image.height() / self.square))
+            self.images[piece] = formattedImage
 
     def show_piece(self):
         for index_i, i in enumerate(self.matrix):
