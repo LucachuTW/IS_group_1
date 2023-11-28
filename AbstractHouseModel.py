@@ -49,7 +49,7 @@ class AbstractHouseModel(ABC):
 
     def modifyNumericalAttributeFromDict(self, name: str, key: Any, value: int) -> None:
         # @SantiagoRR2004
-        original = self.getAttribute(name)[key]
+        original = self.getAttributeFromDict(name,key)
         self.setAttributeFromDict(name, key, original + value)
 
     @staticmethod
