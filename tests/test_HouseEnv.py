@@ -927,9 +927,6 @@ class testing(unittest.TestCase):
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
         model.removeValue(element)
-        model.setAttributeFromDict(element, "semisolid", True)
-        model.setAttributeFromDict(element, "openable", True)
-        model.setAttributeFromDict(element, "open", True)
 
         model.setPosition(0, 0, movedSymbol * elementSymbol)
         model.setPosition(1, 0, 0)
