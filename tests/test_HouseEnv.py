@@ -5,6 +5,9 @@ import houseModel
 
 class testing(unittest.TestCase):
     def test_createsController(self):
+        """This test checks that the controller is created correctly
+        and that it is an instance of the class HouseEnv
+        """
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control, houseEnv.HouseEnv)
@@ -13,6 +16,9 @@ class testing(unittest.TestCase):
     def test_addDrugs1(self):
         # @SantiagoRR2004
         # Modified by @antonoterof
+        """This test checks that the function checkAddDrug works correctly
+        and that it doesn't add drugs if the cabinet is closed
+        """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, False)
@@ -23,6 +29,8 @@ class testing(unittest.TestCase):
         # Fails because it isn't open
 
     def test_addDrugs2(self):
+        """This test checks that the function checkAddDrug works correctly
+        and that it doesn't add drugs if the cabinet is closed"""
         # @SantiagoRR2004
         # Modified by @antonoterof
         tester = "cabinet"
@@ -35,6 +43,14 @@ class testing(unittest.TestCase):
         # The tester can be filled
 
     def test_addDrugs3(self):
+        """
+        Test the checkAddDrug function to ensure it correctly handles overfilling.
+
+        This test checks that the checkAddDrug function correctly prevents adding
+        more drugs than the cabinet's capacity when the cabinet is open. The test
+        attempts to add one more drug than the cabinet's capacity and expects the
+        function to return False, indicating that the drugs could not be added.
+        """
         # @SantiagoRR2004
         # Modified by @antonoterof
         tester = "cabinet"
