@@ -132,3 +132,33 @@ class testing(unittest.TestCase):
         }
         for key, value in numbers.items():
             self.assertEqual(model.PrimeFactorization(key), value)
+
+    def test_checkIfElementsAreValid(self):
+        """
+        We test if all the elements in the grid are valid
+
+        Contributors:
+            - @antonvm2004
+            - @antonoterof
+            - @SantiagoRR2004
+        """
+        model = houseModel.HouseModel()
+        grid = model.getAttribute("grid")
+
+        # Allowed elements in the list
+        allowed_elements = [x for x in model.getAttribute("Symbols").values()]
+
+        # We add the values that two objects share the same spot
+        for i in range(len(allowed_elements)):
+            for j in range(i + 1, len(allowed_elements)):
+                allowed_elements.append(allowed_elements[i] * allowed_elements[j])
+ 
+        allowed_elements.append(0)
+
+        self.assertTrue(
+            all(
+                element in allowed_elements
+                for inner_list in grid
+                for element in inner_list
+            )
+        )

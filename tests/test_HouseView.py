@@ -46,27 +46,6 @@ class testing(unittest.TestCase):
         drawing = view.drawAgent("robot")
         self.assertIsInstance(drawing, dict)
 
-    def test_exists_elements_valid(self):
-        # @antonvm2004
-        # Modified by @antonoterof
-        # @SantiagoRR2004
-        view = houseModel.HouseModel().getView()
-        drawing = view.draw()
-
-        # Allowed elements in the list
-        allowed_elements = [x for x in view.getModel().getAttribute("Symbols").values()]
-        allowed_elements.append(0)
-        # ["0", "2", "3", "5", "7", "11"]
-
-        # Verify that all elements in all inner lists are "0", "2", "3", "5", "7", "11"
-        self.assertTrue(
-            all(
-                element in allowed_elements
-                for inner_list in drawing
-                for element in inner_list
-            )
-        )
-
     def test_existsEmptyBox(self):
         # @antonvm2004
         view = houseModel.HouseModel().getView()
