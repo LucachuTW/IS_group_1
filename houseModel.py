@@ -2,6 +2,9 @@ import json
 import AbstractHouseModel
 import houseEnv
 import houseView
+import atexit
+
+
 
 
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
@@ -14,10 +17,13 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
         self.grid = [[int(x) for x in row] for row in data["grid"]]
         self.symbols = data["symbols"]
+        self.setAttribute("notElements", data["notElements"])
 
         for key, value in data.items():
             if key not in data["notElements"]:
                 self.setAttribute(key, value)
+
+        atexit.register(self.saveToFile)
 
     def addDrug(self, object, quantity):
         # @Ventupentu
@@ -99,3 +105,23 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getSemisolidStatus(self, object):
         # @antonoterof
         return self.getAttributeFromDict(object, "semisolid")
+    
+
+    def saveToFile(self):
+        extraItems = ["grid","symbols", "notElements"]
+        saveData = {}
+
+        for item in extraItems:
+            saveData[item] = self.getAttribute(item)
+
+        for element in self.getAttribute("symbols").keys():
+            saveData[element] = self.getAttribute(element)
+
+        with open("environment.json", "w") as file:
+            json.dump(saveData, file)
+
+
+
+
+
+
