@@ -35,5 +35,5 @@ jobs:
         else
           echo "Changes to commit."
           git add .
-          git commit --amend --no-edit
+          git commit -m "Auto-format code with Black"
         fi
