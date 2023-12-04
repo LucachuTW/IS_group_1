@@ -4,14 +4,28 @@ import houseModel
 
 class testing(unittest.TestCase):
     def test_addDrug(self):
-        # @SantiagoRR2004
+        """
+        Test if the drug can be added.
+
+        This method checks if a specified quantity of drug can be added to a specified element in the model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         a = houseModel.HouseModel()
         number = a.getDrug("cabinet")
         a.addDrug("cabinet", 3)
         self.assertEqual(a.getDrug("cabinet"), number + 3)
 
     def test_addDrugsCorrectly1(self):
-        # @antonoterof
+        """
+        Test if drugs can be subtracted correctly.
+
+        This method checks if drugs can be subtracted correctly from a specified element in the model.
+
+        Contributors:
+        - @antonoterof
+        """
         control = houseModel.HouseModel()
         tester = "cabinet"
         control.setOpenStatus(tester, True)
@@ -19,10 +33,16 @@ class testing(unittest.TestCase):
         initialValue = control.getDrug(tester)
         control.addDrug(tester, -initialValue)
         self.assertEqual(control.getDrug(tester), 0)
-        # If we remove the drugs they are subtracted correctly
 
     def test_addDrugsCorrectly2(self):
-        # @antonoterof
+        """
+        Test if drugs can be added correctly.
+
+        This method checks if drugs can be added correctly to a specified element in the model.
+
+        Contributors:
+        - @antonoterof
+        """
         control = houseModel.HouseModel()
         tester = "cabinet"
         control.setOpenStatus(tester, True)
@@ -30,10 +50,16 @@ class testing(unittest.TestCase):
         initialValue = control.getDrug(tester)
         control.addDrug(tester, maximun - initialValue)
         self.assertEqual(control.getDrug(tester), maximun)
-        # If we add drugs they are added correctly
 
     def test_addDrugsCorrectly3(self):
-        # @antonoterof
+        """
+        Test if no changes are made when adding nothing.
+
+        This method checks if no changes are made to a specified element in the model when adding nothing.
+
+        Contributors:
+        - @antonoterof
+        """
         control = houseModel.HouseModel()
         tester = "cabinet"
         control.setOpenStatus(tester, True)
@@ -41,10 +67,16 @@ class testing(unittest.TestCase):
         initialValue = control.getDrug(tester)
         control.addDrug(tester, 0)
         self.assertEqual(control.getDrug(tester), initialValue)
-        # If we add nothing no changes are made
 
     def test_ChangePosition(self):
-        # @SantiagoRR2004
+        """
+        Test if position can be changed correctly.
+
+        This method checks if the position of an element in the model can be changed correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         oX, oY, dX, dY = 0, 0, 3, 6
         value = model.getPosition(oX, oY)
@@ -52,35 +84,66 @@ class testing(unittest.TestCase):
         self.assertEqual(value, model.getPosition(dX, dY))
 
     def test_getCabinetStatus(self):
-        # @SantiagoRR2004
+        """
+        Test if the status of the cabinet can be accessed correctly.
+
+        This method checks if the status of the cabinet in the model can be accessed correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         status = model.getOpenStatus("cabinet")
         self.assertEqual(type(status), bool)
-        # Check the status of the cabinet
 
     def test_openCabinet(self):
-        # @SantiagoRR2004
+        """
+        Test if the cabinet can be opened correctly.
+
+        This method checks if the cabinet in the model can be opened correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", True)
         self.assertEqual(model.getOpenStatus("cabinet"), True)
-        # Check that the cabinet can be opened
 
     def test_closeCabinet(self):
-        # @SantiagoRR2004
+        """
+        Test if the cabinet can be closed correctly.
+
+        This method checks if the cabinet in the model can be closed correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", False)
         self.assertEqual(model.getOpenStatus("cabinet"), False)
-        # Check that the cabinet can be closed
 
     def test_getCabinetCapacity(self):
-        # @SantiagoRR2004
+        """
+        Test if the capacity of the cabinet can be accessed correctly.
+
+        This method checks if the capacity of the cabinet in the model can be accessed correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         number = model.getCapacity("cabinet")
         self.assertEqual(type(number), int)
-        # Check that the capacity can be accesed
 
     def test_positionInGrid1(self):
-        # @SantiagoRR2004
+        """
+        Test if the position in the grid can be set correctly.
+
+        This method checks if the position of an element in the grid of the model can be set correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
@@ -89,20 +152,41 @@ class testing(unittest.TestCase):
         )
 
     def test_positionInGrid2(self):
-        # @SantiagoRR2004
+        """
+        Test if the position of an element in the grid can be accessed correctly.
+
+        This method checks if the position of an element in the grid of the model can be accessed correctly.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
         self.assertEqual(model.getPositionOf("cabinet"), [0, 0])
 
     def test_positionInGrid3(self):
-        # @SantiagoRR2004
+        """
+        Test if the position of a non-existent element in the grid returns False.
+
+        This method checks if the position of a non-existent element in the grid of the model returns False.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
         self.assertEqual(model.getPositionOf("cabinet"), False)
 
     def test_checkIfPrime(self):
-        # @SantiagoRR2004
+        """
+        Test if a number can be checked for primality correctly.
+
+        This method checks if a number can be checked for primality correctly in the model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         numbers = {
             1: False,
@@ -118,7 +202,14 @@ class testing(unittest.TestCase):
             self.assertEqual(model.checkIfPrime(key), value)
 
     def test_checkPrimeFactorization(self):
-        # @SantiagoRR2004
+        """
+        Test if the prime factorization of a number can be calculated correctly.
+
+        This method checks if the prime factorization of a number can be calculated correctly in the model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = houseModel.HouseModel()
         numbers = {
             2: [2],
@@ -135,12 +226,14 @@ class testing(unittest.TestCase):
 
     def test_checkIfElementsAreValid(self):
         """
-        We test if all the elements in the grid are valid
+        Test if all the elements in the grid are valid.
+
+        This method tests if all the elements in the grid of the model are valid.
 
         Contributors:
-            - @antonvm2004
-            - @antonoterof
-            - @SantiagoRR2004
+        - @antonvm2004
+        - @antonoterof
+        - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         grid = model.getAttribute("grid")
@@ -152,7 +245,7 @@ class testing(unittest.TestCase):
         for i in range(len(allowed_elements)):
             for j in range(i + 1, len(allowed_elements)):
                 allowed_elements.append(allowed_elements[i] * allowed_elements[j])
- 
+
         allowed_elements.append(0)
 
         self.assertTrue(

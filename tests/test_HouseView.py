@@ -5,49 +5,104 @@ import houseModel
 
 class testing(unittest.TestCase):
     def test_createsViewer(self):
-        # @SantiagoRR2004
+        """
+        Test if the viewer is created.
+
+        This method checks if the viewer is created.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         view = houseModel.HouseModel().getView()
         self.assertIsInstance(view, houseView.HouseView)
-        # Check that houseView is instantiated
 
     def test_draw(self):
-        # @SantiagoRR2004
+        """
+        Test the draw method.
+
+        This method tests the draw method of the HouseView class.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
         self.assertIsInstance(drawing, list)
 
     def test_drawWalls(self):
-        # @antonvm2004
+        """
+        Test the drawAgent method with "walls" parameter.
+
+        This method tests the drawAgent method of the HouseView class with "walls" parameter.
+
+        Contributors:
+        - @antonvm2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("walls")
         self.assertIsInstance(drawing, dict)
 
     def test_drawDoors(self):
-        # @antonvm2004
+        """
+        Test the drawAgent method with "doors" parameter.
+
+        This method tests the drawAgent method of the HouseView class with "doors" parameter.
+
+        Contributors:
+        - @antonvm2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("doors")
         self.assertIsInstance(drawing, dict)
 
     def test_drawCabinet(self):
-        # @SantiagoRR2004
+        """
+        Test the drawAgent method with "cabinet" parameter.
+
+        This method tests the drawAgent method of the HouseView class with "cabinet" parameter.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("cabinet")
         self.assertIsInstance(drawing, dict)
 
     def test_drawOwner(self):
-        # @antonvm2004
+        """
+        Test the drawAgent method with "owner" parameter.
+
+        This method tests the drawAgent method of the HouseView class with "owner" parameter.
+
+        Contributors:
+        - @antonvm2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("owner")
         self.assertIsInstance(drawing, dict)
 
     def test_drawRobot(self):
-        # @antonvm2004
+        """
+        Test the drawAgent method with "robot" parameter.
+
+        This method tests the drawAgent method of the HouseView class with "robot" parameter.
+
+        Contributors:
+        - @antonvm2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.drawAgent("robot")
         self.assertIsInstance(drawing, dict)
 
     def test_existsEmptyBox(self):
-        # @antonvm2004
+        """
+        Test if the empty box exists in the view.
+
+        This method tests if the empty box exists in the view.
+
+        Contributors:
+        - @antonvm2004
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -59,8 +114,15 @@ class testing(unittest.TestCase):
         self.assertTrue(drawing)
 
     def test_existsWalls(self):
-        # @antonvm2004
-        # Modified by @antonoterof
+        """
+        Test if the walls exist in the view.
+
+        This method tests if the walls exist in the view.
+
+        Contributors:
+        - @antonvm2004
+        - @antonoterof
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -72,7 +134,14 @@ class testing(unittest.TestCase):
         self.assertTrue(drawing)
 
     def test_existsDoors(self):
-        # @antonoterof
+        """
+        Test if the doors exist in the view.
+
+        This method tests if the doors exist in the view.
+
+        Contributors:
+        - @antonoterof
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -84,8 +153,15 @@ class testing(unittest.TestCase):
         self.assertTrue(drawing)
 
     def test_existsCabinet(self):
-        # @antonvm2004
-        # Modified by @antonoterof
+        """
+        Test if the cabinet exists in the view.
+
+        This method tests if the cabinet exists in the view.
+
+        Contributors:
+        - @antonvm2004
+        - @antonoterof
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -97,8 +173,15 @@ class testing(unittest.TestCase):
         self.assertTrue(drawing)
 
     def test_existsOwner(self):
-        # @antonvm2004
-        # Modified by @antonoterof
+        """
+        Test if the owner exists in the view.
+
+        This method tests if the owner exists in the view.
+
+        Contributors:
+        - @antonvm2004
+        - @antonoterof
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 
@@ -110,8 +193,15 @@ class testing(unittest.TestCase):
         self.assertTrue(drawing)
 
     def test_existsRobot(self):
-        # @antonvm2004
-        # Modified by antón OF
+        """
+        Test if the robot exists in the view.
+
+        This method tests if the robot exists in the view.
+
+        Contributors:
+        - @antonvm2004
+        - @antonoterof
+        """
         view = houseModel.HouseModel().getView()
         drawing = view.draw()
 

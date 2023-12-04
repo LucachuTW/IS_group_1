@@ -5,19 +5,26 @@ import houseModel
 
 class testing(unittest.TestCase):
     def test_createsController(self):
-        """This test checks that the controller is created correctly
-        and that it is an instance of the class HouseEnv
         """
-        # @SantiagoRR2004
+        Test if the controller is created.
+
+        This method checks if the controller is created.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control, houseEnv.HouseEnv)
-        # Check that houseEnv is instantiated
 
     def test_addDrugs1(self):
-        # @SantiagoRR2004
-        # Modified by @antonoterof
-        """This test checks that the function checkAddDrug works correctly
-        and that it doesn't add drugs if the cabinet is closed
+        """
+        Test adding drugs to a cabinet when it is not open.
+
+        This method tests the scenario where drugs are added to a cabinet when it is not open.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -29,10 +36,15 @@ class testing(unittest.TestCase):
         # Fails because it isn't open
 
     def test_addDrugs2(self):
-        """This test checks that the function checkAddDrug works correctly
-        and that it doesn't add drugs if the cabinet is closed"""
-        # @SantiagoRR2004
-        # Modified by @antonoterof
+        """
+        Test adding drugs to a cabinet when it is open.
+
+        This method tests the scenario where drugs are added to a cabinet when it is open.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
+        """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -44,15 +56,14 @@ class testing(unittest.TestCase):
 
     def test_addDrugs3(self):
         """
-        Test the checkAddDrug function to ensure it correctly handles overfilling.
+        Test adding drugs to a cabinet that is overfilled.
 
-        This test checks that the checkAddDrug function correctly prevents adding
-        more drugs than the cabinet's capacity when the cabinet is open. The test
-        attempts to add one more drug than the cabinet's capacity and expects the
-        function to return False, indicating that the drugs could not be added.
+        This method tests the scenario where drugs are added to a cabinet that is already overfilled.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
         """
-        # @SantiagoRR2004
-        # Modified by @antonoterof
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -65,8 +76,15 @@ class testing(unittest.TestCase):
         # Overfills the tester
 
     def test_addDrugs4(self):
-        # @SantiagoRR2004
-        # Modified by @antonoterof
+        """
+        Test adding negative drugs to a cabinet.
+
+        This method tests the scenario where negative drugs are added to a cabinet.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
+        """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -77,8 +95,15 @@ class testing(unittest.TestCase):
         # Tries to remove too many from tester
 
     def test_addDrugs5(self):
-        # @SantiagoRR2004
-        # Modified by @antonoterof
+        """
+        Test adding drugs to a robot.
+
+        This method tests the scenario where drugs are added to a robot.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
+        """
         tester = "robot"
         control = houseModel.HouseModel().getController()
         maximun = control.getModel().getCapacity(tester)
@@ -88,8 +113,15 @@ class testing(unittest.TestCase):
         # Could fill up the tester that doesn't have attribute open without problems
 
     def test_addDrugs6(self):
-        # @SantiagoRR2004
-        # Modified by @antonoterof
+        """
+        Test removing drugs from a cabinet.
+
+        This method tests the scenario where drugs are removed from a cabinet.
+
+        Contributors:
+        - @SantiagoRR2004
+        - @antonoterof
+        """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
@@ -99,7 +131,14 @@ class testing(unittest.TestCase):
         # Empties up the tester without problems
 
     def test_nextToEachOther1(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are next to each other.
+
+        This method tests if two agents are next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -114,7 +153,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_nextToEachOther2(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are next to each other.
+
+        This method tests if two agents are next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -129,7 +175,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_nextToEachOther3(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are next to each other.
+
+        This method tests if two agents are next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -144,7 +197,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_nextToEachOther4(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are next to each other.
+
+        This method tests if two agents are next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -159,7 +219,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_nextToEachOther5(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are not next to each other.
+
+        This method tests if two agents are not next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -174,7 +241,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_nextToEachOther6(self):
-        # @SantiagoRR2004
+        """
+        Test if two agents are not next to each other.
+
+        This method tests if two agents are not next to each other in the house model.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.removeValue("cabinet")
@@ -189,7 +263,14 @@ class testing(unittest.TestCase):
         # Check that the agents are nearby
 
     def test_transferDrugs1(self):
-        # @SantiagoRR2004
+        """
+        Test transferring drugs from one agent to another.
+
+        This method tests the scenario where drugs are transferred from one agent to another.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -222,7 +303,14 @@ class testing(unittest.TestCase):
         # No failures, it transfers 1 Drug
 
     def test_transferDrugs2(self):
-        # @SantiagoRR2004
+        """
+        Test transferring drugs from one agent to another.
+
+        This method tests the scenario where drugs are transferred from one agent to another.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -255,7 +343,14 @@ class testing(unittest.TestCase):
         # No failures, it transfers 1 Drug
 
     def test_transferDrugs3(self):
-        # @SantiagoRR2004
+        """
+        Test transferring drugs from one agent to another.
+
+        This method tests the scenario where drugs are transferred from one agent to another.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "cabinet"
@@ -285,10 +380,17 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Fails because mover can't transfer because it can't move on it's own
+        # Fails because mover can't transfer because it can't move on its own
 
     def test_transferDrugs4(self):
-        # @SantiagoRR2004
+        """
+        Test transferring drugs from one agent to another.
+
+        This method tests the scenario where drugs are transferred from one agent to another.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
