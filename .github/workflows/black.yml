@@ -33,6 +33,7 @@ jobs:
         if git diff --exit-code; then
           echo "No changes to commit."
         else
+          echo "Changes to commit."
           git add .
           git commit --amend --no-edit
         fi
