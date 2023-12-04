@@ -9,9 +9,19 @@ import atexit
 
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def __init__(self):
-        self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
-        # @Ventupentu
-        # Modified by @SantiagoRR2004
+        """
+        Initializes the HouseModel class.
+
+        Args:
+        - None
+
+        Returns:
+        - None
+
+        Contributors:
+            - @SantiagoRR2004
+            - @Ventupentu
+        """
         with open("environment.json", "r") as file:
             data = json.load(file)
 
@@ -26,46 +36,157 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         atexit.register(self.saveToFile)
 
     def addDrug(self, object, quantity):
-        # @Ventupentu
-        # Modified by @SantiagoRR2004
+        """
+        Adds a drug to the object.
+
+        Args:
+        - object: The object to add the drug to.
+        - quantity: The quantity of drugs to add.
+
+        Returns:
+        - None
+
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+        """
         self.modifyNumericalAttributeFromDict(object, "numberDrugs", quantity)
 
     def getDrug(self, object):
-        # @Ventupentu
-        # Modified by @SantiagoRR2004
+        """
+        Gets the drug from the object.
+
+        Args:
+        - object: The object to get the drug from.
+
+        Returns:
+        - The drug from the object.
+
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+        """
         return self.getAttributeFromDict(object, "numberDrugs")
 
     def getOpenStatus(self, object):
-        # @Ventupentu-@LucachuTW
-        # Modified by @SantiagoRR2004
+        """
+        Gets the open status of the object.
+
+        Args:
+        - object: The object to get the open status from.
+
+        Returns:
+        - The open status of the object.
+
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+            - @LucachuTW
+        """
         return self.getAttributeFromDict(object, "open")
 
     def setOpenStatus(self, object, status):
-        # @Ventupentu-@LucachuTW
-        # Modified by @SantiagoRR2004
+        """
+        Sets the open status of the object.
+
+        Args:
+        - object: The object to set the open status to.
+        - status: The status to set the object to.
+
+        Returns:
+        - None
+
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+            - @LucachuTW
+        """
         self.setAttributeFromDict(object, "open", status)
 
     def getCapacity(self, object):
-        # @Ventupentu
-        # Modified by @SantiagoRR2004
+        """
+        Gets the capacity of the object.
+        
+        Args:
+        - object: The object to get the capacity from.
+        
+        Returns:
+        - The capacity of the object.
+        
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+        """
         return self.getAttributeFromDict(object, "maxCapacity")
 
     def changePosition(self, originX, originY, destinationX, destinationY):
-        # Created by @SantiagoRR2004-@antonvm2004
+        """
+        Changes the position of the object.
+
+        Args:
+        - originX: The x coordinate of the origin.
+        - originY: The y coordinate of the origin.
+        - destinationX: The x coordinate of the destination.
+        - destinationY: The y coordinate of the destination.
+
+        Returns:
+        - None
+
+        Contributors:
+            - @SantiagoRR2004
+            - @antonvm2004        
+        """
         value = self.getPosition(originX, originY)
         self.setPosition(originX, originY, "0")
         self.setPosition(destinationX, destinationY, value)
 
     def getPosition(self, x, y):
-        # Created by @antonvm2004
+        """
+        Get the position at coordinates (x, y) in the grid.
+
+        Args:
+            x (int): The x-coordinate.
+            y (int): The y-coordinate.
+
+        Returns:
+            The value at the specified position in the grid.
+
+        Contributors:
+            - @SantiagoRR2004
+            - @antonvm2004
+        """
         return self.grid[x][y]
 
     def setPosition(self, x, y, value):
-        # Created by @antonvm2004
+        """
+        Set the position at coordinates (x, y) in the grid.
+
+        Args:
+            x (int): The x-coordinate.
+            y (int): The y-coordinate.
+            value: The value to set at the specified position.
+
+        Returns:
+            None
+
+        Contributors:
+            - @antonvm2004
+        """
         self.grid[x][y] = value
 
     def removeValue(self, value):
-        # @antonoterof
+        """
+        Remove the specified value from the grid.
+
+        Args:
+            value: The value to remove.
+
+        Returns:
+            None
+
+        Contributors:
+            - @antonoterof
+        """
         simbolValue = self.getAttributeFromDict(value, "symbol")
         for file in range(len(self.getAttribute("grid"))):
             for simbol in range(len(self.getAttributeFromDict("grid", file))):
@@ -75,7 +196,18 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                     break
 
     def getPositionOf(self, value):
-        # @antonoterof
+        """
+        Get the position of the specified value in the grid.
+
+        Args:
+            value: The value to find the position of.
+
+        Returns:
+            The position of the value in the grid.
+
+        Contributors:
+            - @antonoterof
+        """
         simbolValue = self.getAttributeFromDict(value, "symbol")
         position = False
         found = False
@@ -99,15 +231,47 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         return position
 
     def getOpenableStatus(self, object):
-        # @antonoterof
+        """
+        Get the openable status of the object.
+
+        Args:
+            object: The object to get the openable status from.
+
+        Returns:
+            The openable status of the object.
+
+        Contributors:
+            - @antonoterof
+        """
         return self.getAttributeFromDict(object, "openable")
 
     def getSemisolidStatus(self, object):
-        # @antonoterof
+        """
+        Get the semisolid status of the object.
+
+        Args:
+            object: The object to get the semisolid status from.
+
+        Returns:
+            The semisolid status of the object.
+
+        Contributors:
+            - @antonoterof
+        """
         return self.getAttributeFromDict(object, "semisolid")
     
 
     def saveToFile(self):
+        """
+        Save the current state of the HouseModel to a file.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        """
         extraItems = ["grid","symbols", "notElements"]
         saveData = {}
 
