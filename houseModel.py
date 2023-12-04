@@ -22,6 +22,9 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @SantiagoRR2004
             - @Ventupentu
         """
+        self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
+
+
         with open("environment.json", "r") as file:
             data = json.load(file)
 
@@ -152,7 +155,6 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             The value at the specified position in the grid.
 
         Contributors:
-            - @SantiagoRR2004
             - @antonvm2004
         """
         return self.grid[x][y]
