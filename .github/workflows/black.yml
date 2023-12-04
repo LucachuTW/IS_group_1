@@ -24,3 +24,15 @@ jobs:
     - name: Format code with Black
       run: |
         black .
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        # Check if there are changes
+        if git diff --exit-code; then
+          echo "No changes to commit."
+        else
+          git add .
+          git commit --amend --no-edit
+        fi
