@@ -1077,3 +1077,17 @@ class testing(unittest.TestCase):
                                 )
                                 self.assertEqual(model.getPosition(0, 0), elementSymbol)
                                 self.assertEqual(model.getPosition(1, 0), movedSymbol)
+    '''
+    def test_moveOwner(self):
+        # @antonoterof
+        # Check that the owner can move without problems
+        control = houseModel.HouseModel().getController()
+        self.assertTrue(control.moveOwner("up"))
+        self.assertTrue(control.moveOwner("down"))
+        self.assertTrue(control.moveOwner("left"))
+        self.assertTrue(control.moveOwner("right"))
+        self.assertFalse(control.moveOwner("invalid_direction"))
+    '''
+    
+    
+    

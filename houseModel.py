@@ -3,9 +3,7 @@ import AbstractHouseModel
 import houseEnv
 import houseView
 import atexit
-
-
-
+from typing import List
 
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def __init__(self):
@@ -261,8 +259,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @antonoterof
         """
         return self.getAttributeFromDict(object, "semisolid")
-    
-
+        
     def saveToFile(self):
         """
         Save the current state of the HouseModel to a file.
@@ -286,7 +283,56 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         with open("environment.json", "w") as file:
             json.dump(saveData, file)
 
+    def getDoorStatus(self, doorLocation):
+        """
+        Get the status of the door.
 
+        Args:
+            doorLocation: The location of the door.
+
+        Returns:
+            The status of the door.
+
+        Contributors:
+            - @antonoterof
+        """
+        for door in self.getAttributeFromDict("doors", "subset"):
+            if door["location"] == doorLocation:
+                return door["open"]
+            
+    def openDoor(self, doorLocation):
+        """
+        Open a door at the specified location.
+
+        Args:
+            doorLocation (List[int]): The [x, y] coordinates of the door.
+        
+        Contributors:
+        - @antonoterof
+        """
+        for door in self.getAttributeFromDict("doors", "subset"):
+            if door["location"] == doorLocation:
+                if self.getDoorStatus(doorLocation) == False:
+                    door["open"] = True
+                break
+
+    def closeDoor(self, doorLocation):
+        """
+        Close a door at the specified location.
+
+        Args:
+            doorLocation (List[int]): The [x, y] coordinates of the door.
+
+        Contributors:
+        - @antonoterof
+        """
+        for door in self.getAttributeFromDict("doors", "subset"):
+            if door["location"] == doorLocation:
+                if self.getDoorStatus(doorLocation) == True:
+                    door["open"] = False
+                break
+
+        
 
 
 
