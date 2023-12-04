@@ -3,13 +3,33 @@ from typing import List
 
 
 class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
+    """
+    House Environment Class.
+
+    This class represents the environment of a house. It includes methods to check if an element is shareable, if a position is movable, and to move an object to a specified position.
+
+    Contributors:
+    - @SantiagoRR2004, @Ventupentu, @antonoterof, @LucachuTW
+    """
     def __init__(self) -> None:
         pass
 
     def checkAddDrug(self, element: str, quantity: int) -> bool:
-        # @antonoterof
-        # Modified by @Ventupentu
-        # @SantiagoRR2004
+        """
+        Check if a drug can be added to an element.
+
+        This method checks if a specified quantity of drug can be added to a specified element in the model.
+
+        Args:
+        - element (str): The element to add the drug to.
+        - quantity (int): The quantity of drug to add.
+
+        Returns:
+            bool: True if the drug can be added, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004, @Ventupentu, @antonoterof
+        """
         model = self.getModel()
 
         toret = False
@@ -24,8 +44,20 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         return toret
 
     def checkOpeneable(self, element: str) -> bool:
-        # @Ventupentu
-        # @SantiagoRR2004
+        """
+        Check if an element is openable.
+
+        This method checks if a specified element is openable in the model.
+
+        Args:
+        - element (str): The element to check openability for.
+
+        Returns:
+            bool: True if the element is openable, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004, @Ventupentu
+        """
         model = self.getModel()
         return model.getAttributeFromDict(element, "openable")
 
@@ -36,7 +68,21 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         position1: List[int] = "",
         position2: List[int] = "",
     ) -> bool:
-        # @SantiagoRR2004
+        """
+        Check if two objects are adjacent.
+
+        This method checks if two objects are adjacent in the model. It considers objects to be adjacent if they are at the same position, or 1 position horizontally or vertically apart.
+
+        Args:
+        - object1 (str): The first object to check adjacency for.
+        - object2 (str): The second object to check adjacency for.
+
+        Returns:
+            bool: True if the objects are adjacent, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = self.getModel()
         toret = False
 
@@ -68,8 +114,23 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     def transferDrugs(
         self, mover: str, giver: str, reciever: str, quantity: int
     ) -> bool:
-        # @Ventupentu
-        # Modified by @SantiagoRR2004
+        """
+        Transfer drugs from one object to another.
+
+        This method transfers a specified quantity of drugs from a giver object to a receiver object, if certain conditions are met.
+
+        Args:
+        - mover (str): The object that is moving the drugs.
+        - giver (str): The object that is giving the drugs.
+        - reciever (str): The object that is receiving the drugs.
+        - quantity (int): The quantity of drugs to transfer.
+
+        Returns:
+            bool: True if the transfer was successful, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = self.getModel()
         toret = False
 
@@ -86,9 +147,20 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         return toret
 
     def checkIfShareable(self, element: str) -> bool:
-        # The element can share space with another right now
-        # Antón Of
-        # @SantiagoRR2004
+        """
+        Check if an element is shareable.
+
+        This method checks if a specified element is shareable in the model.
+
+        Args:
+        - element (str): The element to check shareability for.
+
+        Returns:
+            bool: True if the element is shareable, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004
+        """
         model = self.getModel()
 
         return model.getSemisolidStatus(element) and (
@@ -96,8 +168,21 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         )
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
-        # @antonoterof
-        # @SantiagoRR2004
+        """
+        Check if a position is movable.
+
+        This method checks if a specified position is movable in the model.
+
+        Args:
+        - x (int): The x-coordinate of the position to check.
+        - y (int): The y-coordinate of the position to check.
+
+        Returns:
+            bool: True if the position is movable, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004, @antonoterof
+        """
         model = self.getModel()
         char = model.getPosition(x, y)
         symbols = model.getAttribute("symbols")
@@ -114,8 +199,23 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         return toret
 
     def moveTo(self, mover: str, moved: str, x: int, y: int) -> bool:
-        # @Ventupentu
-        # @SantiagoRR2004
+        """
+        Move an object to a specified position.
+
+        This method moves a specified object to a specified position in the model, if certain conditions are met.
+
+        Args:
+        - mover (str): The object that is moving.
+        - moved (str): The object that is being moved.
+        - x (int): The x-coordinate of the position to move to.
+        - y (int): The y-coordinate of the position to move to.
+
+        Returns:
+            bool: True if the move was successful, False otherwise.
+
+        Contributors:
+        - @SantiagoRR2004, @Ventupentu, @LucachuTW
+        """
         model = self.getModel()
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         movedSymbol = model.getAttributeFromDict(moved, "symbol")
