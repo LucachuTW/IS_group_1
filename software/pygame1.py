@@ -1,11 +1,9 @@
-import AbstractHouseView
 import pygame
 import sys
-# import json
+import json
 
-class HouseView(AbstractHouseView.AbstractHouseView):
+class RobotGame:
     def __init__(self):
-        #@antonvm2004
         pygame.init()
 
         # Define colors
@@ -14,22 +12,8 @@ class HouseView(AbstractHouseView.AbstractHouseView):
 
         # Grid size
         self.GRID_SIZE = 50
-    
-    def draw(self):
-        # @antonoterof
-        # Modified by @SantiagoRR2004
-        model = self.getModel()
-        return model.getAttribute("grid")
-
-    def drawAgent(self, object):
-        # @antonoterof
-        # Modified by @SantiagoRR2004
-        model = self.getModel()
-        return model.getAttribute(object)
 
     def load_images(self):
-        #@antonvm2004
-
         images = {}
         for piece in ["2", "3", "5", "7", "11"]:
             img_path = f"./software/GridWorldModel/images/{piece}.png"
@@ -39,24 +23,18 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         return images
 
     def draw_grid(self, screen, num_rows, num_columns):
-        #@antonvm2004
-
         for x in range(0, num_columns * self.GRID_SIZE, self.GRID_SIZE):
             pygame.draw.line(screen, self.BLACK, (x, 0), (x, num_rows * self.GRID_SIZE))
         for y in range(0, num_rows * self.GRID_SIZE, self.GRID_SIZE):
             pygame.draw.line(screen, self.BLACK, (0, y), (num_columns * self.GRID_SIZE, y))
 
     def draw_pieces(self, screen, matrix, images):
-        #@antonvm2004
-
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
                 if piece != "0":
                     screen.blit(images.get(piece, images["2"]), (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE))
 
-    def move_robot(self, matrix, from_pos, to_pos):
-        #@antonvm2004
-
+    def move_robot(self, matrix, from_pos, to_pos, doors_info):
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
         if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
@@ -73,12 +51,10 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     matrix[from_pos[0]][from_pos[1]] = current_piece
 
     def initialize_game(self):
-        #@antonvm2004
-
-        """with open('./environmentBackup.json', 'r') as input_file:
+        with open('./environmentBackup.json', 'r') as input_file:
             data = json.load(input_file)
             matrix = data["grid"]
-            doors_info = data.get("doors", {})"""
+            doors_info = data.get("doors", {})
 
         num_rows = len(matrix)
         num_columns = len(matrix[0]) if num_rows > 0 else 0
@@ -94,8 +70,6 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         return screen, matrix, doors_info, num_rows, num_columns, images
 
     def run_game(self):
-        #@antonvm2004
-
         robot_pos = [10, 11]  # Initial robot position
 
         while True:
@@ -103,6 +77,24 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_UP]:
+                new_pos = [robot_pos[0] - 1, robot_pos[1]]
+                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                robot_pos = new_pos
+            elif keys[pygame.K_DOWN]:
+                new_pos = [robot_pos[0] + 1, robot_pos[1]]
+                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                robot_pos = new_pos
+            elif keys[pygame.K_LEFT]:
+                new_pos = [robot_pos[0], robot_pos[1] - 1]
+                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                robot_pos = new_pos
+            elif keys[pygame.K_RIGHT]:
+                new_pos = [robot_pos[0], robot_pos[1] + 1]
+                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                robot_pos = new_pos
 
             for index_i, row in enumerate(matrix):
                 for index_j, piece in enumerate(row):
@@ -113,11 +105,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
             pygame.display.flip()
             pygame.time.Clock().tick(10)
 
-""" POSIBLE MAIN:
 if __name__ == "__main__":
-    #@antonvm2004
-
-    game = HouseView()
+    game = RobotGame()
     screen, matrix, doors_info, num_rows, num_columns, images = game.initialize_game()
     game.run_game()
-"""
