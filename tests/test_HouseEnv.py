@@ -295,9 +295,7 @@ class testing(unittest.TestCase):
 
     def test_transferDrugs1(self):
         """
-        Test transferring drugs from one agent to another.
-
-        This method tests the scenario where drugs are transferred from one agent to another.
+        This method tests the scenario where drugs are transferred from the cabinet to one agent.
 
         Contributors:
             - @SantiagoRR2004
@@ -331,13 +329,10 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
         self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
         self.assertEqual(control.getModel().getDrug(reciever), 1)
-        # No failures, it transfers 1 Drug
 
     def test_transferDrugs2(self):
         """
-        Test transferring drugs from one agent to another.
-
-        This method tests the scenario where drugs are transferred from one agent to another.
+        This method tests the scenario where drugs are transferred from one agent to the cabinet.
 
         Contributors:
             - @SantiagoRR2004
@@ -371,13 +366,11 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
         self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
         self.assertEqual(control.getModel().getDrug(reciever), 1)
-        # No failures, it transfers 1 Drug
 
     def test_transferDrugs3(self):
         """
-        Test transferring drugs from one agent to another.
-
-        This method tests the scenario where drugs are transferred from one agent to another.
+        This method tests the scenario where drugs are transferred from the cabinet to one agent.
+        Fails because the motor can't be transferred because it can't move on its own.
 
         Contributors:
             - @SantiagoRR2004
@@ -411,13 +404,11 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Fails because mover can't transfer because it can't move on its own
 
     def test_transferDrugs4(self):
         """
-        Test transferring drugs from one agent to another.
-
-        This method tests the scenario where drugs are transferred from one agent to another.
+        This method tests the scenario where drugs are transferred from one agent to the cabinet.
+        Fails because they aren't adjacent.
 
         Contributors:
             - @SantiagoRR2004
@@ -451,10 +442,15 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Fails because they aren't adjacent
 
     def test_transferDrugs5(self):
-        # @SantiagoRR2004
+        """
+        This method tests the scenario where drugs are transferred from the cabinet to one agent.
+        Fails because it isn't enough space on the reciever.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -486,10 +482,16 @@ class testing(unittest.TestCase):
         )
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Not enough space on the reciever
+        
 
     def test_transferDrugs6(self):
-        # @SantiagoRR2004
+        """
+        This method tests the scenario where drugs are transferred from one agent to the cabinet.
+        Fails because it isn't enough drugs on the giver.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -521,10 +523,15 @@ class testing(unittest.TestCase):
         )
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Not enough drugs on the giver
 
     def test_transferDrugs7(self):
-        # @SantiagoRR2004
+        """
+        This method tests the scenario where drugs are transferred from the cabinet to one agent.
+        Fails because cabinet isn't open.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -554,25 +561,38 @@ class testing(unittest.TestCase):
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
         self.assertEqual(control.getModel().getDrug(giver), maximun1)
         self.assertEqual(control.getModel().getDrug(reciever), 0)
-        # Cabinet isn't open
 
     def test_checkOpeneable1(self):
-        # @Ventupentu
-        # @SantiagoRR2004
+        """
+        It is ensure that the method returns a Boolean value.
+
+        Contributors:
+            - @SantiagoRR2004
+            - @Ventupentu
+        """
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control.checkOpeneable("door"), bool)
 
     def test_checkOpeneable2(self):
-        # @Ventupentu
-        # @SantiagoRR2004
+        """
+        It is ensure that the method works correctly.
+
+        Contributors:
+            - @SantiagoRR2004
+            - @Ventupentu
+        """
         control = houseModel.HouseModel().getController()
         element = "cabinet"
         open = control.getModel().getAttributeFromDict(element, "openable")
         self.assertEqual(control.checkOpeneable(element), open)
 
     def test_checkIfShareable1(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -584,8 +604,13 @@ class testing(unittest.TestCase):
         self.assertEqual(control.checkIfShareable(element), True)
 
     def test_checkIfShareable2(self):
-        # @SantiagoRR2004
-        # It isn't open
+        """
+        It is ensure that the method works correctly.
+        The object can not share space because it is openable and not is open.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -597,8 +622,13 @@ class testing(unittest.TestCase):
         self.assertEqual(control.checkIfShareable(element), False)
 
     def test_checkIfShareable3(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+        The object can share space because it is semisolid and not openable.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -612,8 +642,13 @@ class testing(unittest.TestCase):
             self.assertEqual(control.checkIfShareable(element), True)
 
     def test_checkIfShareable4(self):
-        # @SantiagoRR2004
-        # Object can't share the space
+        """
+        It is ensure that the method works correctly.
+        The object can not share space because it is not semisolid.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
