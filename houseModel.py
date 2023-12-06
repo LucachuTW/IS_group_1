@@ -308,7 +308,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             doorLocation (List[int]): The [x, y] coordinates of the door.
         
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:
@@ -324,7 +324,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             doorLocation (List[int]): The [x, y] coordinates of the door.
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:

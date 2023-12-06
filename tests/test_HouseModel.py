@@ -10,12 +10,12 @@ class testing(unittest.TestCase):
         This method checks if a specified quantity of drug can be added to a specified element in the model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
-        a = houseModel.HouseModel()
-        number = a.getDrug("cabinet")
-        a.addDrug("cabinet", 3)
-        self.assertEqual(a.getDrug("cabinet"), number + 3)
+        control = houseModel.HouseModel()
+        number = control.getDrug("cabinet")
+        control.addDrug("cabinet", 3)
+        self.assertEqual(control.getDrug("cabinet"), number + 3)
 
     def test_addDrugsCorrectly1(self):
         """
@@ -24,7 +24,7 @@ class testing(unittest.TestCase):
         This method checks if drugs can be subtracted correctly from a specified element in the model.
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         control = houseModel.HouseModel()
         tester = "cabinet"
@@ -41,7 +41,7 @@ class testing(unittest.TestCase):
         This method checks if drugs can be added correctly to a specified element in the model.
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         control = houseModel.HouseModel()
         tester = "cabinet"
@@ -58,7 +58,24 @@ class testing(unittest.TestCase):
         This method checks if no changes are made to a specified element in the model when adding nothing.
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
+        """
+        control = houseModel.HouseModel()
+        tester = "cabinet"
+        control.setOpenStatus(tester, True)
+        maximun = control.getCapacity(tester)
+        initialValue = control.getDrug(tester)
+        control.addDrug(tester, 0)
+        self.assertEqual(control.getDrug(tester), initialValue)
+
+    def test_addDrugsCorrectly4(self):
+        """
+        Test if no changes are made when adding nothing.
+
+        This method checks if no changes are made to a specified element in the model when adding nothing.
+
+        Contributors:
+            - @antonoterof
         """
         control = houseModel.HouseModel()
         tester = "cabinet"
@@ -75,7 +92,7 @@ class testing(unittest.TestCase):
         This method checks if the position of an element in the model can be changed correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         oX, oY, dX, dY = 0, 0, 3, 6
@@ -90,7 +107,7 @@ class testing(unittest.TestCase):
         This method checks if the status of the cabinet in the model can be accessed correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         status = model.getOpenStatus("cabinet")
@@ -103,7 +120,7 @@ class testing(unittest.TestCase):
         This method checks if the cabinet in the model can be opened correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", True)
@@ -116,7 +133,7 @@ class testing(unittest.TestCase):
         This method checks if the cabinet in the model can be closed correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         model.setOpenStatus("cabinet", False)
@@ -129,7 +146,7 @@ class testing(unittest.TestCase):
         This method checks if the capacity of the cabinet in the model can be accessed correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         number = model.getCapacity("cabinet")
@@ -142,7 +159,7 @@ class testing(unittest.TestCase):
         This method checks if the position of an element in the grid of the model can be set correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
@@ -158,7 +175,7 @@ class testing(unittest.TestCase):
         This method checks if the position of an element in the grid of the model can be accessed correctly.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
@@ -172,7 +189,7 @@ class testing(unittest.TestCase):
         This method checks if the position of a non-existent element in the grid of the model returns False.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         model.removeValue("cabinet")
@@ -185,7 +202,7 @@ class testing(unittest.TestCase):
         This method checks if a number can be checked for primality correctly in the model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         numbers = {
@@ -208,7 +225,7 @@ class testing(unittest.TestCase):
         This method checks if the prime factorization of a number can be calculated correctly in the model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         numbers = {
@@ -231,9 +248,9 @@ class testing(unittest.TestCase):
         This method tests if all the elements in the grid of the model are valid.
 
         Contributors:
-        - @antonvm2004
-        - @antonoterof
-        - @SantiagoRR2004
+            - @antonvm2004
+            - @antonoterof
+            - @SantiagoRR2004
         """
         model = houseModel.HouseModel()
         grid = model.getAttribute("grid")
@@ -261,7 +278,7 @@ class testing(unittest.TestCase):
         This method tests if the door can be opened and closed without problems
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         model = houseModel.HouseModel()
         door_locations = model.getAttributeFromDict("door", "subset")
@@ -276,7 +293,7 @@ class testing(unittest.TestCase):
         This method tests if you want to open a door that is already open, that nothing happens
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         model = houseModel.HouseModel()
         door_locations = model.getAttributeFromDict("door", "subset")
@@ -292,7 +309,7 @@ class testing(unittest.TestCase):
         This method tests if you want to close a door that is already close, that nothing happens
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         model = houseModel.HouseModel()
         door_locations = model.getAttributeFromDict("door", "subset")

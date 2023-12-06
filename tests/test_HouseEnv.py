@@ -11,7 +11,7 @@ class testing(unittest.TestCase):
         This method checks if the controller is created.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control, houseEnv.HouseEnv)
@@ -23,8 +23,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are added to a cabinet when it is not open.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -42,8 +42,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are added to a cabinet when it is open.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -61,8 +61,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are added to a cabinet that is already overfilled.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -82,8 +82,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where negative drugs are added to a cabinet.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -101,8 +101,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are added to a robot.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "robot"
         control = houseModel.HouseModel().getController()
@@ -119,8 +119,8 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are removed from a cabinet.
 
         Contributors:
-        - @SantiagoRR2004
-        - @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         tester = "cabinet"
         control = houseModel.HouseModel().getController()
@@ -137,7 +137,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -159,7 +159,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -181,7 +181,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -203,7 +203,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -225,7 +225,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are not next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -247,7 +247,7 @@ class testing(unittest.TestCase):
         This method tests if two agents are not next to each other in the house model.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -269,7 +269,7 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are transferred from one agent to another.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -309,7 +309,7 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are transferred from one agent to another.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -349,7 +349,7 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are transferred from one agent to another.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
@@ -389,7 +389,7 @@ class testing(unittest.TestCase):
         This method tests the scenario where drugs are transferred from one agent to another.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         control = houseModel.HouseModel().getController()
         model = control.getModel()

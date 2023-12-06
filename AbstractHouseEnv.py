@@ -33,7 +33,7 @@ class AbstractHouseEnv(ABC):
             None
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         self.view = view
 
@@ -67,7 +67,7 @@ class AbstractHouseEnv(ABC):
             None
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         self.model = model
 

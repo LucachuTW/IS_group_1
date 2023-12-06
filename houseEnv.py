@@ -9,7 +9,10 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     This class represents the environment of a house. It includes methods to check if an element is shareable, if a position is movable, and to move an object to a specified position.
 
     Contributors:
-    - @SantiagoRR2004, @Ventupentu, @antonoterof, @LucachuTW
+        - @SantiagoRR2004
+        - @Ventupentu
+        - @antonoterof
+        - @LucachuTW
     """
     def __init__(self) -> None:
         pass
@@ -28,7 +31,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the drug can be added, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004, @Ventupentu, @antonoterof
+            - @SantiagoRR2004
+            - @Ventupentu
+            - @antonoterof
         """
         model = self.getModel()
 
@@ -56,7 +61,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the element is openable, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004, @Ventupentu
+            - @SantiagoRR2004
+            - @Ventupentu
         """
         model = self.getModel()
         return model.getAttributeFromDict(element, "openable")
@@ -81,7 +87,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the objects are adjacent, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = self.getModel()
         toret = False
@@ -129,7 +135,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the transfer was successful, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = self.getModel()
         toret = False
@@ -160,7 +166,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the element is shareable, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         model = self.getModel()
 
@@ -182,7 +188,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the position is movable, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004, @antonoterof
+            - @SantiagoRR2004
+            - @antonoterof
         """
         model = self.getModel()
         char = model.getPosition(x, y)
@@ -215,7 +222,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the move was successful, False otherwise.
 
         Contributors:
-        - @SantiagoRR2004, @Ventupentu, @LucachuTW
+            - @SantiagoRR2004
+            - @Ventupentu
+            - @LucachuTW
         """
         model = self.getModel()
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -277,7 +286,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             bool: True if the movement was successful, False otherwise.
 
         Contributors:
-        - @antonoterof
+            - @antonoterof
         """
         model = self.getModel()
         owner = "owner"

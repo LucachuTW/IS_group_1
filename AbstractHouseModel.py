@@ -90,7 +90,7 @@ class AbstractHouseModel(ABC):
         - AttributeError: If the attribute with the given name does not exist.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         return getattr(self, name.lower())
 
@@ -130,7 +130,7 @@ class AbstractHouseModel(ABC):
                       the specified key is not present in its dictionary.
 
         Contributors:
-            @SantiagoRR2004
+           - @SantiagoRR2004
         """
         return self.getAttribute(name)[key]
 
@@ -153,7 +153,7 @@ class AbstractHouseModel(ABC):
         {'key1': 'new_value'}
 
         Contributors:
-            @SantiagoRR2004
+           - @SantiagoRR2004
         """
         self.getAttribute(name)[key] = value
 
@@ -170,7 +170,7 @@ class AbstractHouseModel(ABC):
             None
 
         Contributors:
-            @SantiagoRR2004
+           - @SantiagoRR2004
         """
         original = self.getAttributeFromDict(name, key)
         self.setAttributeFromDict(name, key, original + value)
@@ -196,7 +196,7 @@ class AbstractHouseModel(ABC):
         ```
 
         Contributors:
-        - @SantiagoRR2004 (initial implementation)
+            - @SantiagoRR2004 (initial implementation)
         """
         return (abs(x1 - x2) ** 2 + abs(y1 - y2) ** 2) ** (1 / 2)
 
@@ -249,7 +249,7 @@ class AbstractHouseModel(ABC):
         List[int]: A list of prime factors of the input integer 'n'.
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
 
         Example:
         >>> YourClassName.PrimeFactorization(12)

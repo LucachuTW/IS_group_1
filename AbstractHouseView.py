@@ -67,7 +67,7 @@ class AbstractHouseView(ABC):
             None
 
         Contributors:
-        - @SantiagoRR2004
+            - @SantiagoRR2004
         """
         self.model = model
 
@@ -96,7 +96,7 @@ class AbstractHouseView(ABC):
 
         Contributors:
             - @SantiagoRR2004
-            - Antón Varela
+            - @antonvm2004
         """
         attributes = ", ".join(
             f"{key}={value!r}" for key, value in self.__dict__.items()
