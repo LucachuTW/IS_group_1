@@ -83,7 +83,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
 
         matrix = self.draw()
 
-        doors_info = self.drawAgent("doors")
+        door_info = self.drawAgent("door")
 
         num_rows = len(matrix)
         self.num_rows = num_rows

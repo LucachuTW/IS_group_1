@@ -260,8 +260,8 @@ class testing(unittest.TestCase):
         # @antonoterof
         # Check if the door can be opened and closed without problems
         model = houseModel.HouseModel()
-        doors_locations = model.getAttributeFromDict("doors", "subset")
-        locationDoor = doors_locations[0]["location"]
+        door_locations = model.getAttributeFromDict("door", "subset")
+        locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == True)
         model.closeDoor(locationDoor)
@@ -271,8 +271,8 @@ class testing(unittest.TestCase):
         # @antonoterof
         # Check that if you want to open a door that is already open, nothing happens
         model = houseModel.HouseModel()
-        doors_locations = model.getAttributeFromDict("doors", "subset")
-        locationDoor = doors_locations[0]["location"]
+        door_locations = model.getAttributeFromDict("door", "subset")
+        locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
         model.openDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == True)
@@ -283,8 +283,8 @@ class testing(unittest.TestCase):
         # @antonoterof
         # Check that if you want to close a door that is already close, nothing happens
         model = houseModel.HouseModel()
-        doors_locations = model.getAttributeFromDict("doors", "subset")
-        locationDoor = doors_locations[0]["location"]
+        door_locations = model.getAttributeFromDict("door", "subset")
+        locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
         model.closeDoor(locationDoor)
         model.closeDoor(locationDoor)

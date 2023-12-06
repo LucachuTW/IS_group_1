@@ -296,7 +296,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         Contributors:
             - @antonoterof
         """
-        for door in self.getAttributeFromDict("doors", "subset"):
+        for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:
                 return door["open"]
             
@@ -310,7 +310,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         Contributors:
         - @antonoterof
         """
-        for door in self.getAttributeFromDict("doors", "subset"):
+        for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:
                 if self.getDoorStatus(doorLocation) == False:
                     door["open"] = True
@@ -326,7 +326,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         Contributors:
         - @antonoterof
         """
-        for door in self.getAttributeFromDict("doors", "subset"):
+        for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:
                 if self.getDoorStatus(doorLocation) == True:
                     door["open"] = False

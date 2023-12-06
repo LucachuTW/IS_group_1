@@ -529,7 +529,7 @@ class testing(unittest.TestCase):
         # @Ventupentu
         # @SantiagoRR2004
         control = houseModel.HouseModel().getController()
-        self.assertIsInstance(control.checkOpeneable("doors"), bool)
+        self.assertIsInstance(control.checkOpeneable("door"), bool)
 
     def test_checkOpeneable2(self):
         # @Ventupentu

@@ -24,7 +24,7 @@
             "moved": false
         }
     },
-    "doors": {
+    "door": {
         "unique": false,
         "symbol": 3,
         "semisolid": true,
@@ -78,7 +78,7 @@
     },
     "symbols": {
         "walls":2,
-        "doors":3,
+        "door":3,
         "cabinet":5,
         "owner":7,
         "robot":11

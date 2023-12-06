@@ -34,7 +34,7 @@ class RobotGame:
                 if piece != "0":
                     screen.blit(images.get(piece, images["2"]), (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE))
 
-    def move_robot(self, matrix, from_pos, to_pos, doors_info):
+    def move_robot(self, matrix, from_pos, to_pos, door_info):
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
         if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
@@ -54,7 +54,7 @@ class RobotGame:
         with open('./environmentBackup.json', 'r') as input_file:
             data = json.load(input_file)
             matrix = data["grid"]
-            doors_info = data.get("doors", {})
+            door_info = data.get("door", {})
 
         num_rows = len(matrix)
         num_columns = len(matrix[0]) if num_rows > 0 else 0
@@ -67,7 +67,7 @@ class RobotGame:
 
         images = self.load_images()
 
-        return screen, matrix, doors_info, num_rows, num_columns, images
+        return screen, matrix, door_info, num_rows, num_columns, images
 
     def run_game(self):
         robot_pos = [10, 11]  # Initial robot position
@@ -81,19 +81,19 @@ class RobotGame:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
                 new_pos = [robot_pos[0] - 1, robot_pos[1]]
-                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                self.move_robot(matrix, robot_pos, new_pos, door_info)
                 robot_pos = new_pos
             elif keys[pygame.K_DOWN]:
                 new_pos = [robot_pos[0] + 1, robot_pos[1]]
-                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                self.move_robot(matrix, robot_pos, new_pos, door_info)
                 robot_pos = new_pos
             elif keys[pygame.K_LEFT]:
                 new_pos = [robot_pos[0], robot_pos[1] - 1]
-                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                self.move_robot(matrix, robot_pos, new_pos, door_info)
                 robot_pos = new_pos
             elif keys[pygame.K_RIGHT]:
                 new_pos = [robot_pos[0], robot_pos[1] + 1]
-                self.move_robot(matrix, robot_pos, new_pos, doors_info)
+                self.move_robot(matrix, robot_pos, new_pos, door_info)
                 robot_pos = new_pos
 
             for index_i, row in enumerate(matrix):
@@ -107,5 +107,5 @@ class RobotGame:
 
 if __name__ == "__main__":
     game = RobotGame()
-    screen, matrix, doors_info, num_rows, num_columns, images = game.initialize_game()
+    screen, matrix, door_info, num_rows, num_columns, images = game.initialize_game()
     game.run_game()
