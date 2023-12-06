@@ -24,12 +24,11 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def load_images(self):
         #@antonvm2004
         images = {}
-        imagesNames = self.drawAgent("symbols").values()
-        for piece in imagesNames:
-            img_path = f"./software/GridWorldModel/imagenes/{piece}.png"
+        for name, number in self.drawAgent("symbols").items():
+            img_path = f"./images/{name}.png"
             image = pygame.image.load(img_path)
             image = pygame.transform.scale(image, (self.GRID_SIZE, self.GRID_SIZE))
-            images[piece] = image
+            images[number] = image
         self.images = images
 
     def draw_grid(self):
