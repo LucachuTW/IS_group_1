@@ -38,7 +38,10 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
 
         toret = False
-
+        
+        if isinstance(quantity, str):
+            return toret
+        
         if (
             (quantity + model.getDrug(element)) <= model.getCapacity(element)
             and (model.getDrug(element) + quantity) >= 0

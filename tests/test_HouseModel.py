@@ -68,23 +68,6 @@ class testing(unittest.TestCase):
         control.addDrug(tester, 0)
         self.assertEqual(control.getDrug(tester), initialValue)
 
-    def test_addDrugsCorrectly4(self):
-        """
-        Test if no changes are made when adding nothing.
-
-        This method checks if no changes are made to a specified element in the model when adding nothing.
-
-        Contributors:
-            - @antonoterof
-        """
-        control = houseModel.HouseModel()
-        tester = "cabinet"
-        control.setOpenStatus(tester, True)
-        maximun = control.getCapacity(tester)
-        initialValue = control.getDrug(tester)
-        control.addDrug(tester, 0)
-        self.assertEqual(control.getDrug(tester), initialValue)
-
     def test_ChangePosition(self):
         """
         Test if position can be changed correctly.

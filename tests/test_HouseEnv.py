@@ -130,6 +130,37 @@ class testing(unittest.TestCase):
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
         # Empties up the tester without problems
 
+    def test_addDrugs7(self):
+        """
+        Test adding strings to a cabinet.
+
+        This method tests the scenario where a string are added to a cabinet.
+
+        Contributors:
+            - @antonoterof
+        """
+        tester = "cabinet"
+        control = houseModel.HouseModel().getController()
+        control.getModel().setOpenStatus(tester, True)
+        initialValue = control.getModel().getDrug(tester)
+        self.assertEqual(control.checkAddDrug(tester, "String"), False)
+        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+
+    def test_addDrugs8(self):
+        """
+        Test adding strings to a agent (robot).
+
+        This method tests the scenario where a string are added to an agent.
+
+        Contributors:
+            - @antonoterof
+        """
+        tester = "robot"
+        control = houseModel.HouseModel().getController()
+        initialValue = control.getModel().getDrug(tester)
+        self.assertEqual(control.checkAddDrug(tester, "String"), False)
+        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+
     def test_nextToEachOther1(self):
         """
         Test if two agents are next to each other.
