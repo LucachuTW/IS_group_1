@@ -144,6 +144,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             model.addDrug(giver, -quantity)
             toret = True
 
+        self.getView().updateImage()
         return toret
 
     def checkIfShareable(self, element: str) -> bool:
@@ -262,6 +263,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                     model.getPosition(movedCoord[0], movedCoord[1]) / movedSymbol,
                 )
 
+        self.getView().updateImage()
         return toret
 
     def moveOwner(self, direction: str) -> bool:

@@ -1077,6 +1077,27 @@ class testing(unittest.TestCase):
                                 )
                                 self.assertEqual(model.getPosition(0, 0), elementSymbol)
                                 self.assertEqual(model.getPosition(1, 0), movedSymbol)
+
+    def test_moveMultipleTimes(self):
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        mover = "robot"
+        model.getAttributeFromDict(mover, "moving")["auto"] = True
+        moved = mover
+        movedSymbol = model.getAttributeFromDict(moved, "symbol")
+        model.removeValue(mover)
+
+        model.setPosition(0, 0, movedSymbol)
+        coordinates = [1,2,3]
+        for i in coordinates:
+            model.setPosition(i, 0, 0)
+
+        for i in coordinates:
+            self.assertEqual(control.moveTo(mover, moved, i, 0), True)
+            self.assertEqual(model.getPosition(i-1, 0), 0)
+            self.assertEqual(model.getPosition(i, 0), movedSymbol)
+
+
     '''
     def test_moveOwner(self):
         # @antonoterof
