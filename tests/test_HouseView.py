@@ -29,17 +29,17 @@ class testing(unittest.TestCase):
         drawing = view.draw()
         self.assertIsInstance(drawing, list)
 
-    def test_drawWalls(self):
+    def test_drawWall(self):
         """
-        Test the drawAgent method with "walls" parameter.
+        Test the drawAgent method with "wall" parameter.
 
-        This method tests the drawAgent method of the HouseView class with "walls" parameter.
+        This method tests the drawAgent method of the HouseView class with "wall" parameter.
 
         Contributors:
         - @antonvm2004
         """
         view = houseModel.HouseModel().getView()
-        drawing = view.drawAgent("walls")
+        drawing = view.drawAgent("wall")
         self.assertIsInstance(drawing, dict)
 
     def test_drawDoor(self):
@@ -113,11 +113,11 @@ class testing(unittest.TestCase):
         self.assertTrue(any(itemNumber in lista_interna for lista_interna in drawing))
         self.assertTrue(drawing)
 
-    def test_existsWalls(self):
+    def test_existsWall(self):
         """
-        Test if the walls exist in the view.
+        Test if the wall exist in the view.
 
-        This method tests if the walls exist in the view.
+        This method tests if the wall exist in the view.
 
         Contributors:
         - @antonvm2004
