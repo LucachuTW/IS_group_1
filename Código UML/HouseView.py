@@ -3,10 +3,10 @@
 import GridWorldView
 from typing import List
 
+
 class HouseView(GridWorldView):
-	def draw(self):
-		pass
+    def draw(self):
+        pass
 
-	def drawAgent(self):
-		pass
-
+    def drawAgent(self):
+        pass

@@ -14,6 +14,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         - @antonoterof
         - @LucachuTW
     """
+
     def __init__(self) -> None:
         pass
 
@@ -38,10 +39,10 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
 
         toret = False
-        
+
         if isinstance(quantity, str):
             return toret
-        
+
         if (
             (quantity + model.getDrug(element)) <= model.getCapacity(element)
             and (model.getDrug(element) + quantity) >= 0
@@ -295,16 +296,28 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         owner = "owner"
 
         if direction == "up":
-            new_x, new_y = model.getPositionOf(owner)[0] - 1, model.getPositionOf(owner)[1]
+            new_x, new_y = (
+                model.getPositionOf(owner)[0] - 1,
+                model.getPositionOf(owner)[1],
+            )
         elif direction == "down":
-            new_x, new_y = model.getPositionOf(owner)[0] + 1, model.getPositionOf(owner)[1]
+            new_x, new_y = (
+                model.getPositionOf(owner)[0] + 1,
+                model.getPositionOf(owner)[1],
+            )
         elif direction == "left":
-            new_x, new_y = model.getPositionOf(owner)[0], model.getPositionOf(owner)[1] - 1
+            new_x, new_y = (
+                model.getPositionOf(owner)[0],
+                model.getPositionOf(owner)[1] - 1,
+            )
         elif direction == "right":
-            new_x, new_y = model.getPositionOf(owner)[0], model.getPositionOf(owner)[1] + 1
+            new_x, new_y = (
+                model.getPositionOf(owner)[0],
+                model.getPositionOf(owner)[1] + 1,
+            )
         else:
-            return False  
-        
+            return False
+
         # Check if the owner can move to the new coordinates
         if not self.canOwnerMoveTo([new_x, new_y]):
             return False
@@ -312,8 +325,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         # Devuelve true si se puede realizar el movimiento
         return True
 
-
-       
     def canOwnerMoveTo(self, location: List[int]) -> bool:
         """
         Check if the owner can move to the specified position
@@ -333,9 +344,11 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         # Lógica para verificar su en la ubicación hay una puerta
         # Abrir la puerta return True
 
-
         # Lógica para verificar si la ubicación está bloqueada por un muro
-        if model.getPosition(location[0], location[1]) == model.getAttribute("symbols")["wall"]:
+        if (
+            model.getPosition(location[0], location[1])
+            == model.getAttribute("symbols")["wall"]
+        ):
             return False
 
         return True

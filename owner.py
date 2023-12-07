@@ -1,12 +1,11 @@
 from typing import Any
 
 
-class Owner():
+class Owner:
     def __init__(self, controller: Any, viewer: Any) -> None:
         self.view = viewer
         self.controller = controller
         self.data = viewer.drawAgent("owner")
-
 
     def getController(self) -> Any:
         """

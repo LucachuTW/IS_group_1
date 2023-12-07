@@ -2,13 +2,14 @@ import AbstractHouseView
 import pygame
 import sys
 
+
 class HouseView(AbstractHouseView.AbstractHouseView):
     def __init__(self):
-        #@antonvm2004
+        # @antonvm2004
         # @SantiagoRR2004
 
         self.pygameNotReady = True
-    
+
     def draw(self):
         # @antonoterof
         # Modified by @SantiagoRR2004
@@ -22,7 +23,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         return model.getAttribute(object)
 
     def load_images(self):
-        #@antonvm2004
+        # @antonvm2004
         images = {}
         for name, number in self.drawAgent("symbols").items():
             img_path = f"./images/{name}.png"
@@ -32,25 +33,32 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         self.images = images
 
     def draw_grid(self):
-        #@antonvm2004
+        # @antonvm2004
         # @SantiagoRR2004
 
         for x in range(0, self.num_columns * self.GRID_SIZE, self.GRID_SIZE):
-            pygame.draw.line(self.screen, self.BLACK, (x, 0), (x, self.num_rows * self.GRID_SIZE))
+            pygame.draw.line(
+                self.screen, self.BLACK, (x, 0), (x, self.num_rows * self.GRID_SIZE)
+            )
         for y in range(0, self.num_rows * self.GRID_SIZE, self.GRID_SIZE):
-            pygame.draw.line(self.screen, self.BLACK, (0, y), (self.num_columns * self.GRID_SIZE, y))
+            pygame.draw.line(
+                self.screen, self.BLACK, (0, y), (self.num_columns * self.GRID_SIZE, y)
+            )
 
     def draw_pieces(self, matrix):
-        #@antonvm2004
+        # @antonvm2004
         # @SantiagoRR2004
 
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
                 if piece != 0:
-                    self.screen.blit(self.images.get(piece, self.images[2]), (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE))
+                    self.screen.blit(
+                        self.images.get(piece, self.images[2]),
+                        (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE),
+                    )
 
     def move_robot(self, matrix, from_pos, to_pos):
-        #@antonvm2004
+        # @antonvm2004
 
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
@@ -68,7 +76,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     matrix[from_pos[0]][from_pos[1]] = current_piece
 
     def preparePygame(self):
-        #@antonvm2004
+        # @antonvm2004
         # @SantiagoRR2004
 
         pygame.init()
@@ -79,7 +87,6 @@ class HouseView(AbstractHouseView.AbstractHouseView):
 
         # Grid size
         self.GRID_SIZE = 50
-
 
         matrix = self.draw()
 
@@ -99,7 +106,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         self.load_images()
 
     def showImage(self):
-        #@antonvm2004
+        # @antonvm2004
         # @SantiagoRR2004
 
         robot_pos = [10, 11]  # Initial robot position
@@ -109,17 +116,25 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                 pygame.quit()
                 sys.exit()
 
-
         matrix = self.draw()
 
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
-                pygame.draw.rect(self.screen, self.WHITE, (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE, self.GRID_SIZE, self.GRID_SIZE))
+                pygame.draw.rect(
+                    self.screen,
+                    self.WHITE,
+                    (
+                        index_j * self.GRID_SIZE,
+                        index_i * self.GRID_SIZE,
+                        self.GRID_SIZE,
+                        self.GRID_SIZE,
+                    ),
+                )
 
         self.draw_grid()
         self.draw_pieces(matrix)
         pygame.display.flip()
-        #pygame.time.Clock().tick(10)
+        # pygame.time.Clock().tick(10)
 
     def updateImage(self):
         if self.pygameNotReady:

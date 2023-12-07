@@ -1,12 +1,11 @@
 from typing import Any
 
 
-class Robot():
+class Robot:
     def __init__(self, controller: Any, viewer: Any) -> None:
         self.view = viewer
         self.controller = controller
         self.data = viewer.drawAgent("robot")
-
 
     def getController(self) -> Any:
         """

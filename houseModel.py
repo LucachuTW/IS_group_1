@@ -5,6 +5,7 @@ import houseView
 import atexit
 from typing import List
 
+
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def __init__(self):
         """
@@ -21,7 +22,6 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @Ventupentu
         """
         self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
-
 
         with open("environment.json", "r") as file:
             data = json.load(file)
@@ -107,13 +107,13 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getCapacity(self, object):
         """
         Gets the capacity of the object.
-        
+
         Args:
         - object: The object to get the capacity from.
-        
+
         Returns:
         - The capacity of the object.
-        
+
         Contributors:
             - @Ventupentu
             - @SantiagoRR2004
@@ -135,7 +135,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
         Contributors:
             - @SantiagoRR2004
-            - @antonvm2004        
+            - @antonvm2004
         """
         value = self.getPosition(originX, originY)
         self.setPosition(originX, originY, "0")
@@ -259,7 +259,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @antonoterof
         """
         return self.getAttributeFromDict(object, "semisolid")
-        
+
     def saveToFile(self):
         """
         Save the current state of the HouseModel to a file.
@@ -271,7 +271,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             None
 
         """
-        extraItems = ["grid","symbols", "notElements"]
+        extraItems = ["grid", "symbols", "notElements"]
         saveData = {}
 
         for item in extraItems:
@@ -299,14 +299,14 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         for door in self.getAttributeFromDict("door", "subset"):
             if door["location"] == doorLocation:
                 return door["open"]
-            
+
     def openDoor(self, doorLocation):
         """
         Open a door at the specified location.
 
         Args:
             doorLocation (List[int]): The [x, y] coordinates of the door.
-        
+
         Contributors:
             - @antonoterof
         """
@@ -331,9 +331,3 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                 if self.getDoorStatus(doorLocation) == True:
                     door["open"] = False
                 break
-
-        
-
-
-
-

@@ -255,7 +255,7 @@ class testing(unittest.TestCase):
                 for element in inner_list
             )
         )
-    
+
     def test_doorStatus1(self):
         """
         This method tests if the door can be opened and closed without problems
@@ -270,7 +270,7 @@ class testing(unittest.TestCase):
         self.assertTrue(model.getDoorStatus(locationDoor) == True)
         model.closeDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == False)
-        
+
     def test_doorStatus2(self):
         """
         This method tests if you want to open a door that is already open, that nothing happens
@@ -286,7 +286,7 @@ class testing(unittest.TestCase):
         self.assertTrue(model.getDoorStatus(locationDoor) == True)
         model.closeDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == False)
-             
+
     def test_doorStatus3(self):
         """
         This method tests if you want to close a door that is already close, that nothing happens
@@ -301,4 +301,3 @@ class testing(unittest.TestCase):
         model.closeDoor(locationDoor)
         model.closeDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == False)
-            
