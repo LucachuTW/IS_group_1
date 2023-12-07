@@ -777,8 +777,13 @@ class testing(unittest.TestCase):
         self.assertEqual(control.checkIfMovableTo(0, 0), False)
 
     def test_moveTo1(self):
-        # @SantiagoRR2004
-        # No problem
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (1,0) without problems.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -796,8 +801,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), moverSymbol)
 
     def test_moveTo2(self):
-        # @SantiagoRR2004
-        # No problem if it tries to move to the same position
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (1,0) because the object that is in that position is semisolid and no openable.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -817,8 +827,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), moverSymbol)
 
     def test_moveTo3(self):
-        # @SantiagoRR2004
-        # No problem
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (0,1) without problems.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -836,8 +851,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 1), moverSymbol)
 
     def test_moveTo4(self):
-        # @SantiagoRR2004
-        # No problem
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (0,0) without problems.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -855,8 +875,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
 
     def test_moveTo5(self):
-        # @SantiagoRR2004
-        # No problem
+        """
+        It is ensure that the method works correctly.
+        The agent can be returned to position (0,0) without problems.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -874,8 +899,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 0), moverSymbol)
 
     def test_moveTo6(self):
-        # @SantiagoRR2004
-        # Can't move diagonally
+        """
+        It is ensure that the method works correctly.
+        The agent can not move diagonally.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -893,8 +923,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 1), 0)
 
     def test_moveTo7(self):
-        # @SantiagoRR2004
-        # Can't move too far away
+        """
+        It is ensure that the method works correctly.
+        The agent can not move to far away.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -912,8 +947,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(2, 2), 0)
 
     def test_moveTo8(self):
-        # @SantiagoRR2004
-        # Object can't move itself
+        """
+        It is ensure that the method works correctly.
+        The agent can not move itself.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -931,9 +971,14 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), 0)
 
     def test_moveTo9(self):
-        # @SantiagoRR2004
-        # Can't move to occupied by 2 others
-        # Fixed by @Ventupentu line 717 (Changed 0 by 6)
+        """
+        It is ensure that the method works correctly.
+        The agent can not move to position that is occupied by 2 other objects.
+
+        Contributors:
+            - @SantiagoRR2004
+            - @Ventupentu
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -951,8 +996,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(1, 0), 6)
 
     def test_moveTo10(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+        The agent can move the object without problems.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
@@ -977,8 +1027,13 @@ class testing(unittest.TestCase):
         self.assertEqual(model.getPosition(0, 1), moverSymbol)
 
     def test_moveTo11(self):
-        # @SantiagoRR2004
-        # Mover and moved need to be adjacent
+        """
+        It is ensure that the method works correctly.
+        The agent can not move the object because mover and moved need to be adjacent.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         mover = "robot"
