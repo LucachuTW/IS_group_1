@@ -662,24 +662,39 @@ class testing(unittest.TestCase):
                 self.assertEqual(control.checkIfShareable(element), False)
 
     def test_checkIfMovableTo1(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+        The agent can move to the position (0,0) because it is empty.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.setPosition(0, 0, 0)
         self.assertEqual(control.checkIfMovableTo(0, 0), True)
 
     def test_checkIfMovableTo2(self):
-        # @SantiagoRR2004
-        # Number is prime
+        """
+        It is ensure that the method works correctly.
+        The agent cannot move to position (0,0) because a prime number is formed
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         model.setPosition(0, 0, 6)
         self.assertEqual(control.checkIfMovableTo(0, 0), False)
 
     def test_checkIfMovableTo3(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (0,0) because object is semisolid, openable and it is open.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -694,8 +709,13 @@ class testing(unittest.TestCase):
         self.assertEqual(control.checkIfMovableTo(0, 0), True)
 
     def test_checkIfMovableTo4(self):
-        # @SantiagoRR2004
-        # No problems
+        """
+        It is ensure that the method works correctly.
+        The agent can move to position (0,0) because object is semisolid, and no openable .
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -712,8 +732,13 @@ class testing(unittest.TestCase):
             self.assertEqual(control.checkIfMovableTo(0, 0), True)
 
     def test_checkIfMovableTo5(self):
-        # @SantiagoRR2004
-        # Object isn't semisolid
+        """
+        It is ensure that the method works correctly.
+        The agent can not move to position (0,0) because object is not semisolid.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
@@ -731,8 +756,13 @@ class testing(unittest.TestCase):
                 self.assertEqual(control.checkIfMovableTo(0, 0), False)
 
     def test_checkIfMovableTo6(self):
-        # @SantiagoRR2004
-        # Object isn't open
+        """
+        It is ensure that the method works correctly.
+        The agent can not move to position (0,0) because object is semisolid, openable and it is no open.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         control = houseModel.HouseModel().getController()
         model = control.getModel()
         element = "cabinet"
