@@ -5,6 +5,7 @@ import threading
 
 class AbstractUser(ABC):
     requiredData = {}
+    exitNegativeFlag = True
 
     def __init__(self, controller: Any, viewer: Any) -> None:
         self.view = viewer
@@ -94,16 +95,25 @@ class AbstractUser(ABC):
                 if not isinstance(type(self.data[key]), value["type"]):
                     self.data[key] = value["default"]
 
-        self.data = {
-            key: value for key, value in self.data.items() if key in self.requiredData
-        }
+        keys = list(self.data.keys()).copy()
+
+        for key in keys:
+            if key not in self.requiredData:
+                del self.data[key]
 
     def setUpThreading(self) -> None:
         threads = self.getThreads()
+        self.threads = []
         for th in threads:
-            threading.Thread(target=th).start()
+            self.threads.append(threading.Thread(target=th))
+            self.threads[-1].start()
 
-    @abstractmethod
+    def delteteThreads(self) -> None:
+        self.exitNegativeFlag = False
+        for th in self.threads:
+            if th != threading.current_thread():
+                th.join()
+
     def getThreads(self) -> List:
         """
         BLA BLA BLA BLA
@@ -111,4 +121,7 @@ class AbstractUser(ABC):
         Contributors:
             - @SantiagoRR2004
         """
-        pass
+        return []
+
+    def __del__(self):
+        self.delteteThreads()
