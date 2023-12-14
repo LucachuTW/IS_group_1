@@ -301,3 +301,82 @@ class testing(unittest.TestCase):
         model.closeDoor(locationDoor)
         model.closeDoor(locationDoor)
         self.assertTrue(model.getDoorStatus(locationDoor) == False)
+
+    def test_checkNoNegativeOrDecimalValuesInGrid(self):
+        """
+        Test if there are no negative or decimal values in the grid.
+
+        This method tests if all the elements in the grid of the model are non-negative and non-decimal.
+
+        Contributors:
+            - @LucachuTW
+        """
+        model = houseModel.HouseModel()
+        grid = model.getAttribute("grid")
+
+        self.assertTrue(
+            all(
+                isinstance(element, int) and element >= 0
+                for inner_list in grid
+                for element in inner_list
+            ), "Grid should not contain negative or decimal values"
+    )
+
+    def test_checkNumberDrugsIsNotNegative(self):
+        """
+        Test if the number of drugs is not negative for all elements.
+
+        This method tests if the number of drugs in each element of the model is non-negative.
+
+        Contributors:
+            - @LucachuTW
+        """
+        model = houseModel.HouseModel()
+        elements = model.getAttribute("symbols").keys()
+
+        for element in elements:
+            element_attributes = model.getAttribute(element)
+            if "numberDrugs" in element_attributes:
+                number_drugs = element_attributes["numberDrugs"]
+                self.assertTrue(
+                    isinstance(number_drugs, int) and number_drugs >= 0,
+                    f"Number of drugs for {element} should not be negative nor decimal"
+                )
+
+
+
+    def test_checkRobotMaxCapacityIsNotNegative(self):
+        """
+        Test if the max capacity of the robot is not negative.
+
+        This method tests if the max capacity of the robot in the model is non-negative.
+
+        Contributors:
+            - @LucachuTW
+        """
+        model = houseModel.HouseModel()
+        robot_attributes = model.getAttribute("robot")
+        if "maxCapacity" in robot_attributes:
+            max_capacity = robot_attributes["maxCapacity"]
+            self.assertTrue(
+                isinstance(max_capacity, int) and max_capacity >= 0,
+                "Max capacity of the robot should not be negative nor decimal"
+        )
+
+    def test_checkRobotSymbolIsNotNegative(self):
+        """
+        Test if the symbol of the robot is not negative.
+
+        This method tests if the symbol of the robot in the model is non-negative.
+
+        Contributors:
+            - @LucachuTW
+        """
+        model = houseModel.HouseModel()
+        robot_attributes = model.getAttribute("robot")
+        if "symbol" in robot_attributes:
+            symbol = robot_attributes["symbol"]
+            self.assertTrue(
+                isinstance(symbol, int) and symbol >= 0,
+                "Symbol of the robot should not be negative nor decimal"
+            )
