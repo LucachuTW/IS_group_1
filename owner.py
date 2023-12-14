@@ -53,13 +53,6 @@ class Owner(AbstractUser):
         while self.exitNegativeFlag:
             self.context.doSomething()
 
-    @property
-    def getContext(self) -> Context:
-        return self.context
-
-    def setContext(self, context: Context) -> None:
-        self.context = context
-
     def stateOfEmergency(self) -> bool:
         toret = False
         if self.data["health"] < 100:

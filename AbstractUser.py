@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, List
 import threading
+from Context import Context
 
 
 class AbstractUser(ABC):
@@ -45,6 +46,13 @@ class AbstractUser(ABC):
             - @SantiagoRR2004
         """
         return self.view
+
+    @property
+    def getContext(self) -> Context:
+        return self.context
+
+    def setContext(self, context: Context) -> None:
+        self.context = context
 
     @abstractmethod
     def setup(self) -> None:
@@ -108,7 +116,7 @@ class AbstractUser(ABC):
             self.threads.append(threading.Thread(target=th))
             self.threads[-1].start()
 
-    def delteteThreads(self) -> None:
+    def deleteThreads(self) -> None:
         self.exitNegativeFlag = False
         for th in self.threads:
             if th != threading.current_thread():
@@ -124,4 +132,4 @@ class AbstractUser(ABC):
         return []
 
     def __del__(self):
-        self.delteteThreads()
+        self.deleteThreads()
