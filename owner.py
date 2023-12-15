@@ -20,20 +20,21 @@ class Owner(AbstractUser):
         "health": {"type": float, "default": 100},
     }
 
-    def setup(self):
+    def setup(self) -> None:
         self.setContext(Context(NormalOwner))
         self.data = self.getView().drawAgent("owner")
+        self.setPosition()
 
     def getThreads(self) -> List:
         return [self.changePulse, self.checkForDeath, self.changeState, self.startMain]
 
-    def changePulse(self):
+    def changePulse(self) -> None:
         while self.exitNegativeFlag:
             self.data["pulse"] += random.uniform(-0.1, 0.1)
             if self.data["pulse"] <= 20 or self.data["pulse"] >= 120:
                 self.data["health"] -= 0.01
 
-    def checkForDeath(self):
+    def checkForDeath(self) -> None:
         while self.exitNegativeFlag:
             if self.data["health"] <= 100:
                 self.data["health"] += 0.005
@@ -42,7 +43,7 @@ class Owner(AbstractUser):
                 print("Owner has died")
                 self.__del__()
 
-    def changeState(self):
+    def changeState(self) -> None:
         while self.exitNegativeFlag:
             if self.stateOfEmergency:
                 self.context.transition_to(EmergencyOwner)

@@ -7,7 +7,7 @@ from typing import List
 
 
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the HouseModel class.
 
@@ -36,7 +36,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
         atexit.register(self.saveToFile)
 
-    def addDrug(self, object, quantity):
+    def addDrug(self, object: str, quantity: int) -> None:
         """
         Adds a drug to the object.
 
@@ -53,7 +53,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         self.modifyNumericalAttributeFromDict(object, "numberDrugs", quantity)
 
-    def getDrug(self, object):
+    def getDrug(self, object: str) -> int:
         """
         Gets the drug from the object.
 
@@ -69,7 +69,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "numberDrugs")
 
-    def getOpenStatus(self, object):
+    def getOpenStatus(self, object: str) -> bool:
         """
         Gets the open status of the object.
 
@@ -86,7 +86,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "open")
 
-    def setOpenStatus(self, object, status):
+    def setOpenStatus(self, object: str, status: bool) -> None:
         """
         Sets the open status of the object.
 
@@ -104,7 +104,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         self.setAttributeFromDict(object, "open", status)
 
-    def getCapacity(self, object):
+    def getCapacity(self, object: str) -> int:
         """
         Gets the capacity of the object.
 
@@ -120,7 +120,9 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "maxCapacity")
 
-    def changePosition(self, originX, originY, destinationX, destinationY):
+    def changePosition(
+        self, originX: int, originY: int, destinationX: int, destinationY: int
+    ) -> None:
         """
         Changes the position of the object.
 
@@ -141,7 +143,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         self.setPosition(originX, originY, "0")
         self.setPosition(destinationX, destinationY, value)
 
-    def getPosition(self, x, y):
+    def getPosition(self, x: int, y: int) -> int:
         """
         Get the position at coordinates (x, y) in the grid.
 
@@ -157,7 +159,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.grid[x][y]
 
-    def setPosition(self, x, y, value):
+    def setPosition(self, x: int, y: int, value: int) -> None:
         """
         Set the position at coordinates (x, y) in the grid.
 
@@ -174,7 +176,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         self.grid[x][y] = value
 
-    def removeValue(self, value):
+    def removeValue(self, value: str) -> None:
         """
         Remove the specified value from the grid.
 
@@ -195,7 +197,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                     self.getAttributeFromDict("grid", file)[index] = 0
                     break
 
-    def getPositionOf(self, value):
+    def getPositionOf(self, value: str):
         """
         Get the position of the specified value in the grid.
 
@@ -230,7 +232,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                 break
         return position
 
-    def getOpenableStatus(self, object):
+    def getOpenableStatus(self, object: str):
         """
         Get the openable status of the object.
 
@@ -245,7 +247,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "openable")
 
-    def getSemisolidStatus(self, object):
+    def getSemisolidStatus(self, object: str):
         """
         Get the semisolid status of the object.
 
@@ -260,7 +262,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "semisolid")
 
-    def saveToFile(self):
+    def saveToFile(self) -> None:
         """
         Save the current state of the HouseModel to a file.
 
@@ -283,7 +285,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         with open("environment.json", "w") as file:
             json.dump(saveData, file)
 
-    def getDoorStatus(self, doorLocation):
+    def getDoorStatus(self, doorLocation: List[int]) -> bool:
         """
         Get the status of the door.
 
@@ -300,7 +302,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             if door["location"] == doorLocation:
                 return door["open"]
 
-    def openDoor(self, doorLocation):
+    def openDoor(self, doorLocation: List[int]) -> None:
         """
         Open a door at the specified location.
 
@@ -316,7 +318,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
                     door["open"] = True
                 break
 
-    def closeDoor(self, doorLocation):
+    def closeDoor(self, doorLocation: List[int]) -> None:
         """
         Close a door at the specified location.
 
