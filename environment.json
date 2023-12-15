@@ -437,7 +437,7 @@
     },
     "armchair": { 
         "unique": true,
-        "symbol": 12,
+        "symbol": 1,
         "openable": false,
         "semisolid": false,
         "moving": {
