@@ -54,9 +54,6 @@ class AbstractUser(ABC):
     def setContext(self, context: Context) -> None:
         self.context = context
 
-    def setPosition(self) -> None:
-        pass
-
     @abstractmethod
     def setup(self) -> None:
         """
@@ -134,5 +131,5 @@ class AbstractUser(ABC):
         """
         return []
 
-    def __del__(self) -> None:
+    def __del__(self):
         self.deleteThreads()

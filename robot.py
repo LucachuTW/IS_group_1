@@ -18,15 +18,14 @@ class Robot(AbstractUser):
         },
     }
 
-    def setup(self) -> None:
+    def setup(self):
         self.setContext(Context(NormalRobot))
         self.data = self.getView().drawAgent("robot")
-        self.setPosition()
 
     def getThreads(self) -> List:
         return [self.changeState, self.startMain, self.checkForDeath]
 
-    def changeState(self) -> None:
+    def changeState(self):
         while self.exitNegativeFlag:
             if self.stateOfEmergency:
                 self.context.transition_to(EmergencyRobot)
@@ -41,7 +40,7 @@ class Robot(AbstractUser):
         while self.exitNegativeFlag:
             self.context.doSomething()
 
-    def checkForDeath(self) -> None:
+    def checkForDeath(self):
         while self.exitNegativeFlag:
             # Need to improve this
             # We might need to link a robot and his owner(s)
