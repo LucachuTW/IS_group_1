@@ -40,12 +40,11 @@ class Owner(AbstractUser):
                 self.data["health"] += 0.005
             if self.data["health"] <= 0:
                 self.data["health"] = 100
-                print("Owner has died")
-                self.__del__()
+                self.handleDeath()
 
     def changeState(self) -> None:
         while self.exitNegativeFlag:
-            if self.stateOfEmergency:
+            if self.stateOfEmergency():
                 self.context.transition_to(EmergencyOwner)
             else:
                 self.context.transition_to(NormalOwner)
@@ -55,10 +54,12 @@ class Owner(AbstractUser):
             self.context.doSomething()
 
     def stateOfEmergency(self) -> bool:
-        toret = False
-        if self.data["health"] < 100:
-            toret = True
-        return toret
+        return self.data["health"] < 100
+    
+    def handleDeath(self) -> None:
+        print("Owner has died")
+        self.__del__()
+
 
 
 class NormalOwner(Owner):
