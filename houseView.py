@@ -5,20 +5,55 @@ import sys
 
 class HouseView(AbstractHouseView.AbstractHouseView):
     def __init__(self):
-        # @antonvm2004
-        # @SantiagoRR2004
+        """
+        Initializes the HouseModel class.
+
+        Args:
+        - None
+
+        Returns:
+        - None
+
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004
+        """
 
         self.pygameNotReady = True
 
     def draw(self):
-        # @antonoterof
-        # Modified by @SantiagoRR2004
+        """
+        Draw the house.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+
+        Contributors:
+            - @antonoterof
+            - @SantiagoRR2004
+        
+        """
         model = self.getModel()
         return model.getAttribute("grid")
 
     def drawAgent(self, object):
-        # @antonoterof
-        # Modified by @SantiagoRR2004
+        """
+        Draw the agent.
+
+        Args:
+        - None
+
+        Returns:
+        - None
+
+        Contributors:
+            - @antonoterof
+            - @SantiagoRR2004
+
+        """
         model = self.getModel()
         return model.getAttribute(object)
 
@@ -33,9 +68,20 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         self.images = images
 
     def draw_grid(self):
-        # @antonvm2004
-        # @SantiagoRR2004
-
+        """
+        Draw the grid.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004
+        """
+        
         for x in range(0, self.num_columns * self.GRID_SIZE, self.GRID_SIZE):
             pygame.draw.line(
                 self.screen, self.BLACK, (x, 0), (x, self.num_rows * self.GRID_SIZE)
@@ -46,8 +92,19 @@ class HouseView(AbstractHouseView.AbstractHouseView):
             )
 
     def draw_pieces(self, matrix):
-        # @antonvm2004
-        # @SantiagoRR2004
+        """
+        Draw the pieces.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004
+        """
 
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
@@ -58,8 +115,19 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     )
 
     def move_robot(self, matrix, from_pos, to_pos):
-        # @antonvm2004
+        """
+        Move the robot.
 
+        Args:
+        - None
+
+        Returns:
+        - None
+
+        Contributors:
+            - @antonvm2004
+        """
+        
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
         if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
@@ -76,9 +144,20 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     matrix[from_pos[0]][from_pos[1]] = current_piece
 
     def preparePygame(self):
-        # @antonvm2004
-        # @SantiagoRR2004
-
+        """
+        Prepare pygame.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004
+        """
+        
         pygame.init()
 
         # Define colors
@@ -106,8 +185,18 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         self.load_images()
 
     def showImage(self):
-        # @antonvm2004
-        # @SantiagoRR2004
+        """
+        Show the image.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004"""
 
         robot_pos = [10, 11]  # Initial robot position
 
@@ -137,6 +226,18 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         # pygame.time.Clock().tick(10)
 
     def updateImage(self):
+        """
+        Update the image.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        
+        Contributors:
+            - @antonvm2004
+            - @SantiagoRR2004w"""
         if self.pygameNotReady:
             self.preparePygame()
             self.pygameNotReady = False
