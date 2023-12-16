@@ -9,6 +9,7 @@ def createHouse():
     viewer = model.getView()
     owner1 = owner.Owner(controller, viewer)
     robot1 = robot.Robot(controller, viewer)
+    return [model, controller, viewer, owner1, robot1]
 
 
 if __name__ == "__main__":
