@@ -319,8 +319,9 @@ class testing(unittest.TestCase):
                 isinstance(element, int) and element >= 0
                 for inner_list in grid
                 for element in inner_list
-            ), "Grid should not contain negative or decimal values"
-    )
+            ),
+            "Grid should not contain negative or decimal values",
+        )
 
     def test_checkNumberDrugsIsNotNegative(self):
         """
@@ -340,10 +341,8 @@ class testing(unittest.TestCase):
                 number_drugs = element_attributes["numberDrugs"]
                 self.assertTrue(
                     isinstance(number_drugs, int) and number_drugs >= 0,
-                    f"Number of drugs for {element} should not be negative nor decimal"
+                    f"Number of drugs for {element} should not be negative nor decimal",
                 )
-
-
 
     def test_checkRobotMaxCapacityIsNotNegative(self):
         """
@@ -360,8 +359,8 @@ class testing(unittest.TestCase):
             max_capacity = robot_attributes["maxCapacity"]
             self.assertTrue(
                 isinstance(max_capacity, int) and max_capacity >= 0,
-                "Max capacity of the robot should not be negative nor decimal"
-        )
+                "Max capacity of the robot should not be negative nor decimal",
+            )
 
     def test_checkRobotSymbolIsNotNegative(self):
         """
@@ -378,5 +377,5 @@ class testing(unittest.TestCase):
             symbol = robot_attributes["symbol"]
             self.assertTrue(
                 isinstance(symbol, int) and symbol >= 0,
-                "Symbol of the robot should not be negative nor decimal"
+                "Symbol of the robot should not be negative nor decimal",
             )
