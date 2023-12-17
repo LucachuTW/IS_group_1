@@ -45,7 +45,7 @@ class Owner(AbstractUser):
 
     def changeState(self) -> None:
         while self.exitNegativeFlag:
-            if self.stateOfEmergency:
+            if self.stateOfEmergency():
                 self.context.transition_to(EmergencyOwner)
             else:
                 self.context.transition_to(NormalOwner)
