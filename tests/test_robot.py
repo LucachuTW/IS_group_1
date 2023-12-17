@@ -70,6 +70,43 @@ class testNormalRobot(destroyer, unittest.TestCase):
         owner.context.transition_to(NormalOwner)
         self.assertIsInstance(robot.context._state, NormalRobot)
 
+    def test_fillUp(self):
+        """
+        Test that the robot fills up on drugs
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(NormalOwner)
+        robot.context._state.fillUp()
+
+    def test_stayClose(self):
+        """
+        Test that the robot stays close to the owner
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(NormalOwner)
+        robot.context._state.stayClose()
+
+    def test_giveDrugs(self):
+        """
+        Test that the robot doesn't give medicine to the owner if he is fine
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(NormalOwner)
+        with self.assertRaises(AttributeError):
+            robot.context._state.giveDrugs()
+
 
 class testEmergencyRobot(destroyer, unittest.TestCase):
     def test_transition_to(self):
@@ -83,3 +120,40 @@ class testEmergencyRobot(destroyer, unittest.TestCase):
         robot = self.items[4]
         owner.context.transition_to(EmergencyOwner)
         self.assertIsInstance(robot.context._state, EmergencyRobot)
+
+    def test_stayClose(self):
+        """
+        Test that the robot doesn't stay close to the owner
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(EmergencyOwner)
+        with self.assertRaises(AttributeError):
+            robot.context._state.stayClose()
+
+    def test_moveToOwner(self):
+        """
+        Test that the robot goes to help the owner
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(EmergencyOwner)
+        robot.context._state.moveToOwner()
+
+    def test_giveDrugs(self):
+        """
+        Test that the robot gives medicine to the owner
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        owner = self.items[3]
+        robot = self.items[4]
+        owner.context.transition_to(EmergencyOwner)
+        robot.context._state.giveDrugs()
