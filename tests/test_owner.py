@@ -55,6 +55,44 @@ class testOwner(destroyer, unittest.TestCase):
         self.assertTrue(owner.data)
         self.assertIsInstance(owner.data, dict)
 
+    def setUp(self):
+        self.controller = Mock()
+        self.viewer = Mock()
+        self.owner = Owner(self.controller, self.viewer)
+
+    def test_setup(self):
+        self.owner.setup()
+        self.viewer.drawAgent.assert_called_with("owner")
+        self.assertIsNotNone(self.owner.data)
+
+    def test_getThreads(self):
+        threads = self.owner.getThreads()
+        self.assertEqual(len(threads), 4)
+
+    def test_changePulse(self):
+        self.owner.exitNegativeFlag = False
+        self.owner.changePulse()
+        self.assertTrue(20 <= self.owner.data["pulse"] <= 120)
+
+    def test_checkForDeath(self):
+        self.owner.exitNegativeFlag = False
+        self.owner.data["health"] = 0
+        self.owner.checkForDeath()
+        self.assertEqual(self.owner.data["health"], 100)
+
+    def test_changeState(self):
+        self.owner.exitNegativeFlag = False
+        self.owner.stateOfEmergency = True
+        self.owner.changeState()
+        self.assertIsInstance(self.owner.context, EmergencyOwner)
+
+    def test_stateOfEmergency(self):
+        self.owner.data["health"] = 50
+        self.assertTrue(self.owner.stateOfEmergency())
+
+if __name__ == "__main__":
+    unittest.main()
+
 
 class testNormalOwner(destroyer, unittest.TestCase):
     def test_transition_to(self):
