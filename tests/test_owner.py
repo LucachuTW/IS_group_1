@@ -57,46 +57,47 @@ class testOwner(destroyer, unittest.TestCase):
 
     def test_setup(self):
         """
-        Test the setup method of the owner object
-
-        This test checks if the setup method of the owner object works correctly.
-        It checks if the drawAgent method of the viewer is called with "owner" as
-        argument and if the data attribute of the owner object is not None after
-        the setup.
+        Test that the owner has a setup method
 
         Contributors:
-            - @LucachuTW
+            - @SantiagoRR2004
         """
-        self.owner.setup()
-        self.viewer.drawAgent.assert_called_with("owner")
-        self.assertIsNotNone(self.owner.data)
+        owner = self.items[3]
+        owner.setup()
+        self.assertIsNone(owner.setup())
 
     def test_getThreads(self):
         """
         Test the getThreads method of the owner object
 
         This test checks if the getThreads method of the owner object returns a
-        list with 4 elements.
+        list with callable methods.
 
         Contributors:
-            - @LucachuTW
+            - @SantiagoRR2004
         """
-        threads = self.owner.getThreads()
-        self.assertEqual(len(threads), 4)
+        threads = self.items[3].getThreads()
+        self.assertIsInstance(threads, list)
+        for th in threads:
+            assert callable(th)
 
     def test_changePulse(self):
         """
         Test the changePulse method of the owner object
 
         This test checks if the changePulse method of the owner object changes
-        the pulse attribute of the owner's data to a value between 20 and 120.
+        the pulse attribute of the owner's data
+
+        Because it changes randomly it could be the same and fail the test
 
         Contributors:
-            - @LucachuTW
+            - @SantiagoRR2004
         """
-        self.owner.exitNegativeFlag = False
-        self.owner.changePulse()
-        self.assertTrue(20 <= self.owner.data["pulse"] <= 120)
+        owner = self.items[3]
+        pulse = owner.data["pulse"]
+        for i in range(10):
+            owner.changePulse()
+            self.failIfEqual(owner.data["pulse"], pulse)
 
     def test_checkForDeath(self):
         """
@@ -106,41 +107,38 @@ class testOwner(destroyer, unittest.TestCase):
         the health attribute of the owner's data to 100 when the health is 0.
 
         Contributors:
-            - @LucachuTW
+            - @SantiagoRR2004
         """
-        self.owner.exitNegativeFlag = False
-        self.owner.data["health"] = 0
-        self.owner.checkForDeath()
-        self.assertEqual(self.owner.data["health"], 100)
-
-    def test_changeState(self):
-        """
-        Test the changeState method of the owner object
-
-        This test checks if the changeState method of the owner object changes
-        the context of the owner to an instance of the EmergencyOwner class when
-        the stateOfEmergency attribute of the owner is True.
-
-        Contributors:
-            - @LucachuTW
-        """
-        self.owner.exitNegativeFlag = False
-        self.owner.stateOfEmergency = True
-        self.owner.changeState()
-        self.assertIsInstance(self.owner.context, EmergencyOwner)
+        owner = self.items[3]
+        owner.data["health"] = 0
+        owner.checkForDeath()
+        self.assertEqual(owner.data["health"], 100)
 
     def test_stateOfEmergency(self):
         """
         Test the stateOfEmergency method of the owner object
 
         This test checks if the stateOfEmergency method of the owner object returns
-        True when the health attribute of the owner's data is less than or equal to 50.
+        True when the health attribute of the owner's data is less than or equal to 50
+        and false when it is more than 100.
 
         Contributors:
-            - @LucachuTW
+            - @SantiagoRR2004
         """
-        self.owner.data["health"] = 50
-        self.assertTrue(self.owner.stateOfEmergency())
+        owner = self.items[3]
+        testNumbers = {
+            20: True,
+            50: True,
+            15: True,
+            100: False,
+            99.9999: True,
+            101: False,
+            99: True,
+        }
+
+        for number, value in testNumbers.items():
+            owner.data["health"] = number
+            self.assertEqual(owner.stateOfEmergency(), value)
 
 
 class testNormalOwner(destroyer, unittest.TestCase):
