@@ -57,7 +57,7 @@ class Wrapper:
             return getattr(self.owner, name)
         except Exception as e:
             print(f"An exception of type {type(e).__name__} occurred: {e}")
-            raise Exception(e)
+            raise e
 
     def __setattr__(self, name: str, value: Any) -> None:
         """

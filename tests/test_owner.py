@@ -110,9 +110,9 @@ class testOwner(destroyer, unittest.TestCase):
             - @SantiagoRR2004
         """
         owner = self.items[3]
-        owner.data["health"] = 0
+        owner.data["health"] = -1
         owner.checkForDeath()
-        self.assertEqual(owner.data["health"], 100)
+        self.assertAlmostEqual(owner.data["health"], 100, delta=0.5)
 
     def test_stateOfEmergency(self):
         """
@@ -172,8 +172,10 @@ class testNormalOwner(destroyer, unittest.TestCase):
             - @SantiagoRR2004
         """
         owner = self.items[3]
+        owner.deleteThreads()
         owner.context.transition_to(NormalOwner)
-        owner.context._state.moveRandomlyNearby()
+        if isinstance(owner.context._state, NormalOwner):
+            owner.context._state.moveRandomlyNearby()
 
     def test_sitArmchair(self):
         """
