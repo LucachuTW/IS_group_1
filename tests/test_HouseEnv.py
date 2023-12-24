@@ -16,11 +16,12 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         self.assertIsInstance(control, houseEnv.HouseEnv)
 
-    def test_addDrugs1(self):
+    def test_checkAddDrug1(self):
         """
         Test adding drugs to a cabinet when it is not open.
 
-        This method tests the scenario where drugs are added to a cabinet when it is not open.
+        This method tests the scenario where drugs are added to a cabinet when it is
+        not open so it should return False.
 
         Contributors:
             - @SantiagoRR2004
@@ -31,15 +32,16 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, False)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug("cabinet", maximun - initialValue), False)
+        self.assertFalse(control.checkAddDrug("cabinet", maximun - initialValue))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # Fails because it isn't open
 
-    def test_addDrugs2(self):
+    def test_checkAddDrug2(self):
         """
         Test adding drugs to a cabinet when it is open.
 
-        This method tests the scenario where drugs are added to a cabinet when it is open.
+        This method tests the scenario where drugs are added to a
+        cabinet when it is open. No problems arise so it returns True
+        and the number doesn't change.
 
         Contributors:
             - @SantiagoRR2004
@@ -50,15 +52,16 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, maximun - initialValue), True)
+        self.assertTrue(control.checkAddDrug(tester, maximun - initialValue))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # The tester can be filled
 
-    def test_addDrugs3(self):
+    def test_checkAddDrug3(self):
         """
-        Test adding drugs to a cabinet that is overfilled.
+        Test adding drugs to a cabinet to overfill it.
 
-        This method tests the scenario where drugs are added to a cabinet that is already overfilled.
+        This method tests the scenario where drugs are added
+        to a cabinet to overfill it. It returns False and the
+        value stays constant.
 
         Contributors:
             - @SantiagoRR2004
@@ -69,17 +72,15 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(
-            control.checkAddDrug(tester, maximun - initialValue + 1), False
-        )
+        self.assertFalse(control.checkAddDrug(tester, maximun - initialValue + 1))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # Overfills the tester
 
-    def test_addDrugs4(self):
+    def test_checkAddDrug4(self):
         """
-        Test adding negative drugs to a cabinet.
+        Test adding too many negative drugs to a cabinet.
 
-        This method tests the scenario where negative drugs are added to a cabinet.
+        This method tests the scenario where negative drugs are added to a cabinet
+        in excess. It returnd False and the value stays the same.
 
         Contributors:
             - @SantiagoRR2004
@@ -90,15 +91,17 @@ class testing(unittest.TestCase):
         control.getModel().setOpenStatus(tester, True)
         maximun = control.getModel().getCapacity(tester)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, -maximun - 1), False)
+        self.assertFalse(control.checkAddDrug(tester, -maximun - 1))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # Tries to remove too many from tester
 
-    def test_addDrugs5(self):
+    def test_checkAddDrug5(self):
         """
         Test adding drugs to a robot.
 
-        This method tests the scenario where drugs are added to a robot.
+        This method tests the scenario where drugs are added to a robot
+        until it's maxed. This works because the robot can carry
+        drugs. This is a special case because robot doesn't
+        have the attribute open.
 
         Contributors:
             - @SantiagoRR2004
@@ -107,16 +110,17 @@ class testing(unittest.TestCase):
         tester = "robot"
         control = houseModel.HouseModel().getController()
         maximun = control.getModel().getCapacity(tester)
+        control.getModel().getAttribute(tester).pop("open", None)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, maximun - initialValue), True)
+        self.assertTrue(control.checkAddDrug(tester, maximun - initialValue))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # Could fill up the tester that doesn't have attribute open without problems
 
-    def test_addDrugs6(self):
+    def test_checkAddDrug6(self):
         """
         Test removing drugs from a cabinet.
 
-        This method tests the scenario where drugs are removed from a cabinet.
+        This method tests the scenario where drugs are removed from a cabinet
+        until it has cero. It returns True and the value doesn't change.
 
         Contributors:
             - @SantiagoRR2004
@@ -126,15 +130,15 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, -initialValue), True)
+        self.assertTrue(control.checkAddDrug(tester, -initialValue))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
-        # Empties up the tester without problems
 
-    def test_addDrugs7(self):
+    def test_checkAddDrug7(self):
         """
         Test adding strings to a cabinet.
 
-        This method tests the scenario where a string are added to a cabinet.
+        This method tests the scenario where a string is added to a cabinet.
+        The result is False.
 
         Contributors:
             - @antonoterof
@@ -143,14 +147,14 @@ class testing(unittest.TestCase):
         control = houseModel.HouseModel().getController()
         control.getModel().setOpenStatus(tester, True)
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, "String"), False)
+        self.assertFalse(control.checkAddDrug(tester, "String"))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
 
-    def test_addDrugs8(self):
+    def test_checkAddDrug8(self):
         """
         Test adding strings to a agent (robot).
 
-        This method tests the scenario where a string are added to an agent.
+        This method tests the scenario where a string is added to an agent.
 
         Contributors:
             - @antonoterof
@@ -158,14 +162,14 @@ class testing(unittest.TestCase):
         tester = "robot"
         control = houseModel.HouseModel().getController()
         initialValue = control.getModel().getDrug(tester)
-        self.assertEqual(control.checkAddDrug(tester, "String"), False)
+        self.assertFalse(control.checkAddDrug(tester, "String"))
         self.assertEqual(control.getModel().getDrug(tester), initialValue)
 
-    def test_nextToEachOther1(self):
+    def test_areAdjacent1(self):
         """
-        Test if two agents are next to each other.
-
-        This method tests if two agents are next to each other in the house model.
+        This method tests if two agents are next
+        to each other in the house model when one is below
+        at a distance of one unit.
 
         Contributors:
             - @SantiagoRR2004
@@ -180,14 +184,15 @@ class testing(unittest.TestCase):
         model.setPosition(
             0, 1, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
-        # Check that the agents are nearby
+        self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
-    def test_nextToEachOther2(self):
+    def test_areAdjacent2(self):
         """
         Test if two agents are next to each other.
 
-        This method tests if two agents are next to each other in the house model.
+        This method tests if two agents are next to
+        each other in the house model when one is to the right
+        at a distance of one unit.
 
         Contributors:
             - @SantiagoRR2004
@@ -202,14 +207,15 @@ class testing(unittest.TestCase):
         model.setPosition(
             1, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
-        # Check that the agents are nearby
+        self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
-    def test_nextToEachOther3(self):
+    def test_areAdjacent3(self):
         """
         Test if two agents are next to each other.
 
-        This method tests if two agents are next to each other in the house model.
+        This method tests if two agents are next to
+        each other in the house model when one is on top
+        at a distance of one unit.
 
         Contributors:
             - @SantiagoRR2004
@@ -224,14 +230,15 @@ class testing(unittest.TestCase):
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
-        # Check that the agents are nearby
+        self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
-    def test_nextToEachOther4(self):
+    def test_areAdjacent4(self):
         """
         Test if two agents are next to each other.
 
-        This method tests if two agents are next to each other in the house model.
+        This method tests if two agents are next to
+        each other in the house model when one is to the left
+        at a distance of one unit.
 
         Contributors:
             - @SantiagoRR2004
@@ -246,14 +253,13 @@ class testing(unittest.TestCase):
         model.setPosition(
             0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), True)
-        # Check that the agents are nearby
+        self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
-    def test_nextToEachOther5(self):
+    def test_areAdjacent5(self):
         """
-        Test if two agents are not next to each other.
-
-        This method tests if two agents are not next to each other in the house model.
+        This method tests if two agents are
+        diagonally from each other. This means they are not
+        next to each other.
 
         Contributors:
             - @SantiagoRR2004
@@ -268,14 +274,13 @@ class testing(unittest.TestCase):
         model.setPosition(
             1, 1, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
-        # Check that the agents are nearby
+        self.assertFalse(control.areAdjacent("cabinet", "owner"))
 
-    def test_nextToEachOther6(self):
+    def test_areAdjacent6(self):
         """
-        Test if two agents are not next to each other.
-
-        This method tests if two agents are not next to each other in the house model.
+        This method tests if two agents are at a distance
+        of 2 units horizontally. This means they are not
+        next to each other.
 
         Contributors:
             - @SantiagoRR2004
@@ -290,8 +295,92 @@ class testing(unittest.TestCase):
         model.setPosition(
             0, 2, control.getModel().getAttributeFromDict("owner", "symbol")
         )
-        self.assertEqual(control.areAdjacent("cabinet", "owner"), False)
-        # Check that the agents are nearby
+        self.assertFalse(control.areAdjacent("cabinet", "owner"))
+
+    def test_areAdjacent7(self):
+        """
+        This method tests if two agents are next
+        to each other in the house model if one on
+        the other side.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.removeValue("cabinet")
+        model.removeValue("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, -1, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertFalse(control.areAdjacent("cabinet", "owner"))
+
+    def test_areAdjacent8(self):
+        """
+        This method tests if two agents are next
+        to each other in the house model if one on
+        the other side by giving negative coordinates
+        that appear to be one unit away.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.removeValue("cabinet")
+        model.removeValue("owner")
+        model.setPosition(
+            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            0, -1, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertFalse(control.areAdjacent("cabinet", "owner", [0, 0], [0, -1]))
+
+    def test_areAdjacent9(self):
+        """
+        This method tests if two agents are next
+        to each other in the house model if both have negative
+        coordinates but are next to each other.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.removeValue("cabinet")
+        model.removeValue("owner")
+        model.setPosition(
+            -2, -3, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            -2, -2, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertTrue(control.areAdjacent("cabinet", "owner", [-2, -3], [-2, -2]))
+
+    def test_areAdjacent10(self):
+        """
+        This method tests if two agents are next
+        to each other in the house model if both have negative
+        coordinates but are next to each other.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        control = houseModel.HouseModel().getController()
+        model = control.getModel()
+        model.removeValue("cabinet")
+        model.removeValue("owner")
+        model.setPosition(
+            -2, -3, control.getModel().getAttributeFromDict("cabinet", "symbol")
+        )
+        model.setPosition(
+            -2, -2, control.getModel().getAttributeFromDict("owner", "symbol")
+        )
+        self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_transferDrugs1(self):
         """

@@ -119,6 +119,16 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         ):  # This means you are on the same position, 1 horizontally or 1 vertically
             toret = True
 
+        if (position1[0] >= 0 and position2[0] < 0) or (
+            position1[0] < 0 and position2[0] >= 0
+        ):  # Can't interact across the left and right because the matrix isn't a sphere
+            toret = False
+
+        elif (position1[1] >= 0 and position2[1] < 0) or (
+            position1[1] < 0 and position2[1] >= 0
+        ):  # Can't interact across the top and bottom because the matrix isn't a sphere
+            toret = False
+
         return toret
 
     def transferDrugs(
