@@ -2,6 +2,7 @@ from typing import List
 from AbstractUser import AbstractUser
 from Context import Context
 import random
+from wrapper import Wrapper
 
 
 class Robot(AbstractUser):
@@ -19,7 +20,7 @@ class Robot(AbstractUser):
     }
 
     def setup(self) -> None:
-        self.setContext(Context(NormalRobot))
+        self.setContext(Context(NormalRobot, self))
         self.data = self.getView().drawAgent("robot")
         self.setPosition()
 
@@ -50,11 +51,11 @@ class Robot(AbstractUser):
                 self.__del__()
 
 
-class NormalRobot(Robot):
+class NormalRobot(Wrapper, Robot):
     def main(self) -> None:
         pass
 
 
-class EmergencyRobot(Robot):
+class EmergencyRobot(Wrapper, Robot):
     def main(self) -> None:
         pass

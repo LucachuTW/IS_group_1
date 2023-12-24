@@ -8,16 +8,7 @@ class Context:
         - @SantiagoRR2004
     """
 
-    _state = None
-    notFirstTime = False
-    """
-    A reference to the current state of the Context.
-
-    Contributors:
-        - @SantiagoRR2004
-    """
-
-    def __init__(self, state) -> None:
+    def __init__(self, state, user) -> None:
         """
         Initialize the Context instance with the given state.
 
@@ -25,10 +16,13 @@ class Context:
 
         Args:
             - state (State): The initial state.
+            - user (Any): The instance which is using Context.
 
         Contributors:
             - @SantiagoRR2004
         """
+        self._state = None
+        self.user = user
         self.transition_to(state)
 
     def transition_to(self, state):
@@ -43,9 +37,9 @@ class Context:
         Contributors:
             - @SantiagoRR2004
         """
-        if self._state != state:
+        if not isinstance(self._state, state):
             print(f"Context: Transition to {state.__name__}")
-            self._state = state
+            self._state = state(self.user)
             self._state.context = self
 
     def doSomething(self):
@@ -57,4 +51,4 @@ class Context:
         Contributors:
             - @SantiagoRR2004
         """
-        self._state.main(self._state)
+        self._state.main()

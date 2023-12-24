@@ -69,7 +69,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "numberDrugs")
 
-    def getOpenStatus(self, object: str) -> bool:
+    def getOpenStatus(self, object: str, x: int = 0, y: int = 0) -> bool:
         """
         Gets the open status of the object.
 
@@ -84,7 +84,8 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @SantiagoRR2004
             - @LucachuTW
         """
-        return self.getAttributeFromDict(object, "open")
+        if self.getAttributeFromDict(object, "unique"):
+            return self.getAttributeFromDict(object, "open")
 
     def setOpenStatus(self, object: str, status: bool) -> None:
         """

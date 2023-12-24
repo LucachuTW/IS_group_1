@@ -1,7 +1,8 @@
-from typing import List
+from typing import Any, List
 from AbstractUser import AbstractUser
 import random
 from Context import Context
+from wrapper import Wrapper
 
 
 class Owner(AbstractUser):
@@ -21,12 +22,17 @@ class Owner(AbstractUser):
     }
 
     def setup(self) -> None:
-        self.setContext(Context(NormalOwner))
+        self.setContext(Context(NormalOwner, self))
         self.data = self.getView().drawAgent("owner")
         self.setPosition()
 
     def getThreads(self) -> List:
-        return [self.changePulse, self.checkForDeath, self.changeState, self.startMain]
+        return [
+            self.changePulse,
+            self.checkForDeath,
+            self.startMain,
+            self.changeState,
+        ]
 
     def changePulse(self) -> None:
         while self.exitNegativeFlag:
@@ -61,11 +67,19 @@ class Owner(AbstractUser):
         return toret
 
 
-class NormalOwner(Owner):
+class NormalOwner(Wrapper, Owner):
     def main(self) -> None:
-        print(111111111)
+        self.moveRandomlyNearby()
+
+    def moveRandomlyNearby(self) -> None:
+        direction = random.choice([[0, 1], [0, -1], [1, 0], [-1, 0]])
+        if self.getController().moveTo(
+            "owner", "owner", self.x + direction[0], self.y + direction[1]
+        ):
+            self.x += direction[0]
+            self.y += direction[1]
 
 
-class EmergencyOwner(Owner):
+class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
         print(222222222)

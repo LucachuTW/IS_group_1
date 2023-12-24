@@ -55,7 +55,47 @@ class AbstractUser(ABC):
         self.context = context
 
     def setPosition(self) -> None:
-        pass
+        """
+        Finds the position of symbol on the grid and
+        adds it as self.x and self.y
+
+        Returns:
+            None: This method does not return any value.
+
+        Problems:
+            - No way to check if the number is not prime
+            if the symbol is hidden there. This is because
+            prime calculations are in the model and the users
+            have no direct access to the model.
+            - This code is very similar to getPositionOf in houseModel.py,
+            the same function could be used. This could be made if the View is added
+            some functions that transfer the results of methods from the Model. This
+            would also solve the not prime problem.
+            - No solutions if the coordinates are not found
+            Maybe add default positions that are added by the controller?
+            Problem -> Controller should not have this power?
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+
+        grid = self.getView().draw()
+        symbol = self.data["symbol"]
+        found = False
+        rowNumber = 0
+
+        while not found and rowNumber <= len(grid) - 1:
+            columnNumber = 0
+            while not found and columnNumber <= len(grid[rowNumber]) - 1:
+                if grid[rowNumber][columnNumber] == symbol:
+                    self.x = rowNumber
+                    self.y = columnNumber
+                    found = True
+                columnNumber += 1
+            rowNumber += 1
+
+        if not found:
+            raise Exception("Couldn't find coordinates")
 
     @abstractmethod
     def setup(self) -> None:
