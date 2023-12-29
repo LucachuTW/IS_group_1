@@ -2,7 +2,7 @@ import unittest
 import houseModel
 
 
-class testing(unittest.TestCase):
+class testModel(unittest.TestCase):
     def test_addDrug(self):
         """
         Test if the drug can be added.

@@ -3,7 +3,7 @@ import houseView
 import houseModel
 
 
-class testing(unittest.TestCase):
+class testView(unittest.TestCase):
     def test_createsViewer(self):
         """
         Test if the viewer is created.

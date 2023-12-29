@@ -3,7 +3,7 @@ import houseEnv
 import houseModel
 
 
-class testing(unittest.TestCase):
+class testController(unittest.TestCase):
     def test_createsController(self):
         """
         Test if the controller is created.
