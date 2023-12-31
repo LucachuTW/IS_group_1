@@ -7,12 +7,12 @@ from typing import List
 
 
 class HouseModel(AbstractHouseModel.AbstractHouseModel):
-    def __init__(self) -> None:
+    def __init__(self, file: str = "environment.json") -> None:
         """
         Initializes the HouseModel class.
 
         Args:
-        - None
+        - file: It extracts the house from this file
 
         Returns:
         - None
@@ -23,7 +23,25 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
 
-        with open("environment.json", "r") as file:
+        self.saveModelParameters(file)
+
+        atexit.register(self.saveToFile)
+
+    def saveModelParameters(self, file: str) -> None:
+        """
+        Writes house data as parameters.
+
+        Args:
+        - file: It extracts the house data from this file
+
+        Returns:
+        - None
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+
+        with open(file, "r") as file:
             data = json.load(file)
 
         self.grid = [[int(x) for x in row] for row in data["grid"]]
@@ -33,8 +51,6 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         for key, value in data.items():
             if key not in data["notElements"]:
                 self.setAttribute(key, value)
-
-        atexit.register(self.saveToFile)
 
     def addDrug(self, object: str, quantity: int) -> None:
         """
@@ -273,6 +289,8 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         Returns:
             None
 
+        Contributors:
+            - @SantiagoRR2004
         """
         extraItems = ["grid", "symbols", "notElements"]
         saveData = {}
