@@ -1,20 +1,21 @@
 import AbstractHouseView
 import pygame
 import sys
+from typing import Any, List
 
 
 class HouseView(AbstractHouseView.AbstractHouseView):
     pygameNotReady = True
 
-    def draw(self):
+    def draw(self) -> None:
         """
         Draw the house.
 
         Args:
-        - None
+            - None
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonoterof
@@ -24,26 +25,33 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         model = self.getModel()
         return model.getAttribute("grid")
 
-    def drawAgent(self, object):
+    def drawAgent(self, object: Any) -> None:
         """
         Draw the agent.
 
         Args:
-        - None
+            - object (Any): The object to be drawn.
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonoterof
             - @SantiagoRR2004
-
         """
         model = self.getModel()
         return model.getAttribute(object)
 
-    def load_images(self):
-        # @antonvm2004
+    def load_images(self) -> None:
+        """
+        Loads and scales images for the house view.
+
+        Returns:
+            None
+
+        Contributors:
+            - @antonvm2004
+        """
         images = {}
         for name, number in self.drawAgent("symbols").items():
             img_path = f"./images/{name}.png"
@@ -52,21 +60,20 @@ class HouseView(AbstractHouseView.AbstractHouseView):
             images[number] = image
         self.images = images
 
-    def draw_grid(self):
+    def draw_grid(self) -> None:
         """
         Draw the grid.
 
         Args:
-        - None
+            - None
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
         """
-
         for x in range(0, self.num_columns * self.GRID_SIZE, self.GRID_SIZE):
             pygame.draw.line(
                 self.screen, self.BLACK, (x, 0), (x, self.num_rows * self.GRID_SIZE)
@@ -76,21 +83,20 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                 self.screen, self.BLACK, (0, y), (self.num_columns * self.GRID_SIZE, y)
             )
 
-    def draw_pieces(self, matrix):
+    def draw_pieces(self, matrix: List) -> None:
         """
-        Draw the pieces.
+        Draw the pieces on the matrix.
 
         Args:
-        - None
+            - matrix (List): The matrix representing the game board.
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
         """
-
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
                 if piece != 0:
@@ -99,20 +105,21 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                         (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE),
                     )
 
-    def move_robot(self, matrix, from_pos, to_pos):
+    def move_robot(self, matrix: List, from_pos: List, to_pos: List) -> None:
         """
-        Move the robot.
+        Move the robot from one position to another in the matrix.
 
         Args:
-        - None
+            - matrix (List[List[str]]): The matrix representing the house view.
+            - from_pos (List[int]): The current position of the robot in the matrix.
+            - to_pos (List[int]): The target position where the robot should be moved.
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonvm2004
         """
-
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
         if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
@@ -128,21 +135,23 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                 else:
                     matrix[from_pos[0]][from_pos[1]] = current_piece
 
-    def preparePygame(self):
+    def preparePygame(self) -> None:
         """
         Prepare pygame.
 
+        This method initializes the pygame library and
+        sets up the necessary variables and configurations for the game interface.
+
         Args:
-        - None
+            - None
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
         """
-
         pygame.init()
 
         # Define colors
@@ -169,19 +178,23 @@ class HouseView(AbstractHouseView.AbstractHouseView):
 
         self.load_images()
 
-    def showImage(self):
+    def showImage(self) -> None:
         """
         Show the image.
 
+        This method displays the image on the screen using the Pygame library.
+        It draws a grid and the pieces of the image on the screen.
+
         Args:
-        - None
+            - None
 
         Returns:
-        - None
+            - None
 
         Contributors:
             - @antonvm2004
-            - @SantiagoRR2004"""
+            - @SantiagoRR2004
+        """
 
         robot_pos = [10, 11]  # Initial robot position
 
@@ -208,21 +221,23 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         self.draw_grid()
         self.draw_pieces(matrix)
         pygame.display.flip()
-        # pygame.time.Clock().tick(10)
 
-    def updateImage(self):
+    def updateImage(self) -> None:
         """
         Update the image.
 
+        This method prepares Pygame if it is not ready and then shows the image.
+
         Args:
-        - None
+            - None
 
         Returns:
-        - None
+            - None: This method does not return any value.
 
         Contributors:
             - @antonvm2004
-            - @SantiagoRR2004w"""
+            - @SantiagoRR2004
+        """
         if self.pygameNotReady:
             self.preparePygame()
             self.pygameNotReady = False

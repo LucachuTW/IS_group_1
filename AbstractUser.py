@@ -9,6 +9,17 @@ class AbstractUser(ABC):
     exitNegativeFlag = True
 
     def __init__(self, controller: Any, viewer: Any) -> None:
+        """
+        Initializes an instance of the AbstractUser class.
+        It needs a controller and a viewer to work.
+
+        Args:
+            controller (Any): The controller object.
+            viewer (Any): The viewer object.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         self.view = viewer
         self.controller = controller
         self.setup()
@@ -49,9 +60,30 @@ class AbstractUser(ABC):
 
     @property
     def getContext(self) -> Context:
+        """
+        Returns the context associated with the user.
+
+        Returns:
+            Context: The context associated with the user.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         return self.context
 
     def setContext(self, context: Context) -> None:
+        """
+        Sets the context for the user.
+
+        Parameters:
+            context (Context): The context to set.
+
+        Returns:
+            None
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         self.context = context
 
     def setPosition(self) -> None:
@@ -153,6 +185,15 @@ class AbstractUser(ABC):
                 del self.data[key]
 
     def setUpThreading(self) -> None:
+        """
+        Set up and start the threads for the user.
+
+        Returns:
+            None: This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
         threads = self.getThreads()
         self.threads = []
         for th in threads:
@@ -160,6 +201,15 @@ class AbstractUser(ABC):
             self.threads[-1].start()
 
     def deleteThreads(self) -> None:
+        """
+        Deletes all threads except the current thread.
+
+        This method sets the `exitNegativeFlag` to False and joins all threads
+        in the `threads` list, except the current thread.
+
+        Returns:
+            None
+        """
         self.exitNegativeFlag = False
         for th in self.threads:
             if th != threading.current_thread():
@@ -167,7 +217,11 @@ class AbstractUser(ABC):
 
     def getThreads(self) -> List:
         """
-        BLA BLA BLA BLA
+        Returns the threads for the user.
+        Needs to be implemented by the subclass.
+
+        Returns:
+            List: The threads for the user.
 
         Contributors:
             - @SantiagoRR2004
@@ -175,4 +229,17 @@ class AbstractUser(ABC):
         return []
 
     def __del__(self) -> None:
+        """
+        Deletes the threads for the user.
+
+        Returns:
+            None: This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+
+        Note:
+            This method is called when the object is deleted.
+            It is used to delete the threads associated with the user.
+        """
         self.deleteThreads()

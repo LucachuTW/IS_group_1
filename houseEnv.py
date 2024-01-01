@@ -6,7 +6,10 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
     """
     House Environment Class.
 
-    This class represents the environment of a house. It includes methods to check if an element is shareable, if a position is movable, and to move an object to a specified position.
+    This class represents the environment of a house.
+    It includes methods to check if
+    an element is shareable, if a position is movable,
+    and to move an object to a specified position.
 
     Contributors:
         - @SantiagoRR2004

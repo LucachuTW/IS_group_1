@@ -36,7 +36,6 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         Contributors:
             - @SantiagoRR2004
         """
-
         with open(file, "r") as file:
             data = json.load(file)
 
