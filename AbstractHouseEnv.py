@@ -3,7 +3,6 @@ from typing import Any
 
 
 class AbstractHouseEnv(ABC):
-    @abstractmethod
     def __init__(self, model: Any) -> None:
         """
         Initialize the instance with the provided model.

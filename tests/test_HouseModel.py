@@ -2,7 +2,36 @@ import unittest
 import houseModel
 
 
-class testModel(unittest.TestCase):
+class helpTestModel:
+    """
+    This class exists to help test the controller
+    """
+
+    def setUp(self):
+        """
+        This runs for every test at the start automatically.
+
+        For all these tests we only need the model.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.model = houseModel.HouseModel("environmentBackup.json")
+
+    def tearDown(self):
+        """
+        This runs for every test at the end automatically.
+
+        It deletes the model to free space up.
+        It might not be necessary.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        del self.model
+
+
+class testModel(helpTestModel, unittest.TestCase):
     def test_addDrug(self):
         """
         Test if the drug can be added.
@@ -12,7 +41,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel()
+        control = self.model
         number = control.getDrug("cabinet")
         control.addDrug("cabinet", 3)
         self.assertEqual(control.getDrug("cabinet"), number + 3)
@@ -26,7 +55,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        control = houseModel.HouseModel()
+        control = self.model
         tester = "cabinet"
         control.setOpenStatus(tester, True)
         maximun = control.getCapacity(tester)
@@ -43,7 +72,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        control = houseModel.HouseModel()
+        control = self.model
         tester = "cabinet"
         control.setOpenStatus(tester, True)
         maximun = control.getCapacity(tester)
@@ -60,7 +89,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        control = houseModel.HouseModel()
+        control = self.model
         tester = "cabinet"
         control.setOpenStatus(tester, True)
         maximun = control.getCapacity(tester)
@@ -77,7 +106,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         oX, oY, dX, dY = 0, 0, 3, 6
         value = model.getPosition(oX, oY)
         model.changePosition(oX, oY, dX, dY)
@@ -92,7 +121,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         status = model.getOpenStatus("cabinet")
         self.assertEqual(type(status), bool)
 
@@ -105,7 +134,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         model.setOpenStatus("cabinet", True)
         self.assertEqual(model.getOpenStatus("cabinet"), True)
 
@@ -118,7 +147,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         model.setOpenStatus("cabinet", False)
         self.assertEqual(model.getOpenStatus("cabinet"), False)
 
@@ -131,7 +160,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         number = model.getCapacity("cabinet")
         self.assertEqual(type(number), int)
 
@@ -144,7 +173,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
         self.assertEqual(
@@ -160,7 +189,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         model.removeValue("cabinet")
         model.setPosition(0, 0, model.getAttributeFromDict("cabinet", "symbol"))
         self.assertEqual(model.getPositionOf("cabinet"), [0, 0])
@@ -174,7 +203,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         model.removeValue("cabinet")
         self.assertEqual(model.getPositionOf("cabinet"), False)
 
@@ -187,7 +216,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         numbers = {
             1: False,
             2: True,
@@ -210,7 +239,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         numbers = {
             2: [2],
             3: [3],
@@ -235,7 +264,7 @@ class testModel(unittest.TestCase):
             - @antonoterof
             - @SantiagoRR2004
         """
-        model = houseModel.HouseModel()
+        model = self.model
         grid = model.getAttribute("grid")
 
         # Allowed elements in the list
@@ -263,7 +292,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        model = houseModel.HouseModel()
+        model = self.model
         door_locations = model.getAttributeFromDict("door", "subset")
         locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
@@ -278,7 +307,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        model = houseModel.HouseModel()
+        model = self.model
         door_locations = model.getAttributeFromDict("door", "subset")
         locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
@@ -294,7 +323,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @antonoterof
         """
-        model = houseModel.HouseModel()
+        model = self.model
         door_locations = model.getAttributeFromDict("door", "subset")
         locationDoor = door_locations[0]["location"]
         model.openDoor(locationDoor)
@@ -311,7 +340,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @LucachuTW
         """
-        model = houseModel.HouseModel()
+        model = self.model
         grid = model.getAttribute("grid")
 
         self.assertTrue(
@@ -332,7 +361,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @LucachuTW
         """
-        model = houseModel.HouseModel()
+        model = self.model
         elements = model.getAttribute("symbols").keys()
 
         for element in elements:
@@ -353,7 +382,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @LucachuTW
         """
-        model = houseModel.HouseModel()
+        model = self.model
         robot_attributes = model.getAttribute("robot")
         if "maxCapacity" in robot_attributes:
             max_capacity = robot_attributes["maxCapacity"]
@@ -371,7 +400,7 @@ class testModel(unittest.TestCase):
         Contributors:
             - @LucachuTW
         """
-        model = houseModel.HouseModel()
+        model = self.model
         robot_attributes = model.getAttribute("robot")
         if "symbol" in robot_attributes:
             symbol = robot_attributes["symbol"]

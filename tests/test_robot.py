@@ -1,30 +1,70 @@
 import unittest
-import main
-import time
+from typing import List
 import Context
 from owner import Owner, NormalOwner, EmergencyOwner
 from robot import Robot, NormalRobot, EmergencyRobot
+import houseModel
+import houseEnv
+import houseView
 
 
-class destroyer:
+class helpTestRobot:
     """
-    This class exists so the threads end after all the tests
+    This class exists to help test the robot
     """
 
-    def setUp(self):
-        self.items = main.createHouse()
+    def setUp(self) -> None:
+        """
+        This runs for every test at the start automatically.
 
-    def tearDown(self):
-        endEverything(self.items[3], self.items[4])
+        For all these tests we create an owner and a robot with controller and viewer.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.model = houseModel.HouseModel("environmentBackup.json")
+        self.view = houseView.HouseView(self.model)
+        self.control = houseEnv.HouseEnv(self.model)
+        self.control.setView(self.view)
+
+        self.owner = Owner(self.control, self.view)
+        self.robot = Robot(self.control, self.view)
+
+    def tearDown(self) -> None:
+        """
+        This runs for every test at the end automatically.
+
+        It deletes objects to free space up and make sure all threads have finished.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.deleteThreads([self.owner, self.robot])
+        del self.robot
+        del self.owner
+        del self.control
+        del self.view
+        del self.model
+
+    @staticmethod
+    def deleteThreads(objects: List) -> None:
+        """
+        Stops threads of objects in a list.
+
+        Args:
+        - objects: list of intances to have their threads stopped
+
+        Returns:
+        - None
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        for object in objects:
+            object.deleteThreads()
 
 
-def endEverything(owner: Owner, robot: Robot, wait: int = 0) -> None:
-    time.sleep(wait)
-    owner.__del__()
-    robot.__del__()
-
-
-class testRobot(destroyer, unittest.TestCase):
+class testRobot(helpTestRobot, unittest.TestCase):
     def test_getContext(self):
         """
         Test if the robot has a context
@@ -32,7 +72,7 @@ class testRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        robot = self.items[4]
+        robot = self.robot
         self.assertIsInstance(robot.context, Context.Context)
 
     def test_state(self):
@@ -42,7 +82,7 @@ class testRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        robot = self.items[4]
+        robot = self.robot
         self.assertTrue(robot.context._state)
 
     def test_data(self):
@@ -52,12 +92,12 @@ class testRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        robot = self.items[4]
+        robot = self.robot
         self.assertTrue(robot.data)
         self.assertIsInstance(robot.data, dict)
 
 
-class testNormalRobot(destroyer, unittest.TestCase):
+class testNormalRobot(helpTestRobot, unittest.TestCase):
     def test_transition_to(self):
         """
         Test that if the owner changes to Normal the robot does too
@@ -65,8 +105,8 @@ class testNormalRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(NormalOwner)
         self.assertIsInstance(robot.context._state, NormalRobot)
 
@@ -77,8 +117,8 @@ class testNormalRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(NormalOwner)
         robot.context._state.fillUp()
 
@@ -89,8 +129,8 @@ class testNormalRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(NormalOwner)
         robot.context._state.stayClose()
 
@@ -101,14 +141,14 @@ class testNormalRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(NormalOwner)
         with self.assertRaises(AttributeError):
             robot.context._state.giveDrugs()
 
 
-class testEmergencyRobot(destroyer, unittest.TestCase):
+class testEmergencyRobot(helpTestRobot, unittest.TestCase):
     def test_transition_to(self):
         """
         Test that if the owner changes to Emergency the robot does too
@@ -116,8 +156,8 @@ class testEmergencyRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(EmergencyOwner)
         self.assertIsInstance(robot.context._state, EmergencyRobot)
 
@@ -128,8 +168,8 @@ class testEmergencyRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(EmergencyOwner)
         with self.assertRaises(AttributeError):
             robot.context._state.stayClose()
@@ -141,8 +181,8 @@ class testEmergencyRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(EmergencyOwner)
         robot.context._state.moveToOwner()
 
@@ -153,7 +193,7 @@ class testEmergencyRobot(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
-        robot = self.items[4]
+        owner = self.owner
+        robot = self.robot
         owner.context.transition_to(EmergencyOwner)
         robot.context._state.giveDrugs()

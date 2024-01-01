@@ -1,9 +1,42 @@
 import unittest
 import houseEnv
 import houseModel
+import houseView
 
 
-class testController(unittest.TestCase):
+class helpTestController:
+    """
+    This class exists to help test the controller
+    """
+
+    def setUp(self):
+        """
+        This runs for every test at the start automatically.
+
+        For all these tests we only need the model and controller.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.model = houseModel.HouseModel("environmentBackup.json")
+        self.control = houseEnv.HouseEnv(self.model)
+        self.control.setView(houseView.HouseView(self.model))
+
+    def tearDown(self):
+        """
+        This runs for every test at the end automatically.
+
+        It deletes objects to free space up.
+        It might not be necessary.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        del self.control
+        del self.model
+
+
+class testController(helpTestController, unittest.TestCase):
     def test_createsController(self):
         """
         Test if the controller is created.
@@ -13,7 +46,7 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
+        control = self.control
         self.assertIsInstance(control, houseEnv.HouseEnv)
 
     def test_checkAddDrug1(self):
@@ -28,12 +61,12 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, False)
-        maximun = control.getModel().getCapacity(tester)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, False)
+        maximun = self.model.getCapacity(tester)
+        initialValue = self.model.getDrug(tester)
         self.assertFalse(control.checkAddDrug("cabinet", maximun - initialValue))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug2(self):
         """
@@ -48,12 +81,12 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, True)
-        maximun = control.getModel().getCapacity(tester)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, True)
+        maximun = self.model.getCapacity(tester)
+        initialValue = self.model.getDrug(tester)
         self.assertTrue(control.checkAddDrug(tester, maximun - initialValue))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug3(self):
         """
@@ -68,12 +101,12 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, True)
-        maximun = control.getModel().getCapacity(tester)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, True)
+        maximun = self.model.getCapacity(tester)
+        initialValue = self.model.getDrug(tester)
         self.assertFalse(control.checkAddDrug(tester, maximun - initialValue + 1))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug4(self):
         """
@@ -87,12 +120,12 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, True)
-        maximun = control.getModel().getCapacity(tester)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, True)
+        maximun = self.model.getCapacity(tester)
+        initialValue = self.model.getDrug(tester)
         self.assertFalse(control.checkAddDrug(tester, -maximun - 1))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug5(self):
         """
@@ -108,12 +141,12 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "robot"
-        control = houseModel.HouseModel().getController()
-        maximun = control.getModel().getCapacity(tester)
-        control.getModel().getAttribute(tester).pop("open", None)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        maximun = self.model.getCapacity(tester)
+        self.model.getAttribute(tester).pop("open", None)
+        initialValue = self.model.getDrug(tester)
         self.assertTrue(control.checkAddDrug(tester, maximun - initialValue))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug6(self):
         """
@@ -127,11 +160,11 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, True)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, True)
+        initialValue = self.model.getDrug(tester)
         self.assertTrue(control.checkAddDrug(tester, -initialValue))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug7(self):
         """
@@ -144,11 +177,11 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "cabinet"
-        control = houseModel.HouseModel().getController()
-        control.getModel().setOpenStatus(tester, True)
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        self.model.setOpenStatus(tester, True)
+        initialValue = self.model.getDrug(tester)
         self.assertFalse(control.checkAddDrug(tester, "String"))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_checkAddDrug8(self):
         """
@@ -160,10 +193,10 @@ class testController(unittest.TestCase):
             - @antonoterof
         """
         tester = "robot"
-        control = houseModel.HouseModel().getController()
-        initialValue = control.getModel().getDrug(tester)
+        control = self.control
+        initialValue = self.model.getDrug(tester)
         self.assertFalse(control.checkAddDrug(tester, "String"))
-        self.assertEqual(control.getModel().getDrug(tester), initialValue)
+        self.assertEqual(self.model.getDrug(tester), initialValue)
 
     def test_areAdjacent1(self):
         """
@@ -174,16 +207,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, 1, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, 1, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent2(self):
@@ -197,16 +226,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent3(self):
@@ -220,16 +245,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(1, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, 0, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent4(self):
@@ -243,16 +264,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 1, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 1, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, 0, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent5(self):
@@ -264,16 +281,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            1, 1, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(1, 1, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertFalse(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent6(self):
@@ -285,16 +298,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, 2, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, 2, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertFalse(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent7(self):
@@ -306,16 +315,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, -1, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, -1, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertFalse(control.areAdjacent("cabinet", "owner"))
 
     def test_areAdjacent8(self):
@@ -328,16 +333,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            0, -1, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(0, 0, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(0, -1, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertFalse(control.areAdjacent("cabinet", "owner", [0, 0], [0, -1]))
 
     def test_areAdjacent9(self):
@@ -349,16 +350,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            -2, -3, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            -2, -2, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(-2, -3, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(-2, -2, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner", [-2, -3], [-2, -2]))
 
     def test_areAdjacent10(self):
@@ -370,16 +367,12 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.removeValue("cabinet")
         model.removeValue("owner")
-        model.setPosition(
-            -2, -3, control.getModel().getAttributeFromDict("cabinet", "symbol")
-        )
-        model.setPosition(
-            -2, -2, control.getModel().getAttributeFromDict("owner", "symbol")
-        )
+        model.setPosition(-2, -3, self.model.getAttributeFromDict("cabinet", "symbol"))
+        model.setPosition(-2, -2, self.model.getAttributeFromDict("owner", "symbol"))
         self.assertTrue(control.areAdjacent("cabinet", "owner"))
 
     def test_transferDrugs1(self):
@@ -389,8 +382,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "cabinet"
         reciever = "robot"
@@ -399,25 +392,21 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(giver, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(giver, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
-        self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
-        self.assertEqual(control.getModel().getDrug(reciever), 1)
+        self.assertEqual(self.model.getDrug(giver), maximun1 - 1)
+        self.assertEqual(self.model.getDrug(reciever), 1)
 
     def test_transferDrugs2(self):
         """
@@ -426,8 +415,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "robot"
         reciever = "cabinet"
@@ -436,25 +425,21 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(reciever, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(reciever, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), True)
-        self.assertEqual(control.getModel().getDrug(giver), maximun1 - 1)
-        self.assertEqual(control.getModel().getDrug(reciever), 1)
+        self.assertEqual(self.model.getDrug(giver), maximun1 - 1)
+        self.assertEqual(self.model.getDrug(reciever), 1)
 
     def test_transferDrugs3(self):
         """
@@ -464,8 +449,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "cabinet"
         giver = "robot"
         reciever = "cabinet"
@@ -474,25 +459,21 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(reciever, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(reciever, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), maximun1)
-        self.assertEqual(control.getModel().getDrug(reciever), 0)
+        self.assertEqual(self.model.getDrug(giver), maximun1)
+        self.assertEqual(self.model.getDrug(reciever), 0)
 
     def test_transferDrugs4(self):
         """
@@ -502,8 +483,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "robot"
         reciever = "cabinet"
@@ -512,25 +493,21 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 1, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(reciever, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 1, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(reciever, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), maximun1)
-        self.assertEqual(control.getModel().getDrug(reciever), 0)
+        self.assertEqual(self.model.getDrug(giver), maximun1)
+        self.assertEqual(self.model.getDrug(reciever), 0)
 
     def test_transferDrugs5(self):
         """
@@ -540,8 +517,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "cabinet"
         reciever = "robot"
@@ -550,27 +527,23 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(giver, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(giver, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(
             control.transferDrugs(mover, giver, reciever, maximun2 + 1), False
         )
-        self.assertEqual(control.getModel().getDrug(giver), maximun1)
-        self.assertEqual(control.getModel().getDrug(reciever), 0)
+        self.assertEqual(self.model.getDrug(giver), maximun1)
+        self.assertEqual(self.model.getDrug(reciever), 0)
 
     def test_transferDrugs6(self):
         """
@@ -580,8 +553,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "robot"
         reciever = "cabinet"
@@ -590,27 +563,23 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(reciever, True)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(reciever, True)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(
             control.transferDrugs(mover, giver, reciever, maximun1 + 1), False
         )
-        self.assertEqual(control.getModel().getDrug(giver), maximun1)
-        self.assertEqual(control.getModel().getDrug(reciever), 0)
+        self.assertEqual(self.model.getDrug(giver), maximun1)
+        self.assertEqual(self.model.getDrug(reciever), 0)
 
     def test_transferDrugs7(self):
         """
@@ -620,8 +589,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         giver = "cabinet"
         reciever = "robot"
@@ -630,25 +599,21 @@ class testController(unittest.TestCase):
         model.removeValue(giver)
         model.removeValue(reciever)
 
-        model.setPosition(
-            0, 0, control.getModel().getAttributeFromDict(giver, "symbol")
-        )
-        model.setPosition(
-            1, 0, control.getModel().getAttributeFromDict(reciever, "symbol")
-        )
-        control.getModel().setOpenStatus(giver, False)
+        model.setPosition(0, 0, self.model.getAttributeFromDict(giver, "symbol"))
+        model.setPosition(1, 0, self.model.getAttributeFromDict(reciever, "symbol"))
+        self.model.setOpenStatus(giver, False)
 
-        initialValue1 = control.getModel().getDrug(giver)
-        maximun1 = control.getModel().getCapacity(giver)
-        initialValue2 = control.getModel().getDrug(reciever)
-        maximun2 = control.getModel().getCapacity(reciever)
+        initialValue1 = self.model.getDrug(giver)
+        maximun1 = self.model.getCapacity(giver)
+        initialValue2 = self.model.getDrug(reciever)
+        maximun2 = self.model.getCapacity(reciever)
 
-        control.getModel().addDrug(giver, maximun1 - initialValue1)
-        control.getModel().addDrug(reciever, -initialValue2)
+        self.model.addDrug(giver, maximun1 - initialValue1)
+        self.model.addDrug(reciever, -initialValue2)
 
         self.assertEqual(control.transferDrugs(mover, giver, reciever, 1), False)
-        self.assertEqual(control.getModel().getDrug(giver), maximun1)
-        self.assertEqual(control.getModel().getDrug(reciever), 0)
+        self.assertEqual(self.model.getDrug(giver), maximun1)
+        self.assertEqual(self.model.getDrug(reciever), 0)
 
     def test_checkOpeneable1(self):
         """
@@ -658,7 +623,7 @@ class testController(unittest.TestCase):
             - @SantiagoRR2004
             - @Ventupentu
         """
-        control = houseModel.HouseModel().getController()
+        control = self.control
         self.assertIsInstance(control.checkOpeneable("door"), bool)
 
     def test_checkOpeneable2(self):
@@ -669,9 +634,9 @@ class testController(unittest.TestCase):
             - @SantiagoRR2004
             - @Ventupentu
         """
-        control = houseModel.HouseModel().getController()
+        control = self.control
         element = "cabinet"
-        open = control.getModel().getAttributeFromDict(element, "openable")
+        open = self.model.getAttributeFromDict(element, "openable")
         self.assertEqual(control.checkOpeneable(element), open)
 
     def test_checkIfShareable1(self):
@@ -681,8 +646,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
 
         model.setAttributeFromDict(element, "semisolid", True)
@@ -699,8 +664,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
 
         model.setAttributeFromDict(element, "semisolid", True)
@@ -717,8 +682,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
 
         model.setAttributeFromDict(element, "semisolid", True)
@@ -737,8 +702,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
 
         model.setAttributeFromDict(element, "semisolid", False)
@@ -758,8 +723,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.setPosition(0, 0, 0)
         self.assertEqual(control.checkIfMovableTo(0, 0), True)
 
@@ -771,8 +736,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         model.setPosition(0, 0, 6)
         self.assertEqual(control.checkIfMovableTo(0, 0), False)
 
@@ -784,8 +749,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
         model.removeValue(element)
@@ -805,8 +770,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
         model.removeValue(element)
@@ -828,8 +793,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
         model.removeValue(element)
@@ -852,8 +817,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         element = "cabinet"
         elementSymbol = model.getAttributeFromDict(element, "symbol")
         model.removeValue(element)
@@ -873,8 +838,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -897,8 +862,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         model.getAttributeFromDict(mover, "moving")["mover"] = False
@@ -923,8 +888,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -947,8 +912,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -971,8 +936,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -995,8 +960,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -1019,8 +984,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -1043,8 +1008,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = False
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -1068,8 +1033,8 @@ class testController(unittest.TestCase):
             - @SantiagoRR2004
             - @Ventupentu
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
@@ -1092,8 +1057,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = False
         model.getAttributeFromDict(mover, "moving")["mover"] = True
@@ -1123,8 +1088,8 @@ class testController(unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = False
         model.getAttributeFromDict(mover, "moving")["mover"] = True
@@ -1149,8 +1114,8 @@ class testController(unittest.TestCase):
     def test_moveTo12(self):
         # @SantiagoRR2004
         # No problem
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1177,8 +1142,8 @@ class testController(unittest.TestCase):
     def test_moveTo13(self):
         # @SantiagoRR2004
         # No problem
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1205,8 +1170,8 @@ class testController(unittest.TestCase):
     def test_moveTo14(self):
         # @SantiagoRR2004
         # Other item isn't open so it doesn't work
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1235,8 +1200,8 @@ class testController(unittest.TestCase):
     def test_moveTo15(self):
         # @SantiagoRR2004
         # Other item can't share space with each other
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1273,8 +1238,8 @@ class testController(unittest.TestCase):
     def test_moveTo16(self):
         # @SantiagoRR2004
         # No problem moving out of another element
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1318,8 +1283,8 @@ class testController(unittest.TestCase):
                                 self.assertEqual(model.getPosition(1, 0), movedSymbol)
 
     def test_moveMultipleTimes(self):
-        control = houseModel.HouseModel().getController()
-        model = control.getModel()
+        control = self.control
+        model = self.model
         mover = "robot"
         model.getAttributeFromDict(mover, "moving")["auto"] = True
         moved = mover
@@ -1340,7 +1305,7 @@ class testController(unittest.TestCase):
     def test_moveOwner(self):
         # @antonoterof
         # Check that the owner can move without problems
-        control = houseModel.HouseModel().getController()
+        control = self.control
         self.assertTrue(control.moveOwner("up"))
         self.assertTrue(control.moveOwner("down"))
         self.assertTrue(control.moveOwner("left"))

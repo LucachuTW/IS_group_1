@@ -4,37 +4,22 @@ import sys
 
 
 class HouseView(AbstractHouseView.AbstractHouseView):
-    def __init__(self):
-        """
-        Initializes the HouseModel class.
-
-        Args:
-        - None
-
-        Returns:
-        - None
-
-        Contributors:
-            - @antonvm2004
-            - @SantiagoRR2004
-        """
-
-        self.pygameNotReady = True
+    pygameNotReady = True
 
     def draw(self):
         """
         Draw the house.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
 
         Contributors:
             - @antonoterof
             - @SantiagoRR2004
-        
+
         """
         model = self.getModel()
         return model.getAttribute("grid")
@@ -70,18 +55,18 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def draw_grid(self):
         """
         Draw the grid.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
-        
+
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
         """
-        
+
         for x in range(0, self.num_columns * self.GRID_SIZE, self.GRID_SIZE):
             pygame.draw.line(
                 self.screen, self.BLACK, (x, 0), (x, self.num_rows * self.GRID_SIZE)
@@ -94,13 +79,13 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def draw_pieces(self, matrix):
         """
         Draw the pieces.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
-        
+
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
@@ -127,7 +112,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         Contributors:
             - @antonvm2004
         """
-        
+
         current_piece = matrix[from_pos[0]][from_pos[1]]
 
         if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
@@ -146,18 +131,18 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def preparePygame(self):
         """
         Prepare pygame.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
-        
+
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004
         """
-        
+
         pygame.init()
 
         # Define colors
@@ -187,13 +172,13 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def showImage(self):
         """
         Show the image.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
-        
+
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004"""
@@ -228,13 +213,13 @@ class HouseView(AbstractHouseView.AbstractHouseView):
     def updateImage(self):
         """
         Update the image.
-        
+
         Args:
         - None
-        
+
         Returns:
         - None
-        
+
         Contributors:
             - @antonvm2004
             - @SantiagoRR2004w"""

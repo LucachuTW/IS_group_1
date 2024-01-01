@@ -1,7 +1,5 @@
 import json
 import AbstractHouseModel
-import houseEnv
-import houseView
 import atexit
 from typing import List
 
@@ -21,8 +19,6 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @SantiagoRR2004
             - @Ventupentu
         """
-        self.setRelationships(houseEnv.HouseEnv, houseView.HouseView)
-
         self.saveModelParameters(file)
 
         atexit.register(self.saveToFile)
@@ -282,6 +278,7 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def saveToFile(self) -> None:
         """
         Save the current state of the HouseModel to a file.
+        We always save to "environment.json"
 
         Args:
             None

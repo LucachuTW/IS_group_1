@@ -1,29 +1,67 @@
 import unittest
-import main
-import time
+from typing import Any, List
 from owner import Owner, NormalOwner, EmergencyOwner
 import Context
+import houseModel
+import houseEnv
+import houseView
 
 
-class destroyer:
+class helpTestOwner:
     """
-    This class exists so the threads end after all the tests
+    This class exists to help test the owner
     """
 
-    def setUp(self):
-        self.items = main.createHouse()
+    def setUp(self) -> None:
+        """
+        This runs for every test at the start automatically.
 
-    def tearDown(self):
-        endEverything(self.items[3], self.items[4])
+        For all these tests we create an owner with controller and viewer.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.model = houseModel.HouseModel("environmentBackup.json")
+        self.view = houseView.HouseView(self.model)
+        self.control = houseEnv.HouseEnv(self.model)
+        self.control.setView(self.view)
+
+        self.owner = Owner(self.control, self.view)
+
+    def tearDown(self) -> None:
+        """
+        This runs for every test at the end automatically.
+
+        It deletes objects to free space up and make sure all threads have finished.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.deleteThreads([self.owner])
+        del self.owner
+        del self.control
+        del self.view
+        del self.model
+
+    @staticmethod
+    def deleteThreads(objects: List) -> None:
+        """
+        Stops threads of objects in a list.
+
+        Args:
+        - objects: list of intances to have their threads stopped
+
+        Returns:
+        - None
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        for object in objects:
+            object.deleteThreads()
 
 
-def endEverything(owner: Owner, robot, wait: int = 0) -> None:
-    time.sleep(wait)
-    owner.__del__()
-    robot.__del__()
-
-
-class testOwner(destroyer, unittest.TestCase):
+class testOwner(helpTestOwner, unittest.TestCase):
     def test_getContext(self):
         """
         Test if the owner has a context
@@ -31,7 +69,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         self.assertIsInstance(owner.context, Context.Context)
 
     def test_state(self):
@@ -41,7 +79,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         self.assertTrue(owner.context._state)
 
     def test_data(self):
@@ -51,7 +89,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         self.assertTrue(owner.data)
         self.assertIsInstance(owner.data, dict)
 
@@ -62,7 +100,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.setup()
         self.assertIsNone(owner.setup())
 
@@ -76,7 +114,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        threads = self.items[3].getThreads()
+        threads = self.owner.getThreads()
         self.assertIsInstance(threads, list)
         for th in threads:
             assert callable(th)
@@ -93,7 +131,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         pulse = owner.data["pulse"]
         for i in range(10):
             owner.changePulse()
@@ -109,7 +147,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.data["health"] = -1
         owner.checkForDeath()
         self.assertAlmostEqual(owner.data["health"], 100, delta=0.5)
@@ -125,7 +163,7 @@ class testOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         testNumbers = {
             20: True,
             50: True,
@@ -141,7 +179,7 @@ class testOwner(destroyer, unittest.TestCase):
             self.assertEqual(owner.stateOfEmergency(), value)
 
 
-class testNormalOwner(destroyer, unittest.TestCase):
+class testNormalOwner(helpTestOwner, unittest.TestCase):
     def test_transition_to(self):
         """
         Test that the owner changes to Normal
@@ -149,7 +187,7 @@ class testNormalOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(NormalOwner)
         self.assertIsInstance(owner.context._state, NormalOwner)
 
@@ -160,7 +198,7 @@ class testNormalOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(NormalOwner)
         owner.context._state.moveRandomly()
 
@@ -171,7 +209,7 @@ class testNormalOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.deleteThreads()
         owner.context.transition_to(NormalOwner)
         if isinstance(owner.context._state, NormalOwner):
@@ -184,12 +222,12 @@ class testNormalOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(NormalOwner)
         owner.context._state.sitArmchair()
 
 
-class testEmergencyOwner(destroyer, unittest.TestCase):
+class testEmergencyOwner(helpTestOwner, unittest.TestCase):
     def test_transition_to(self):
         """
         Test that the owner changes to Emergency
@@ -197,7 +235,7 @@ class testEmergencyOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(EmergencyOwner)
         self.assertIsInstance(owner.context._state, EmergencyOwner)
 
@@ -208,7 +246,7 @@ class testEmergencyOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(EmergencyOwner)
         with self.assertRaises(AttributeError):
             owner.context._state.moveRandomly()
@@ -220,7 +258,7 @@ class testEmergencyOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(EmergencyOwner)
         with self.assertRaises(AttributeError):
             owner.context._state.moveRandomlyNearby()
@@ -232,6 +270,6 @@ class testEmergencyOwner(destroyer, unittest.TestCase):
         Contributors:
             - @SantiagoRR2004
         """
-        owner = self.items[3]
+        owner = self.owner
         owner.context.transition_to(EmergencyOwner)
         owner.context._state.consumeDrug()

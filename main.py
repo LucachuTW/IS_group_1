@@ -1,15 +1,17 @@
 import houseModel
-import owner
-import robot
+import houseEnv
+import houseView
+from owner import Owner
+from robot import Robot
 
 
 def createHouse():
     model = houseModel.HouseModel()
-    controller = model.getController()
-    viewer = model.getView()
-    owner1 = owner.Owner(controller, viewer)
-    robot1 = robot.Robot(controller, viewer)
-    return [model, controller, viewer, owner1, robot1]
+    view = houseView.HouseView(model)
+    control = houseEnv.HouseEnv(model)
+    control.setView(view)
+    owner = Owner(control, view)
+    robot = Robot(control, view)
 
 
 if __name__ == "__main__":

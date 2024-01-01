@@ -5,62 +5,6 @@ import AbstractHouseView
 
 
 class AbstractHouseModel(ABC):
-    def setRelationships(self, environment: Any, viewer: Any) -> None:
-        """
-        Establishes relationships between the current model instance, an environment,
-        and a viewer for efficient communication and control.
-
-        Args:
-            environment (Type[Any]): The environment class.
-            viewer (Type[Any]): The viewer class.
-
-        Returns:
-            None
-
-        Contributors:
-            - @SantiagoRR2004
-        """
-        controler = environment()
-        view = viewer()
-        view.setController(controler)
-        view.setModel(self)
-        controler.setView(view)
-        controler.setModel(self)
-        self.view = view
-        self.controler = controler
-
-    def getController(self) -> Any:
-        """
-        Retrieve the controller associated with the current instance.
-
-        Returns:
-            Any: The controller object.
-
-        Note:
-            This method provides access to the controller assigned to the instance.
-            Ensure that the controller has been properly set before calling this method.
-
-        Contributors:
-            - @SantiagoRR2004
-        """
-        return self.controler
-
-    def getView(self) -> Any:
-        """
-        Get the current view associated with this object.
-
-        Returns:
-            Any: The current view.
-
-        Note:
-            This method returns the view assigned to the object.
-            Ensure that the view has been properly set before calling this method.
-
-        Contributors:
-            - @SantiagoRR2004
-        """
-        return self.view
-
     def __repr__(self) -> str:
         """
         Return a string representation of the object suitable for debugging.

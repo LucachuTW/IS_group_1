@@ -15,9 +15,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         - @LucachuTW
     """
 
-    def __init__(self) -> None:
-        pass
-
     def checkAddDrug(self, element: str, quantity: int) -> bool:
         """
         Check if a drug can be added to an element.

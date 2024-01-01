@@ -3,7 +3,38 @@ import houseView
 import houseModel
 
 
-class testView(unittest.TestCase):
+class helpTestViewer:
+    """
+    This class exists to help test the viewer
+    """
+
+    def setUp(self):
+        """
+        This runs for every test at the start automatically.
+
+        For all these tests we only need the model and viewer.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.model = houseModel.HouseModel("environmentBackup.json")
+        self.view = houseView.HouseView(self.model)
+
+    def tearDown(self):
+        """
+        This runs for every test at the end automatically.
+
+        It deletes objects to free space up.
+        It might not be necessary.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        del self.view
+        del self.model
+
+
+class testView(helpTestViewer, unittest.TestCase):
     def test_createsViewer(self):
         """
         Test if the viewer is created.
@@ -13,7 +44,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @SantiagoRR2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         self.assertIsInstance(view, houseView.HouseView)
 
     def test_draw(self):
@@ -25,7 +56,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @SantiagoRR2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
         self.assertIsInstance(drawing, list)
 
@@ -38,7 +69,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonvm2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.drawAgent("wall")
         self.assertIsInstance(drawing, dict)
 
@@ -51,7 +82,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonvm2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.drawAgent("door")
         self.assertIsInstance(drawing, dict)
 
@@ -64,7 +95,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @SantiagoRR2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.drawAgent("cabinet")
         self.assertIsInstance(drawing, dict)
 
@@ -77,7 +108,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonvm2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.drawAgent("owner")
         self.assertIsInstance(drawing, dict)
 
@@ -90,7 +121,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonvm2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.drawAgent("robot")
         self.assertIsInstance(drawing, dict)
 
@@ -103,7 +134,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonvm2004
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
@@ -123,7 +154,7 @@ class testView(unittest.TestCase):
         - @antonvm2004
         - @antonoterof
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
@@ -142,7 +173,7 @@ class testView(unittest.TestCase):
         Contributors:
         - @antonoterof
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
@@ -162,7 +193,7 @@ class testView(unittest.TestCase):
         - @antonvm2004
         - @antonoterof
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
@@ -182,7 +213,7 @@ class testView(unittest.TestCase):
         - @antonvm2004
         - @antonoterof
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
@@ -202,7 +233,7 @@ class testView(unittest.TestCase):
         - @antonvm2004
         - @antonoterof
         """
-        view = houseModel.HouseModel().getView()
+        view = self.view
         drawing = view.draw()
 
         # item number to verify
