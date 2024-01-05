@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Tuple
 from AbstractUser import AbstractUser
 import random
 from Context import Context
@@ -151,7 +151,21 @@ class Owner(AbstractUser):
 
 class NormalOwner(Wrapper, Owner):
     def main(self) -> None:
-        self.moveRandomlyNearby()
+        """
+        The main process for the owner.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        randomNumber = random.random()
+
+        if randomNumber < 0.9:
+            self.moveRandomly()
+        elif randomNumber > 0.9:
+            self.moveRandomlyNearby()
 
     def moveRandomlyNearby(self) -> None:
         """
@@ -175,7 +189,54 @@ class NormalOwner(Wrapper, Owner):
             self.x += direction[0]
             self.y += direction[1]
 
+    def moveRandomly(self) -> None:
+        """
+        Moves the owner randomly to any location.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        objectiveX, objectiveY = self.choosePosition()
+        if self.x == objectiveX and self.y == objectiveY:
+            self.hasObjective = False
+
+        else:
+            nextX, nextY = self.nextPosition(self.x, self.y, objectiveX, objectiveY)
+            if self.getController().moveTo("owner", "owner", nextX, nextY):
+                self.x = nextX
+                self.y = nextY
+            else:  # We try to open what is in front of the owner
+                pass
+
+    def choosePosition(self) -> Tuple[int, int]:
+        """
+        Chooses a random position for the owner.
+
+        Returns:
+            - Tuple[int, int]: A tuple containing the x and y coordinates of the position.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        if not hasattr(self, "hasObjective"):
+            self.hasObjective = False
+
+        while not self.hasObjective:
+            grid = self.getView().drawMovableTo()
+            row = random.randint(0, len(grid) - 1)
+            column = random.randint(0, len(grid[row]) - 1)
+
+            if grid[row][column] == 0:
+                self.hasObjective = True
+                self.objX = row
+                self.objY = column
+
+        return self.objX, self.objY
+
 
 class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
-        print(222222222)
+        pass

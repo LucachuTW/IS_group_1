@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any, List, Tuple
 import threading
 from Context import Context
 
@@ -246,3 +246,133 @@ class AbstractUser(ABC):
             It is used to delete the threads associated with the user.
         """
         self.deleteThreads()
+
+    def nextPosition(
+        self, originX: int, originY: int, desX: int, desY: int
+    ) -> Tuple[int, int]:
+        """
+        Calculates the next position for the user to move to using the A* algorithm.
+
+        Args:
+            originX (int): The x-coordinate of the current position.
+            originY (int): The y-coordinate of the current position.
+            desX (int): The x-coordinate of the destination position.
+            desY (int): The y-coordinate of the destination position.
+
+        Returns:
+            Tuple[int, int]: The next position as a tuple of (x, y) coordinates.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        next = self.aStar(self.getView().drawMovableTo(), originX, originY, desX, desY)
+        # The first in the list is the node of origin
+        return next[1]
+
+    @staticmethod
+    def aStar(
+        graph: List[List[int]], originX: int, originY: int, desX: int, desY: int
+    ) -> List[Tuple[int, int]]:
+        """
+        Finds the shortest path from the origin coordinates to the destination coordinates using the A* algorithm.
+
+        The graph has obstacles represented by 1 and traversable cells represented by 0.
+
+        Args:
+            graph (List[List[int]]): The graph representing the game board.
+            originX (int): The x-coordinate of the origin.
+            originY (int): The y-coordinate of the origin.
+            desX (int): The x-coordinate of the destination.
+            desY (int): The y-coordinate of the destination.
+
+        Returns:
+            List[Tuple[int, int]]: The list of coordinates representing the shortest path from the origin to the destination.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+
+        def is_valid_move(x: int, y: int, graph: List[List[int]]) -> bool:
+            """
+            Check if the move is valid within the given graph.
+
+            The move is valid if the coordinates are within the bounds of the graph
+            and the cell is traversable (0).
+
+            Args:
+                x (int): The x-coordinate of the move.
+                y (int): The y-coordinate of the move.
+                graph (List[List[int]]): The graph representing the game board.
+
+            Returns:
+                bool: True if the move is valid, False otherwise.
+
+            Contributors:
+                - @SantiagoRR2004
+            """
+            # Check if the move is within the bounds and the cell is traversable
+            return 0 <= x < len(graph) and 0 <= y < len(graph[0]) and graph[x][y] == 0
+
+        def findClosestNode(
+            nodes: List[Tuple[Tuple[int, int], List]], goal: Tuple[int, int]
+        ) -> Tuple[Tuple[int, int], List]:
+            """
+            Finds the closest node in the list of nodes to the given goal coordinates.
+
+            It also removes that node from the list.
+
+            Args:
+                nodes (List[Tuple[Tuple[int, int], List]]): A list of nodes, where each node is represented by a tuple
+                    containing its coordinates and a list of additional information.
+                goal (Tuple[int, int]): The goal coordinates to find the closest node to.
+
+            Returns:
+                Tuple[Tuple[int, int], List]: The coordinates and additional information of the closest node.
+
+            Contributors:
+                - @SantiagoRR2004
+            """
+            bestNode = nodes[0]
+            minDistance = (bestNode[0][0] - goal[0]) ** 2 + (
+                bestNode[0][1] - goal[1]
+            ) ** 2
+
+            for node in nodes:
+                distance = (node[0][0] - goal[0]) ** 2 + (node[0][1] - goal[1]) ** 2
+                if distance < minDistance:
+                    bestNode = node
+                    minDistance = distance
+
+            nodes.remove(bestNode)
+            return bestNode[0], bestNode[1]
+
+        openSet = []
+        closedSet = set()
+
+        startNode = (originX, originY)
+        goalNode = (desX, desY)
+
+        openSet.append((startNode, []))  # (node, path)
+
+        while openSet:
+            currentNode, currentPath = findClosestNode(openSet, goalNode)
+
+            if currentNode == goalNode:
+                return currentPath + [currentNode]
+
+            closedSet.add(currentNode)
+
+            x, y = currentNode
+
+            # Define possible moves (up, down, left, right)
+            moves = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+
+            for neighbor in moves:
+                if neighbor[0] < 0 or neighbor[1] < 0:
+                    moves.remove(neighbor)
+
+            for neighbor in moves:
+                if is_valid_move(*neighbor, graph) and neighbor not in closedSet:
+                    openSet.append((neighbor, currentPath + [currentNode]))
+
+        return None  # No path found
