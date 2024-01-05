@@ -1,13 +1,14 @@
 import AbstractHouseView
 import pygame
 import sys
+import copy
 from typing import Any, List
 
 
 class HouseView(AbstractHouseView.AbstractHouseView):
     pygameNotReady = True
 
-    def draw(self) -> None:
+    def draw(self) -> List:
         """
         Draw the house.
 
@@ -15,7 +16,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
             - None
 
         Returns:
-            - None
+            - The matrix representing the house view.
 
         Contributors:
             - @antonoterof
@@ -24,6 +25,38 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         """
         model = self.getModel()
         return model.getAttribute("grid")
+
+    def drawMovableTo(self) -> List:
+        """
+        Draw the a matrix with ones where you would
+        be blocked and 0 where you can move to.
+
+        Args:
+            - None
+
+        Returns:
+            - The matrix representing the house view.
+
+        Contributors:
+            - @SantiagoRR2004
+
+        """
+        model = self.getModel()
+        grid = copy.deepcopy(model.getAttribute("grid"))
+        for row in range(len(grid)):
+            for column in range(len(grid[0])):
+                valueToCheck = grid[row][column]
+                if valueToCheck != 0:
+                    if self.getModel().checkIfPrime(valueToCheck):
+                        for key, value in self.drawAgent("symbols").items():
+                            if valueToCheck == value:
+                                if self.drawAgent(key)["semisolid"]:
+                                    grid[row][column] = 0
+                                else:
+                                    grid[row][column] = 1
+                    else:
+                        grid[row][column] = 1
+        return grid
 
     def drawAgent(self, object: Any) -> None:
         """

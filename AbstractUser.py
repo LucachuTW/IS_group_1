@@ -127,6 +127,9 @@ class AbstractUser(ABC):
             rowNumber += 1
 
         if not found:
+            print(f"Trying to find {symbol} in:")
+            for row in grid:
+                print(row)
             raise Exception("Couldn't find coordinates")
 
     @abstractmethod
