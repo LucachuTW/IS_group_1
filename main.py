@@ -3,6 +3,7 @@ import houseEnv
 import houseView
 from owner import Owner
 from robot import Robot
+import time
 
 
 def createHouse():
@@ -11,6 +12,7 @@ def createHouse():
     control = houseEnv.HouseEnv(model)
     control.setView(view)
     owner = Owner(control, view)
+    time.sleep(1)  # Need to have this for graphical interface to work
     robot = Robot(control, view)
 
 

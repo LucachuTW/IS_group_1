@@ -2,7 +2,7 @@ import AbstractHouseView
 import pygame
 import sys
 import copy
-from typing import Any, List
+from typing import Any, List, Dict, Tuple
 
 
 class HouseView(AbstractHouseView.AbstractHouseView):
@@ -58,15 +58,15 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                         grid[row][column] = 1
         return grid
 
-    def drawAgent(self, object: Any) -> None:
+    def drawAgent(self, object: str) -> Dict:
         """
         Draw the agent.
 
         Args:
-            - object (Any): The object to be drawn.
+            - object (str): The name of the agent to draw.
 
         Returns:
-            - None
+            - The dictionary representing the agent.
 
         Contributors:
             - @antonoterof
@@ -74,6 +74,60 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         """
         model = self.getModel()
         return model.getAttribute(object)
+
+    def findNearestPositionOfSomething(
+        self, element: str, searcherX: int = None, searcherY: int = None
+    ) -> Tuple[int, int]:
+        """
+        Find the nearest position of something.
+        If the location of the element is not specified,
+        the method will find the first position of the element in the house.
+
+        Args:
+            - element (str): The name of the element to find.
+            - searcherX (int, optional): The x coordinate of center of the search.
+            - searcherY (int, optional): The y coordinate of center of the search.
+
+        Returns:
+            - Tuple[int, int]: A tuple containing the x and y coordinates of the nearest position.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        symbol = self.drawAgent(element)["symbol"]
+        grid = self.draw()
+        if self.drawAgent(element)["unique"]:
+            for row in range(len(grid)):
+                for column in range(len(grid[row])):
+                    if grid[row][column] == symbol:
+                        return row, column
+                    if self.getModel().checkIfPrime(grid[row][column]):
+                        if symbol in self.getModel().PrimeFactorization(
+                            grid[row][column]
+                        ):
+                            return row, column
+
+        elif searcherX is None or searcherY is None:
+            return self.drawAgent(element)["subset"][0]["location"]
+
+        elif searcherX is not None and searcherY is not None:
+            best = self.drawAgent(element)["subset"][0]["location"]
+            minDistance = self.model.calculateDistanceBetween2Points(
+                best[0], best[1], searcherX, searcherY
+            )
+
+            for possibility in self.drawAgent(element)["subset"]:
+                distance = self.model.calculateDistanceBetween2Points(
+                    possibility["location"][0],
+                    possibility["location"][1],
+                    searcherX,
+                    searcherY,
+                )
+                if distance < minDistance:
+                    minDistance = distance
+                    best = possibility["location"]
+
+            return best[0], best[1]
 
     def load_images(self) -> None:
         """

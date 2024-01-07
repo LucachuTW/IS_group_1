@@ -60,13 +60,15 @@ class Robot(AbstractUser):
             - @SantiagoRR2004
         """
         while self.exitNegativeFlag:
-            if self.stateOfEmergency:
+            if self.stateOfEmergency():
                 self.context.transition_to(EmergencyRobot)
             else:
                 self.context.transition_to(NormalRobot)
 
     def stateOfEmergency(self) -> bool:
-        toret = random.choice([True, False])
+        toret = False
+        if self.getView().drawAgent("owner")["health"] < 100:
+            toret = True
         return toret
 
     def startMain(self) -> None:
@@ -106,7 +108,48 @@ class Robot(AbstractUser):
 
 class NormalRobot(Wrapper, Robot):
     def main(self) -> None:
-        pass
+        if self.data["numberDrugs"] < self.data["maxCapacity"]:
+            self.fillUp()
+
+    def fillUp(self) -> None:
+        """
+        Fills up the robot with drugs.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        objX, objY = self.getView().findNearestPositionOfSomething(
+            "cabinet", self.x, self.y
+        )
+
+        nearbyPositions = [
+            [self.x, self.y],
+            [self.x, self.y + 1],
+            [self.x, self.y - 1],
+            [self.x + 1, self.y],
+            [self.x - 1, self.y],
+        ]
+
+        if [objX, objY] in nearbyPositions:
+            self.getController().openSomething(
+                "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+            )
+            while self.getController().transferDrugs("robot", "cabinet", "robot", 1):
+                pass
+            self.getController().closeSomething(
+                "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+            )
+
+        else:
+            nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
+            if self.getController().moveTo("robot", "robot", nextX, nextY):
+                self.x = nextX
+                self.y = nextY
+            else:
+                self.getController().openSomething("robot", eX=nextX, eY=nextY)
 
 
 class EmergencyRobot(Wrapper, Robot):

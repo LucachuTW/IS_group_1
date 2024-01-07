@@ -265,7 +265,9 @@ class AbstractUser(ABC):
         Contributors:
             - @SantiagoRR2004
         """
-        next = self.aStar(self.getView().drawMovableTo(), originX, originY, desX, desY)
+        binaryGrid = self.getView().drawMovableTo()
+        binaryGrid[desX][desY] = 0
+        next = self.aStar(binaryGrid, originX, originY, desX, desY)
         # The first in the list is the node of origin
         return next[1]
 
