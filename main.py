@@ -12,7 +12,7 @@ def createHouse():
     control = houseEnv.HouseEnv(model)
     control.setView(view)
     owner = Owner(control, view)
-    time.sleep(1)  # Need to have this for graphical interface to work
+    time.sleep(2)  # Need to have this for graphical interface to work
     robot = Robot(control, view)
 
 

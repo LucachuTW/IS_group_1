@@ -110,7 +110,11 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         elif searcherX is None or searcherY is None:
             return self.drawAgent(element)["subset"][0]["location"]
 
-        elif searcherX is not None and searcherY is not None:
+        elif (
+            searcherX is not None
+            and searcherY is not None
+            and "subset" in self.drawAgent(element)
+        ):
             best = self.drawAgent(element)["subset"][0]["location"]
             minDistance = self.model.calculateDistanceBetween2Points(
                 best[0], best[1], searcherX, searcherY
@@ -128,6 +132,22 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     best = possibility["location"]
 
             return best[0], best[1]
+
+        elif searcherX is not None and searcherY is not None:
+            rows = len(grid)
+            cols = len(grid[0])
+
+            for radius in range(max(rows, cols)):
+                for i in range(searcherX - radius, searcherX + radius + 1):
+                    for j in range(
+                        searcherY - radius,
+                        searcherY + radius + 1,
+                    ):
+                        # Check if the current coordinates are within the matrix bounds
+                        if 0 <= i < rows and 0 <= j < cols:
+                            # Check if the value at the current coordinates matches the target value
+                            if grid[i][j] == symbol:
+                                return i, j
 
     def load_images(self) -> None:
         """

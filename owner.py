@@ -154,6 +154,16 @@ class NormalOwner(Wrapper, Owner):
         """
         The main process for the owner.
 
+        If the owner is in an amrchair there is a 90% chance that the owner will
+        remain seated and a 10% chance that the owner will move randomly.
+
+        When the owner is an armchair, there is a 10% chance that the owner will
+        regain some health.
+
+        If the owner is not in an armchair, there is an 80% chance that the owner
+        will got to a random spot, a 10% chance that the owner will move randomly to a
+        nearby location, and a 10% chance that the owner will go to sit in an armchair.
+
         Returns:
             - None. This method does not return any value.
 
@@ -162,10 +172,27 @@ class NormalOwner(Wrapper, Owner):
         """
         randomNumber = random.random()
 
-        if randomNumber < 0.9:
-            self.moveRandomly()
-        elif randomNumber > 0.9:
-            self.moveRandomlyNearby()
+        if (
+            self.getView().draw()[self.x][self.y]
+            % self.getView().drawAgent("symbols")["armchair"]
+            == 0
+        ):
+            if randomNumber < 0.9 and self.data["health"] <= 100:
+                self.data["health"] += 0.01
+            elif randomNumber > 0.9:
+                randomNumber2 = random.random()
+                if randomNumber2 < 0.9:
+                    self.moveRandomly()
+                elif randomNumber2 > 0.9:
+                    self.moveRandomly()
+
+        else:
+            if randomNumber < 0.8:
+                self.moveRandomly()
+            elif randomNumber > 0.8 and randomNumber < 0.9:
+                self.moveRandomlyNearby()
+            elif randomNumber > 0.9:
+                self.sitArmchair()
 
     def moveRandomlyNearby(self) -> None:
         """
@@ -235,6 +262,26 @@ class NormalOwner(Wrapper, Owner):
                 self.objY = column
 
         return self.objX, self.objY
+
+    def sitArmchair(self) -> None:
+        """
+        Sits in the armchair.
+
+        This method tries to sit in the armchair.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        objX, objY = self.getView().findNearestPositionOfSomething(
+            "armchair", self.x, self.y
+        )
+        nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
+        if self.getController().moveTo("owner", "owner", nextX, nextY):
+            self.x = nextX
+            self.y = nextY
 
 
 class EmergencyOwner(Wrapper, Owner):
