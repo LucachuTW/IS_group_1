@@ -52,14 +52,16 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
         return toret
 
-    def checkOpeneable(self, element: str) -> bool:
+    def checkOpeneable(self, element: str, eX: int = None, eY: int = None) -> bool:
         """
         Check if an element is openable.
 
         This method checks if a specified element is openable in the model.
 
         Args:
-        - element (str): The element to check openability for.
+            - element (str): The element to check openability for.
+            - eX (int, optional): The X-coordinate of the element. Defaults to None.
+            - eY (int, optional): The Y-coordinate of the element. Defaults to None.
 
         Returns:
             bool: True if the element is openable, False otherwise.
@@ -84,8 +86,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         This method checks if two objects are adjacent in the model. It considers objects to be adjacent if they are at the same position, or 1 position horizontally or vertically apart.
 
         Args:
-        - object1 (str): The first object to check adjacency for.
-        - object2 (str): The second object to check adjacency for.
+            - object1 (str): The first object to check adjacency for.
+            - object2 (str): The second object to check adjacency for.
 
         Returns:
             bool: True if the objects are adjacent, False otherwise.
@@ -167,14 +169,16 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         self.getView().updateImage()
         return toret
 
-    def checkIfShareable(self, element: str) -> bool:
+    def checkIfShareable(self, element: str, X: int = None, Y: int = None) -> bool:
         """
         Check if an element is shareable.
 
         This method checks if a specified element is shareable in the model.
 
         Args:
-        - element (str): The element to check shareability for.
+            - element (str): The element to check shareability for.
+            - X (int, optional): The X-coordinate of the element. Defaults to None.
+            - Y (int, optional): The Y-coordinate of the element. Defaults to None.
 
         Returns:
             bool: True if the element is shareable, False otherwise.
@@ -185,7 +189,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
 
         return model.getSemisolidStatus(element) and (
-            not self.checkOpeneable(element) or model.getOpenStatus(element)
+            not self.checkOpeneable(element, X, Y) or model.getOpenStatus(element, X, Y)
         )
 
     def checkIfMovableTo(self, x: int, y: int) -> bool:
@@ -210,13 +214,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         symbols = model.getAttribute("symbols")
         toret = False
 
-        if char == 0 or (
-            model.checkIfPrime(char)
-            and self.checkIfShareable(
-                list(symbols.keys())[list(symbols.values()).index(char)]
-            )
-        ):
+        if char == 0:
             toret = True
+
+        elif model.checkIfPrime(char):
+            name = list(symbols.keys())[list(symbols.values()).index(char)]
+
+            if self.checkIfShareable(name, x, y):
+                toret = True
 
         return toret
 
@@ -241,6 +246,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             - @LucachuTW
         """
         model = self.getModel()
+        if (
+            x < 0
+            or y < 0
+            or x >= len(model.getAttribute("grid"))
+            or y >= len(model.getAttribute("grid")[x])
+        ):
+            return False
+
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         movedSymbol = model.getAttributeFromDict(moved, "symbol")
         movedToSymbol = model.getPosition(x, y)
@@ -362,3 +375,94 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             return False
 
         return True
+
+    def changeOpenClose(
+        self,
+        value: bool,
+        opener: str,
+        element: str,
+        opX: int,
+        opY: int,
+        eX: int,
+        eY: int,
+    ) -> bool:
+        """
+        Changes the open/close status of an element in the house environment.
+
+        Args:
+            value (bool): The new open/close status of the element.
+            opener (str): The identifier of the opener element.
+            element (str): The identifier of the element to be opened/closed.
+            opX (int): The X coordinate of the opener element.
+            opY (int): The Y coordinate of the opener element.
+            eX (int): The X coordinate of the element to be opened/closed.
+            eY (int): The Y coordinate of the element to be opened/closed.
+
+        Returns:
+            bool: True if the open/close status was successfully changed, False otherwise.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        toret = False
+
+        if self.checkOpeneable(element, eX, eY) and self.areAdjacent(
+            opener, element, [opX, opY], [eX, eY]
+        ):
+            self.getModel().setOpenStatus(element, value, eX, eY)
+            toret = True
+            self.getView().updateImage()
+
+        return toret
+
+    def openSomething(
+        self,
+        opener: str,
+        element: str = None,
+        opX: int = None,
+        opY: int = None,
+        eX: int = None,
+        eY: int = None,
+    ) -> bool:
+        """
+        Fills all the values to be able to open something.
+
+        Args:
+            opener (str): The name of the opener.
+            element (str, optional): The name of the element to be opened. Defaults to None.
+            opX (int, optional): The X-coordinate of the opener. Defaults to None.
+            opY (int, optional): The Y-coordinate of the opener. Defaults to None.
+            eX (int, optional): The X-coordinate of the element to be opened. Defaults to None.
+            eY (int, optional): The Y-coordinate of the element to be opened. Defaults to None.
+
+        Returns:
+            bool: True if the opening operation is successful, False otherwise.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        model = self.getModel()
+        toret = False
+
+        if model.getAttributeFromDict(opener, "unique"):
+            opX, opY = model.getPositionOf(opener)
+
+        elif opX == None or opY == None:
+            return toret
+
+        if element == None and (eX == None or eY == None):
+            return toret
+
+        if element == None:
+            numberElement = model.getPosition(eX, eY)
+            for key in model.getAttribute("symbols").keys():
+                if model.getAttribute("symbols")[key] == numberElement:
+                    element = key
+
+        if element == None:  # If the element is not in the model
+            return toret
+
+        if eX == None or eY == None:
+            eX, eY = model.getPositionOf(element)
+
+        return self.changeOpenClose(True, opener, element, opX, opY, eX, eY)

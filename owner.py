@@ -209,7 +209,7 @@ class NormalOwner(Wrapper, Owner):
                 self.x = nextX
                 self.y = nextY
             else:  # We try to open what is in front of the owner
-                pass
+                self.getController().openSomething("owner", eX=nextX, eY=nextY)
 
     def choosePosition(self) -> Tuple[int, int]:
         """

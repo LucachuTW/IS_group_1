@@ -6,7 +6,7 @@ from robot import Robot
 
 
 def createHouse():
-    model = houseModel.HouseModel()
+    model = houseModel.HouseModel("environmentBackup.json")
     view = houseView.HouseView(model)
     control = houseEnv.HouseEnv(model)
     control.setView(view)

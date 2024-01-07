@@ -133,10 +133,12 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         for index_i, row in enumerate(matrix):
             for index_j, piece in enumerate(row):
                 if piece != 0:
-                    self.screen.blit(
-                        self.images.get(piece, self.images[2]),
-                        (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE),
-                    )
+                    pieces = self.getModel().PrimeFactorization(piece)
+                    for pi in pieces:
+                        self.screen.blit(
+                            self.images.get(pi, self.images[2]),
+                            (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE),
+                        )
 
     def move_robot(self, matrix: List, from_pos: List, to_pos: List) -> None:
         """
@@ -228,8 +230,6 @@ class HouseView(AbstractHouseView.AbstractHouseView):
             - @antonvm2004
             - @SantiagoRR2004
         """
-
-        robot_pos = [10, 11]  # Initial robot position
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

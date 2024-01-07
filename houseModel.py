@@ -80,15 +80,51 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
         """
         return self.getAttributeFromDict(object, "numberDrugs")
 
-    def getOpenStatus(self, object: str, x: int = 0, y: int = 0) -> bool:
+    def getOpenStatus(self, object: str, x: int = None, y: int = None) -> bool:
         """
         Gets the open status of the object.
 
         Args:
-        - object: The object to get the open status from.
+            - object: The object to get the open status from.
+            - x (optional): The x coordinate of the object.
+            - y (optional): The y coordinate of the object.
 
         Returns:
-        - The open status of the object.
+            - The open status of the object.
+
+        Contributors:
+            - @Ventupentu
+            - @SantiagoRR2004
+            - @LucachuTW
+        """
+        toret = False
+        if self.getAttributeFromDict(object, "unique"):
+            toret = self.getAttributeFromDict(object, "open")
+
+        elif "open" in self.getAttribute(object):
+            toret = self.getAttributeFromDict(object, "open")
+
+        else:
+            for individual in self.getAttributeFromDict(object, "subset"):
+                if individual["location"] == [x, y]:
+                    toret = individual["open"]
+
+        return toret
+
+    def setOpenStatus(
+        self, object: str, status: bool, x: int = None, y: int = None
+    ) -> None:
+        """
+        Sets the open status of the object.
+
+        Args:
+            - object: The object to set the open status to.
+            - status: The status to set the object to.
+            - x (optional): The x coordinate of the object.
+            - y (optional): The y coordinate of the object.
+
+        Returns:
+            - None
 
         Contributors:
             - @Ventupentu
@@ -96,25 +132,15 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             - @LucachuTW
         """
         if self.getAttributeFromDict(object, "unique"):
-            return self.getAttributeFromDict(object, "open")
+            self.setAttributeFromDict(object, "open", status)
 
-    def setOpenStatus(self, object: str, status: bool) -> None:
-        """
-        Sets the open status of the object.
+        elif "open" in self.getAttribute(object):
+            self.setAttributeFromDict(object, "open", status)
 
-        Args:
-        - object: The object to set the open status to.
-        - status: The status to set the object to.
-
-        Returns:
-        - None
-
-        Contributors:
-            - @Ventupentu
-            - @SantiagoRR2004
-            - @LucachuTW
-        """
-        self.setAttributeFromDict(object, "open", status)
+        else:
+            for individual in self.getAttributeFromDict(object, "subset"):
+                if individual["location"] == [x, y]:
+                    individual["open"] = status
 
     def getCapacity(self, object: str) -> int:
         """
