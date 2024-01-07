@@ -466,3 +466,85 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             eX, eY = model.getPositionOf(element)
 
         return self.changeOpenClose(True, opener, element, opX, opY, eX, eY)
+
+    def closeSomething(
+        self,
+        opener: str,
+        element: str = None,
+        opX: int = None,
+        opY: int = None,
+        eX: int = None,
+        eY: int = None,
+    ) -> bool:
+        """
+        Fills all the values to be able to close something.
+
+        Args:
+            opener (str): The name of the closer.
+            element (str, optional): The name of the element to be closed. Defaults to None.
+            opX (int, optional): The X-coordinate of the closer. Defaults to None.
+            opY (int, optional): The Y-coordinate of the closer. Defaults to None.
+            eX (int, optional): The X-coordinate of the element to be closed. Defaults to None.
+            eY (int, optional): The Y-coordinate of the element to be closed. Defaults to None.
+
+        Returns:
+            bool: True if the closing operation is successful, False otherwise.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        model = self.getModel()
+        toret = False
+
+        if model.getAttributeFromDict(opener, "unique"):
+            opX, opY = model.getPositionOf(opener)
+
+        elif opX == None or opY == None:
+            return toret
+
+        if element == None and (eX == None or eY == None):
+            return toret
+
+        if element == None:
+            numberElement = model.getPosition(eX, eY)
+            for key in model.getAttribute("symbols").keys():
+                if model.getAttribute("symbols")[key] == numberElement:
+                    element = key
+
+        if element == None:  # If the element is not in the model
+            return toret
+
+        if eX == None or eY == None:
+            eX, eY = model.getPositionOf(element)
+
+        return self.changeOpenClose(False, opener, element, opX, opY, eX, eY)
+
+    def consumeDrugs(
+        self, element: str, quantity: int, eX: int = None, eY: int = None
+    ) -> bool:
+        """
+        Consume drugs from an element.
+
+        This method consumes a specified quantity of drugs from a specified element in the model, if certain conditions are met.
+
+        Args:
+            - element (str): The element to consume the drugs from.
+            - quantity (int): The quantity of drugs to consume.
+            - eX (int, optional): The X-coordinate of the element. Defaults to None.
+            - eY (int, optional): The Y-coordinate of the element. Defaults to None.
+
+        Returns:
+            bool: True if the consumption was successful, False otherwise.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        model = self.getModel()
+        toret = False
+
+        if self.checkAddDrug(element, -quantity):
+            model.addDrug(element, -quantity)
+            toret = True
+
+        self.getView().updateImage()
+        return toret

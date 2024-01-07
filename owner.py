@@ -239,4 +239,18 @@ class NormalOwner(Wrapper, Owner):
 
 class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
-        pass
+        self.consumeDrug()
+
+    def consumeDrug(self) -> None:
+        """
+        Consumes drugs.
+
+        This method tries to consume drugs
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.getController().consumeDrugs("owner", 1, self.x, self.y)
