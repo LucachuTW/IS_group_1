@@ -151,7 +151,22 @@ class NormalRobot(Wrapper, Robot):
             else:
                 self.getController().openSomething("robot", eX=nextX, eY=nextY)
 
-
 class EmergencyRobot(Wrapper, Robot):
     def main(self) -> None:
-        pass
+        if self.stateOfEmergency():
+            self.deliverDrugsToOwner()
+
+    def deliverDrugsToOwner(self) -> None:
+        """
+        Delivers drugs to the owner in case of emergency.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @Ventupentu
+        """
+        ownerX, ownerY = self.getView().findPositionOfSomething("owner")
+        if ownerX is not None and ownerY is not None:
+            if self.getController().moveTo("robot", "owner", ownerX, ownerY):
+                self.getController().transferDrugs("robot", "robot", "owner", 1)
