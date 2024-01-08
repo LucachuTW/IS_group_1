@@ -166,8 +166,17 @@ class EmergencyRobot(Wrapper, Robot):
         Contributors:
             - @Ventupentu
         """
-        owner = self.findNearestPositionOfSomething("owner", self.x, self.y)
-        self.getController().moveTo("robot", "robot", owner.x, owner.y)
+        owner_position = self.getView().findNearestPositionOfSomething("owner", self.x, self.y)
+        if owner_position is not None:
+            ownerX, ownerY = owner_position
+            nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
+            if self.getController().moveTo("robot", "robot", nextX, nextY):
+                self.x = nextX
+                self.y = nextY
+            else:
+                self.getController().openSomething("robot", eX=nextX, eY=nextY)
+
+
 
     def giveDrugs(self) -> None:
         """

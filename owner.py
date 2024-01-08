@@ -1,3 +1,4 @@
+import time
 from typing import Any, List, Tuple
 from AbstractUser import AbstractUser
 import random
@@ -74,6 +75,7 @@ class Owner(AbstractUser):
         while self.exitNegativeFlag:
             self.data["pulse"] += random.uniform(-0.1, 0.1)
             if self.data["pulse"] <= 20 or self.data["pulse"] >= 120:
+                time.sleep(0.01)
                 self.data["health"] -= 0.01
 
     def checkForDeath(self) -> None:
@@ -93,6 +95,7 @@ class Owner(AbstractUser):
         while self.exitNegativeFlag:
             if self.data["health"] <= 100:
                 self.data["health"] += 0.005
+                time.sleep(0.01)
             if self.data["health"] <= 0:
                 self.data["health"] = 100
                 print("Owner has died")
