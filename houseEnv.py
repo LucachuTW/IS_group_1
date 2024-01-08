@@ -1,5 +1,5 @@
 import AbstractHouseEnv
-from typing import List
+from typing import List, Dict
 
 
 class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
@@ -520,7 +520,12 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         return self.changeOpenClose(False, opener, element, opX, opY, eX, eY)
 
     def consumeDrugs(
-        self, element: str, quantity: int, eX: int = None, eY: int = None
+        self,
+        element: str,
+        quantity: int,
+        eX: int = None,
+        eY: int = None,
+        fixes: Dict = {},
     ) -> bool:
         """
         Consume drugs from an element.
@@ -532,9 +537,13 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             - quantity (int): The quantity of drugs to consume.
             - eX (int, optional): The X-coordinate of the element. Defaults to None.
             - eY (int, optional): The Y-coordinate of the element. Defaults to None.
+            - fixes (Dict, optional): A dictionary of fixes to apply. Defaults to {}.
 
         Returns:
             bool: True if the consumption was successful, False otherwise.
+
+        Example of fixes:
+        >>> fixes = {"pulse": 50}
 
         Contributors:
             - @SantiagoRR2004
@@ -543,6 +552,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         toret = False
 
         if self.checkAddDrug(element, -quantity):
+            for stat, correctValue in fixes.items():
+                model.setAttributeFromDict(element, stat, correctValue)
             model.addDrug(element, -quantity)
             toret = True
 
