@@ -101,7 +101,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                 for column in range(len(grid[row])):
                     if grid[row][column] == symbol:
                         return row, column
-                    if self.getModel().checkIfPrime(grid[row][column]):
+                    if not self.getModel().checkIfPrime(grid[row][column]):
                         if symbol in self.getModel().PrimeFactorization(
                             grid[row][column]
                         ):
