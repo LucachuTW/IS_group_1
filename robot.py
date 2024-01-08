@@ -166,7 +166,7 @@ class EmergencyRobot(Wrapper, Robot):
         Contributors:
             - @Ventupentu
         """
-        owner = self.getOwner()
+        owner = self.findNearestPositionOfSomething("owner", self.x, self.y)
         self.getController().moveTo("robot", "robot", owner.x, owner.y)
 
     def giveDrugs(self) -> None:
