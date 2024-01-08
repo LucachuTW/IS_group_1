@@ -303,6 +303,7 @@ class EmergencyOwner(Wrapper, Owner):
         Contributors:
             - @SantiagoRR2004
         """
-        self.getController().consumeDrugs(
+        if self.getController().consumeDrugs(
             "owner", 1, self.x, self.y, fixes={"pulse": 50}
-        )
+        ):
+            print("Owner consumed drugs")
