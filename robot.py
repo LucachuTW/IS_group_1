@@ -103,6 +103,7 @@ class Robot(AbstractUser):
         """
         while self.exitNegativeFlag:
             if self.getView().drawAgent("owner")["health"] <= 0:
+                print("Robot has detected owner's death")
                 self.__del__()
 
 
@@ -151,10 +152,10 @@ class NormalRobot(Wrapper, Robot):
             else:
                 self.getController().openSomething("robot", eX=nextX, eY=nextY)
 
+
 class EmergencyRobot(Wrapper, Robot):
     def main(self) -> None:
         self.moveToOwner()
-        self.giveDrugs()
 
     def moveToOwner(self) -> None:
         """
@@ -164,19 +165,31 @@ class EmergencyRobot(Wrapper, Robot):
             - None. This method does not return any value.
 
         Contributors:
+            - @SantiagoRR2004
             - @Ventupentu
         """
-        owner_position = self.getView().findNearestPositionOfSomething("owner", self.x, self.y)
-        if owner_position is not None:
-            ownerX, ownerY = owner_position
-            nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
-            if self.getController().moveTo("robot", "robot", nextX, nextY):
-                self.x = nextX
-                self.y = nextY
+        ownerX, ownerY = self.getView().findNearestPositionOfSomething(
+            "owner", self.x, self.y
+        )
+
+        nearbyPositions = [
+            [self.x, self.y],
+            [self.x, self.y + 1],
+            [self.x, self.y - 1],
+            [self.x + 1, self.y],
+            [self.x - 1, self.y],
+        ]
+
+        if ownerX is not None and ownerY is not None:
+            if [ownerX, ownerY] in nearbyPositions:
+                self.giveDrugs()
             else:
-                self.getController().openSomething("robot", eX=nextX, eY=nextY)
-
-
+                nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
+                if self.getController().moveTo("robot", "robot", nextX, nextY):
+                    self.x = nextX
+                    self.y = nextY
+                else:
+                    self.getController().openSomething("robot", eX=nextX, eY=nextY)
 
     def giveDrugs(self) -> None:
         """
@@ -189,4 +202,3 @@ class EmergencyRobot(Wrapper, Robot):
             - @Ventupentu
         """
         self.getController().transferDrugs("robot", "robot", "owner", 1)
-    
