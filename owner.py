@@ -300,4 +300,6 @@ class EmergencyOwner(Wrapper, Owner):
         Contributors:
             - @SantiagoRR2004
         """
-        self.getController().consumeDrugs("owner", 1, self.x, self.y)
+        self.getController().consumeDrugs(
+            "owner", 1, self.x, self.y, fixes={"pulse": 50}
+        )
