@@ -1,4 +1,3 @@
-import time
 from typing import Any, List, Tuple
 from AbstractUser import AbstractUser
 import random
@@ -9,7 +8,7 @@ from wrapper import Wrapper
 class Owner(AbstractUser):
     requiredData = {
         "unique": {"type": bool, "default": True},
-        "numberDrugs": {"type": int, "default": 0},
+        "numberDrugs": {"type": int, "default": 1},
         "maxCapacity": {"type": int, "default": 1},
         "symbol": {"type": int, "default": 7},
         "openable": {"type": bool, "default": False},
@@ -71,14 +70,12 @@ class Owner(AbstractUser):
 
         Contributors:
         - @SantiagoRR2004
-        - @LucachuTW
         """
         while self.exitNegativeFlag:
-            pulse_change = random.randint(-2, 2)
-            self.data["pulse"] += pulse_change
-            if self.data["pulse"] <= 40 or self.data["pulse"] >= 120:
-                self.data["health"] -= 0.5
-            time.sleep(0.01)
+            self.data["pulse"] += random.uniform(-0.1, 0.1)
+            if self.data["pulse"] <= 20 or self.data["pulse"] >= 120:
+                self.data["health"] -= 0.001
+
     def checkForDeath(self) -> None:
         """
         Checks if the owner's health is below 0 and handles the death scenario.
@@ -95,15 +92,12 @@ class Owner(AbstractUser):
         """
         print(self.data["health"])
         while self.exitNegativeFlag:
-            print(self.data["health"])
-            print(self.data["pulse"])
+            if self.data["health"] <= 100:
+                self.data["health"] += 0.0005
             if self.data["health"] <= 0:
                 self.data["health"] = 100
                 print("Owner has died")
                 self.__del__()
-            else:
-                self.data["health"] += 0.005
-                time.sleep(0.1)
 
     def changeState(self) -> None:
         """
@@ -123,7 +117,6 @@ class Owner(AbstractUser):
                 self.context.transition_to(EmergencyOwner)
             else:
                 self.context.transition_to(NormalOwner)
-            time.sleep(15)
 
     def startMain(self) -> None:
         """
@@ -293,7 +286,6 @@ class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
         self.consumeDrug()
         print("Owner consumed drugs")
-        time.sleep(0.1)
 
     def consumeDrug(self) -> None:
         """
@@ -307,8 +299,7 @@ class EmergencyOwner(Wrapper, Owner):
         Contributors:
             - @SantiagoRR2004
         """
-        self.getController().consumeDrugs(
-            "owner", 1, self.x, self.y, fixes={"health": 100, "pulse": 50}
-            
-        )
-        print(self.data["health"])
+        if self.getController().consumeDrugs(
+            "owner", 1, self.x, self.y, fixes={"pulse": 50}
+        ):
+            print("Owner has consumed drugs")
