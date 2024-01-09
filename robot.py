@@ -201,14 +201,4 @@ class EmergencyRobot(Wrapper, Robot):
         Contributors:
             - @Ventupentu
         """
-<<<<<<< HEAD
-    
-        if self.data["numberDrugs"] > 0:
-            self.getController().transferDrugs("robot", "robot", "owner", 1)
-            self.data["numberDrugs"] -= 1
-        else:
-            self.getController().transferDrugs("robot", "robot", "owner", 0)
-    
-=======
         self.getController().transferDrugs("robot", "robot", "owner", 1)
->>>>>>> ba725b714ec81651fb27bbbe9022e64ccee7b1e0
