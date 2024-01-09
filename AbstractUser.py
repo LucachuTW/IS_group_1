@@ -199,6 +199,7 @@ class AbstractUser(ABC):
         """
         threads = self.getThreads()
         self.threads = []
+        # threading.stack_size(1024 * 1024 * 1024)
         for th in threads:
             self.threads.append(threading.Thread(target=th))
             self.threads[-1].start()
