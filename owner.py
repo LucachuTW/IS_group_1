@@ -54,8 +54,8 @@ class Owner(AbstractUser):
         return [
             self.changePulse,
             self.checkForDeath,
-            self.startMain,
             self.changeState,
+            self.startMain,
         ]
 
     def changePulse(self) -> None:
@@ -67,17 +67,18 @@ class Owner(AbstractUser):
         the health value is decreased by 0.01.
 
         Returns:
-            None
+        None
 
         Contributors:
-            - @SantiagoRR2004
+        - @SantiagoRR2004
+        - @LucachuTW
         """
         while self.exitNegativeFlag:
-            self.data["pulse"] += random.uniform(-0.1, 0.1)
-            if self.data["pulse"] <= 20 or self.data["pulse"] >= 120:
-                time.sleep(0.01)
-                self.data["health"] -= 0.01
-
+            pulse_change = random.randint(-2, 2)
+            self.data["pulse"] += pulse_change
+            if self.data["pulse"] <= 40 or self.data["pulse"] >= 120:
+                self.data["health"] -= 0.5
+            time.sleep(0.01)
     def checkForDeath(self) -> None:
         """
         Checks if the owner's health is below 0 and handles the death scenario.
@@ -92,14 +93,17 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
+        print(self.data["health"])
         while self.exitNegativeFlag:
-            if self.data["health"] <= 100:
-                self.data["health"] += 0.005
-                time.sleep(0.01)
+            print(self.data["health"])
+            print(self.data["pulse"])
             if self.data["health"] <= 0:
                 self.data["health"] = 100
                 print("Owner has died")
                 self.__del__()
+            else:
+                self.data["health"] += 0.005
+                time.sleep(0.1)
 
     def changeState(self) -> None:
         """
@@ -119,6 +123,7 @@ class Owner(AbstractUser):
                 self.context.transition_to(EmergencyOwner)
             else:
                 self.context.transition_to(NormalOwner)
+            time.sleep(15)
 
     def startMain(self) -> None:
         """
@@ -146,10 +151,7 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        toret = False
-        if self.data["health"] < 100:
-            toret = True
-        return toret
+        return self.data["health"] < 100
 
 
 class NormalOwner(Wrapper, Owner):
@@ -157,7 +159,7 @@ class NormalOwner(Wrapper, Owner):
         """
         The main process for the owner.
 
-        If the owner is in an amrchair there is a 90% chance that the owner will
+        If the owner is in an armchair there is a 90% chance that the owner will
         remain seated and a 10% chance that the owner will move randomly.
 
         When the owner is an armchair, there is a 10% chance that the owner will
@@ -290,6 +292,8 @@ class NormalOwner(Wrapper, Owner):
 class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
         self.consumeDrug()
+        print("Owner consumed drugs")
+        time.sleep(0.1)
 
     def consumeDrug(self) -> None:
         """
@@ -303,7 +307,8 @@ class EmergencyOwner(Wrapper, Owner):
         Contributors:
             - @SantiagoRR2004
         """
-        if self.getController().consumeDrugs(
-            "owner", 1, self.x, self.y, fixes={"pulse": 50}
-        ):
-            print("Owner consumed drugs")
+        self.getController().consumeDrugs(
+            "owner", 1, self.x, self.y, fixes={"health": 100, "pulse": 50}
+            
+        )
+        print(self.data["health"])
