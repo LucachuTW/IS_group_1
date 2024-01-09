@@ -18,6 +18,26 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         - @LucachuTW
     """
 
+    def getFunctionsChangeModel(self) -> List:
+        """
+        Returns the list of functions to change the model.
+        This was made to separete the controller from the view.
+        This would be used by the graphical interface.
+
+        Returns:
+            List: A list of functions to change the model.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        functionsChangeModel = [
+            self.transferDrugs,
+            self.moveTo,
+            self.changeOpenClose,
+            self.consumeDrugs,
+        ]
+        return functionsChangeModel
+
     def checkAddDrug(self, element: str, quantity: int) -> bool:
         """
         Check if a drug can be added to an element.

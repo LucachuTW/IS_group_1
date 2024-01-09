@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, List
 
 
 class AbstractHouseEnv(ABC):
@@ -100,3 +100,19 @@ class AbstractHouseEnv(ABC):
             f"{key}={value!r}" for key, value in self.__dict__.items()
         )
         return f"{self.__class__.__name__}({attributes})"
+
+    def getFunctionsChangeModel(self) -> List:
+        """
+        Returns the list of functions to change the model.
+        This was made to separete the controller from the view.
+        This would be used by the graphical interface.
+        It would need to be implmented in the son class.
+
+        Returns:
+            List: A list of functions to change the model.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+
+        return []
