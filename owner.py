@@ -90,7 +90,6 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        print(self.data["health"])
         while self.exitNegativeFlag:
             if self.data["health"] <= 100:
                 self.data["health"] += 0.0005
@@ -207,12 +206,10 @@ class NormalOwner(Wrapper, Owner):
         Contributors:
             - @SantiagoRR2004
         """
-        direction = random.choice([[0, 1], [0, -1], [1, 0], [-1, 0]])
-        if self.getController().moveTo(
-            "owner", "owner", self.x + direction[0], self.y + direction[1]
-        ):
-            self.x += direction[0]
-            self.y += direction[1]
+        direction = random.choice(self.calculateNearbyPositions(self.x, self.y, 1))
+        if self.getController().moveTo("owner", "owner", direction[0], direction[1]):
+            self.x = direction[0]
+            self.y = direction[1]
 
     def moveRandomly(self) -> None:
         """

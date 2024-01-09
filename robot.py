@@ -126,20 +126,16 @@ class NormalRobot(Wrapper, Robot):
             "cabinet", self.x, self.y
         )
 
-        nearbyPositions = [
-            [self.x, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1],
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
+            self.x,
+            self.y,
         ]
 
         if [objX, objY] in nearbyPositions:
             self.getController().openSomething(
                 "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
-            while self.getController().transferDrugs("robot", "cabinet", "robot", 1):
-                pass
+            self.getController().transferDrugs("robot", "cabinet", "robot", 1)
             self.getController().closeSomething(
                 "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
@@ -172,12 +168,9 @@ class EmergencyRobot(Wrapper, Robot):
             "owner", self.x, self.y
         )
 
-        nearbyPositions = [
-            [self.x, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1],
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
+            self.x,
+            self.y,
         ]
 
         if ownerX is not None and ownerY is not None:

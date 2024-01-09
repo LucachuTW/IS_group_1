@@ -368,14 +368,37 @@ class AbstractUser(ABC):
             x, y = currentNode
 
             # Define possible moves (up, down, left, right)
-            moves = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
-
-            for neighbor in moves:
-                if neighbor[0] < 0 or neighbor[1] < 0:
-                    moves.remove(neighbor)
+            moves = AbstractUser.calculateNearbyPositions(x, y, 1)
 
             for neighbor in moves:
                 if is_valid_move(*neighbor, graph) and neighbor not in closedSet:
                     openSet.append((neighbor, currentPath + [currentNode]))
 
         return None  # No path found
+
+    @staticmethod
+    def calculateNearbyPositions(
+        x: int, y: int, numMoves: int = 1
+    ) -> List[Tuple[int, int]]:
+        """
+        Calculates the nearby positions that can be reached with numMoves.
+
+        Args:
+            - x (int): The x-coordinate of the current position.
+            - y (int): The y-coordinate of the current position.
+            - numMoves (int): The number of moves to consider.
+
+        Returns:
+            - List[Tuple[int, int]]: A list of tuples representing the nearby positions.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        positions = []
+
+        for horizontal in range(-numMoves, numMoves + 1):
+            for vertical in range(-numMoves, numMoves + 1):
+                if abs(horizontal) + abs(vertical) == numMoves:
+                    positions.append((x + horizontal, y + vertical))
+
+        return positions
