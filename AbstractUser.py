@@ -397,7 +397,7 @@ class AbstractUser(ABC):
 
         for horizontal in range(-numMoves, numMoves + 1):
             for vertical in range(-numMoves, numMoves + 1):
-                if abs(horizontal) + abs(vertical) == numMoves:
+                if abs(horizontal) + abs(vertical) <= numMoves:
                     positions.append((x + horizontal, y + vertical))
 
         return positions

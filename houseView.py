@@ -149,6 +149,11 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                             if grid[i][j] == symbol:
                                 return i, j
 
+        return (
+            searcherX,
+            searcherY,
+        )  # If it can't find anything, return the same position
+
     def load_images(self) -> None:
         """
         Loads and scales images for the house view.
