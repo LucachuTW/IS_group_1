@@ -110,7 +110,6 @@ class AbstractUser(ABC):
         Contributors:
             - @SantiagoRR2004
         """
-
         grid = self.getView().draw()
         symbol = self.data["symbol"]
         found = False
@@ -178,7 +177,7 @@ class AbstractUser(ABC):
                 self.data[key] = value["default"]
 
             else:
-                if not isinstance(type(self.data[key]), value["type"]):
+                if not isinstance(self.data[key], value["type"]):
                     self.data[key] = value["default"]
 
         keys = list(self.data.keys()).copy()
