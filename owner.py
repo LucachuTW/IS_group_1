@@ -282,7 +282,6 @@ class NormalOwner(Wrapper, Owner):
 class EmergencyOwner(Wrapper, Owner):
     def main(self) -> None:
         self.consumeDrug()
-        print("Owner consumed drugs")
 
     def consumeDrug(self) -> None:
         """

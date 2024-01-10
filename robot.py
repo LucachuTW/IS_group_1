@@ -106,15 +106,11 @@ class Robot(AbstractUser):
                 print("Robot has detected owner's death")
                 self.__del__()
 
-
-class NormalRobot(Wrapper, Robot):
-    def main(self) -> None:
-        if self.data["numberDrugs"] < self.data["maxCapacity"]:
-            self.fillUp()
-
     def fillUp(self) -> None:
         """
         Fills up the robot with drugs.
+        This is on the general robot class because
+        all states might need to fill up.
 
         Returns:
             - None. This method does not return any value.
@@ -127,15 +123,15 @@ class NormalRobot(Wrapper, Robot):
         )
 
         nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
-            self.x,
-            self.y,
+            (self.x, self.y)
         ]
 
-        if [objX, objY] in nearbyPositions:
+        if (objX, objY) in nearbyPositions:
             self.getController().openSomething(
                 "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
-            self.getController().transferDrugs("robot", "cabinet", "robot", 1)
+            if not self.getController().transferDrugs("robot", "cabinet", "robot", 1):
+                print("Problem, robot could not fill up")
             self.getController().closeSomething(
                 "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
@@ -149,9 +145,61 @@ class NormalRobot(Wrapper, Robot):
                 self.getController().openSomething("robot", eX=nextX, eY=nextY)
 
 
+class NormalRobot(Wrapper, Robot):
+    def main(self) -> None:
+        """
+        The main loop of the normal robot.
+        It makes sure the robot is always full of drugs and
+        then moves close to the owner.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        if self.data["numberDrugs"] < self.data["maxCapacity"]:
+            self.fillUp()
+        else:
+            self.stayClose()
+
+    def stayClose(self) -> None:
+        ownerX, ownerY = self.getView().findNearestPositionOfSomething(
+            "owner", self.x, self.y
+        )
+
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 3) + [
+            (self.x, self.y)
+        ]
+
+        if (ownerX, ownerY) not in nearbyPositions:
+            nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
+            if self.getController().moveTo("robot", "robot", nextX, nextY):
+                self.x = nextX
+                self.y = nextY
+            else:
+                self.getController().openSomething("robot", eX=nextX, eY=nextY)
+
+
 class EmergencyRobot(Wrapper, Robot):
     def main(self) -> None:
-        self.moveToOwner()
+        """
+        The main loop of the emergency robot.
+        To fix the owner iut needs to have medicine.
+        So if it doesn't have any it will fill up.
+        Then it will go to the owner and give him the medicine.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+
+        if self.data["numberDrugs"] == 0:
+            self.fillUp()
+        else:
+            self.moveToOwner()
 
     def moveToOwner(self) -> None:
         """
@@ -169,12 +217,11 @@ class EmergencyRobot(Wrapper, Robot):
         )
 
         nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
-            self.x,
-            self.y,
+            (self.x, self.y)
         ]
 
         if ownerX is not None and ownerY is not None:
-            if [ownerX, ownerY] in nearbyPositions:
+            if (ownerX, ownerY) in nearbyPositions:
                 self.giveDrugs()
             else:
                 nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
