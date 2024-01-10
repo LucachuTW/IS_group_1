@@ -13,7 +13,7 @@
         ["0", "0", "0", "0", "0", "0", "0", "0", "2", "0", "0", "11", "0", "0", "0", "13", "0", "0", "13", "0", "0", "0", "0", "0"],
         ["0", "0", "0", "0", "0", "0", "0", "0", "3", "0", "0", "0", "0", "0", "0", "0", "13", "13", "0", "0", "0", "0", "0", "0"],
         ["3", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"],
-        ["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]
+        ["17", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
         
     ],
     "wall": {
@@ -38,8 +38,9 @@
                   {"location":[7,0],"open":false},
                   {"location":[7,12],"open":false},
                   {"location":[7,23],"open":false},
-                  {"location":[11,0],"open":false},
-                  {"location":[11,8],"open":false}],
+                  {"location":[11,8],"open":false},
+                  {"location":[12,0],"open":false}
+                ],
         "openable": true,
         "moving": {
             "auto": false,
@@ -49,7 +50,7 @@
     },
     "cabinet": {
         "unique": true,
-        "numberDrugs": 2,
+        "numberDrugs": 7,
         "open": false,
         "maxCapacity": 7,
         "symbol": 5,
@@ -63,7 +64,7 @@
     },
     "owner": {
         "unique": true,
-        "numberDrugs": 0,
+        "numberDrugs": 1,
         "maxCapacity": 1,
         "symbol": 7,
         "openable": false,
@@ -78,7 +79,7 @@
     },
     "robot": {
         "unique": true,
-        "numberDrugs": 1,
+        "numberDrugs": 2,
         "maxCapacity": 2,
         "symbol": 11,
         "openable": false,
@@ -103,14 +104,14 @@
     "courier": {
         "unique": true,
         "numberDrugs": 999999999999999999999,
-        "maxCapacity": 50,
+        "maxCapacity": 999999999999999999999,
         "symbol": 17,
         "openable": false,
         "semisolid": true,
         "moving": {
             "auto": true,
-            "mover": true,
-            "moved": true
+            "mover": false,
+            "moved": false
         }
     },
     "symbols": {
