@@ -485,7 +485,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
         toret = False
 
-        if model.getAttributeFromDict(opener, "unique"):
+        if model.getAttributeFromDict(opener, "unique") and (
+            opX is None or opY is None
+        ):
             opX, opY = model.getPositionOf(opener)
 
         elif opX == None or opY == None:
@@ -537,7 +539,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         model = self.getModel()
         toret = False
 
-        if model.getAttributeFromDict(opener, "unique"):
+        if model.getAttributeFromDict(opener, "unique") and (
+            opX is None or opY is None
+        ):
             opX, opY = model.getPositionOf(opener)
 
         elif opX == None or opY == None:
