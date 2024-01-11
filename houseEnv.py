@@ -205,8 +205,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             model.addDrug(reciever, quantity)
             model.addDrug(giver, -quantity)
             toret = True
+            self.getView().updateImage()
 
-        self.getView().updateImage()
         return toret
 
     def checkIfShareable(self, element: str, X: int = None, Y: int = None) -> bool:
@@ -339,7 +339,8 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                     model.getPosition(movedCoord[0], movedCoord[1]) / movedSymbol,
                 )
 
-        self.getView().updateImage()
+            self.getView().updateImage()
+
         return toret
 
     def moveOwner(self, direction: str) -> bool:
@@ -596,6 +597,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                 model.setAttributeFromDict(element, stat, correctValue)
             model.addDrug(element, -quantity)
             toret = True
+            self.getView().updateImage()
 
-        self.getView().updateImage()
         return toret
