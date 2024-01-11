@@ -1,5 +1,5 @@
 import AbstractHouseEnv
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 
 class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
@@ -97,17 +97,22 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         self,
         object1: str,
         object2: str,
-        position1: List[int] = "",
-        position2: List[int] = "",
+        position1: Tuple[int, int] = None,
+        position2: Tuple[int, int] = None,
     ) -> bool:
         """
         Check if two objects are adjacent.
 
-        This method checks if two objects are adjacent in the model. It considers objects to be adjacent if they are at the same position, or 1 position horizontally or vertically apart.
+        This method checks if two objects are adjacent in the model.
+        It considers objects to be adjacent if they are at the same position,
+        or 1 position horizontally or vertically apart.
+        If it can't obtain the coordinates of one of the objects, it will return False.
 
         Args:
             - object1 (str): The first object to check adjacency for.
             - object2 (str): The second object to check adjacency for.
+            - position1 (Tuple[int, int], optional): The position of the first object. Defaults to None.
+            - position2 (Tuple[int, int], optional): The position of the second object. Defaults to None.
 
         Returns:
             bool: True if the objects are adjacent, False otherwise.
@@ -119,22 +124,25 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         toret = False
 
         if (
-            position1 == ""
+            position1 is None
             and model.getAttributeFromDict(object1, "unique")
             and model.getPositionOf(object1)
         ):
             position1 = model.getPositionOf(object1)
 
         if (
-            position2 == ""
+            position2 is None
             and model.getAttributeFromDict(object2, "unique")
             and model.getPositionOf(object2)
         ):
             position2 = model.getPositionOf(object2)
 
-        distance = model.calculateDistanceBetween2Points(
-            position1[0], position1[1], position2[0], position2[1]
-        )
+        if position1 is not None and position2 is not None:
+            distance = model.calculateDistanceBetween2Points(
+                position1[0], position1[1], position2[0], position2[1]
+            )
+        else:
+            return toret  # If it can't obtain the coordinates of one of the objects, it will return False.
 
         if (
             distance <= 1
@@ -154,7 +162,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         return toret
 
     def transferDrugs(
-        self, mover: str, giver: str, reciever: str, quantity: int
+        self,
+        mover: str,
+        giver: str,
+        reciever: str,
+        quantity: int,
+        moverCoord: Tuple[int, int] = None,
+        giverCoord: Tuple[int, int] = None,
+        recieverCoord: Tuple[int, int] = None,
     ) -> bool:
         """
         Transfer drugs from one object to another.
@@ -162,10 +177,13 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         This method transfers a specified quantity of drugs from a giver object to a receiver object, if certain conditions are met.
 
         Args:
-        - mover (str): The object that is moving the drugs.
-        - giver (str): The object that is giving the drugs.
-        - reciever (str): The object that is receiving the drugs.
-        - quantity (int): The quantity of drugs to transfer.
+            - mover (str): The object that is moving the drugs.
+            - giver (str): The object that is giving the drugs.
+            - reciever (str): The object that is receiving the drugs.
+            - quantity (int): The quantity of drugs to transfer.
+            - moverCoord (Tuple[int, int], optional): The position of the mover. Defaults to None.
+            - giverCoord (Tuple[int, int], optional): The position of the giver. Defaults to None.
+            - recieverCoord (Tuple[int, int], optional): The position of the receiver. Defaults to None.
 
         Returns:
             bool: True if the transfer was successful, False otherwise.
@@ -179,7 +197,9 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         if (
             self.checkAddDrug(reciever, quantity)
             and self.checkAddDrug(giver, -quantity)
-            and self.areAdjacent(mover, reciever)
+            and self.areAdjacent(
+                mover, reciever, position1=moverCoord, position2=recieverCoord
+            )
             and model.getAttributeFromDict(mover, "moving")["auto"]
         ):
             model.addDrug(reciever, quantity)
