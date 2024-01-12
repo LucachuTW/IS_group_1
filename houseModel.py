@@ -1,6 +1,7 @@
 import json
 import AbstractHouseModel
 import atexit
+import warnings
 from typing import List
 
 
@@ -238,6 +239,9 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
     def getPositionOf(self, value: str):
         """
         Get the position of the specified value in the grid.
+        We only check if the value is in the prime factorization of the number.
+        If there are multiples of the same value,
+        we return the first one we find.
 
         Args:
             value: The value to find the position of.
@@ -247,27 +251,30 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
 
         Contributors:
             - @antonoterof
+            - @SantiagoRR2004
         """
         simbolValue = self.getAttributeFromDict(value, "symbol")
         position = False
         found = False
-        for file in range(len(self.getAttribute("grid"))):
-            for simbol in range(len(self.getAttributeFromDict("grid", file))):
-                if self.getAttributeFromDict("grid", file)[simbol] == simbolValue:
-                    position = [file, simbol]
+        grid = self.getAttribute("grid")
+        rowNum = 0
+
+        while rowNum < len(grid) and not found:
+            colNum = 0
+
+            while colNum < len(grid[rowNum]) and not found:
+                if simbolValue in self.PrimeFactorization(grid[rowNum][colNum]):
+                    position = [rowNum, colNum]
                     found = True
-                    break
-                elif not self.checkIfPrime(
-                    self.getAttributeFromDict("grid", file)[simbol]
-                ):
-                    if simbolValue in self.PrimeFactorization(
-                        self.getAttributeFromDict("grid", file)[simbol]
-                    ):
-                        position = [file, simbol]
-                        found = True
-                        break
-            if found == True:
-                break
+                colNum += 1
+
+            rowNum += 1
+
+        if not found:
+            warnings.warn(f"The value could no be found in the grid.")
+            # We set the default just in case
+            position = [0, 0]
+
         return position
 
     def getOpenableStatus(self, object: str):
