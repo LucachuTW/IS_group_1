@@ -71,7 +71,7 @@ class Owner(AbstractUser):
         Contributors:
         - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             self.data["pulse"] += random.uniform(-0.1, 0.1)
             if self.data["pulse"] <= 20 or self.data["pulse"] >= 120:
                 self.data["health"] -= 0.001
@@ -90,7 +90,7 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             if self.data["health"] <= 100:
                 self.data["health"] += 0.0005
             if self.data["health"] <= 0:
@@ -111,7 +111,7 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             if self.stateOfEmergency():
                 self.context.transition_to(EmergencyOwner)
             else:
@@ -130,7 +130,7 @@ class Owner(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             self.context.doSomething()
 
     def stateOfEmergency(self) -> bool:

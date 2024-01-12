@@ -6,7 +6,7 @@ from Context import Context
 
 class AbstractUser(ABC):
     requiredData = {}
-    exitNegativeFlag = True
+    exitNegativeFlag = [True]
 
     def __init__(self, controller: Any, viewer: Any) -> None:
         """
@@ -213,7 +213,7 @@ class AbstractUser(ABC):
         Returns:
             None
         """
-        self.exitNegativeFlag = False
+        self.exitNegativeFlag[0] = False
         for th in self.threads:
             if th != threading.current_thread():
                 th.join()

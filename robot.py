@@ -59,7 +59,7 @@ class Robot(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             if self.stateOfEmergency():
                 self.context.transition_to(EmergencyRobot)
             else:
@@ -81,7 +81,7 @@ class Robot(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             self.context.doSomething()
 
     def checkForDeath(self) -> None:
@@ -101,7 +101,7 @@ class Robot(AbstractUser):
                 but this might need ports.
 
         """
-        while self.exitNegativeFlag:
+        while self.exitNegativeFlag[0]:
             if self.getView().drawAgent("owner")["health"] <= 0:
                 print("Robot has detected owner's death")
                 self.__del__()
