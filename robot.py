@@ -122,9 +122,7 @@ class Robot(AbstractUser):
             "cabinet", self.x, self.y
         )
 
-        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
-            (self.x, self.y)
-        ]
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1)
 
         if (objX, objY) in nearbyPositions:
             self.getController().openSomething(
@@ -170,9 +168,7 @@ class NormalRobot(Wrapper, Robot):
             "owner", self.x, self.y
         )
 
-        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 3) + [
-            (self.x, self.y)
-        ]
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 3)
 
         if (ownerX, ownerY) not in nearbyPositions:
             nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
@@ -218,9 +214,7 @@ class EmergencyRobot(Wrapper, Robot):
             "owner", self.x, self.y
         )
 
-        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1) + [
-            (self.x, self.y)
-        ]
+        nearbyPositions = self.calculateNearbyPositions(self.x, self.y, 1)
 
         if ownerX is not None and ownerY is not None:
             if (ownerX, ownerY) in nearbyPositions:

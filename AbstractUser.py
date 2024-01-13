@@ -268,11 +268,14 @@ class AbstractUser(ABC):
         Contributors:
             - @SantiagoRR2004
         """
-        binaryGrid = self.getView().drawMovableTo()
-        binaryGrid[desX][desY] = 0
-        next = self.aStar(binaryGrid, originX, originY, desX, desY)
-        # The first in the list is the node of origin
-        return next[1]
+        if originX == desX and originY == desY:
+            return (originX, originY)
+        else:
+            binaryGrid = self.getView().drawMovableTo()
+            binaryGrid[desX][desY] = 0
+            next = self.aStar(binaryGrid, originX, originY, desX, desY)
+            # The first in the list is the node of origin
+            return next[1]
 
     @staticmethod
     def aStar(

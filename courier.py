@@ -1,23 +1,22 @@
-import time
-from typing import List, Tuple
 from AbstractUser import AbstractUser
-from Context import Context
-from wrapper import Wrapper
+from typing import List, Tuple
 
 
 class Courier(AbstractUser):
     requiredData = {
         "unique": {"type": bool, "default": True},
-        "numberDrugs": {"type": int, "default": 999999999999999999999},
-        "maxCapacity": {"type": int, "default": 50},
-        "symbol": {"type": int, "default": 7},
+        "numberDrugs": {"type": int, "default": 127},
+        "maxCapacity": {"type": int, "default": 127},
+        "symbol": {"type": int, "default": 17},
         "openable": {"type": bool, "default": False},
         "semisolid": {"type": bool, "default": True},
         "moving": {
             "type": dict,
-            "default": {"auto": True, "mover": True, "moved": True},
+            "default": {"auto": True, "mover": False, "moved": False},
         },
+        "outsidePosition": {"type": list, "default": [12, 0]},
     }
+
     def setup(self) -> None:
         """
         Sets up the courier's context, initializes data, and sets the position.
@@ -29,10 +28,9 @@ class Courier(AbstractUser):
             - None. This method does not return any value.
 
         Contributors:
-            - @Ventupentu
+            - @SantiagoRR2004
         """
-        self.setContext(Context(LeaveCourier, self))
-        self.data = self.getView().drawAgent("courier")
+        self.data = self.getView().drawAgent(self.name)
         self.setPosition()
 
     def getThreads(self) -> List:
@@ -45,112 +43,148 @@ class Courier(AbstractUser):
             - List: A list of threads.
 
         Contributors:
-            - @Ventupentu
+            - @SantiagoRR2004
         """
         return [
-            self.changeState,
+            # self.changePulse,
+            self.checkForDeath,
+            # self.changeState,
+            self.startMain,
+            self.refillItself,
         ]
-    
 
-    def changeState(self) -> None:
+    def refillItself(self) -> None:
         """
-        Changes the state of the courier based on the current conditions.
-
-        If the state of emergency is True, transitions the courier to the ComeCourier state.
-        Otherwise, transitions the courier to the LeaveCourier state.
+        Refills itself with drugs when less that
 
         Returns:
             - None. This method does not return any value.
 
         Contributors:
-            - @Ventupentu
+            - @SantiagoRR2004
         """
-        while self.exitNegativeFlag:
-            if self.stateOfCourier():
-                self.context.transition_to(ComeCourier)
+        refillUnit = self.data["maxCapacity"] // 2
+        while self.exitNegativeFlag[0]:
+            if self.data["numberDrugs"] < refillUnit:
+                self.data["numberDrugs"] = self.data["maxCapacity"]
+
+    def checkForDeath(self) -> None:
+        """
+        Checks if the owner's health is below 0 and
+        then deletes itself.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        while self.exitNegativeFlag[0]:
+            if self.getView().drawAgent("owner")["health"] <= 0:
+                print(f"{self.name} has detected owner's death")
+                self.__del__()
+
+    def startMain(self) -> None:
+        """
+        Starts the main process.
+
+        This method runs a loop while the exitNegativeFlag is True
+        and calls the doSomething method of the context object.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        self.needToRefill = False
+        self.cabinets = []
+        while self.exitNegativeFlag[0]:
+            self.findCabinets()
+            if not self.needToRefill:
+                self.goOutside()
             else:
-                self.context.transition_to(LeaveCourier)
+                self.refillCabinet()
 
-    def stateOfCourier(self) -> bool:
+    def findCabinets(self) -> None:
         """
-        Checks if the cabinet has to be filled.
-
-        Returns:
-            - bool: True if cabinet has less than 3 drugs.
-
-        Contributors:
-            - @Ventupentu
-        """
-        return True
-        
-
-
-
-class ComeCourier(Wrapper, Courier):
-    def main(self) -> None:
-        self.fillUpCabinet()
-
-    def fillUpCabinet(self) -> None:
-        """
-        Fills up the cabinet with drugs.
+        Finds the cabinets in the house that need
+        to be refilled.
 
         Returns:
             - None. This method does not return any value.
 
         Contributors:
-            - @Ventupentu
+            - @SantiagoRR2004
         """
-        objX, objY = self.getView().findNearestPositionOfSomething(
-            "cabinet", self.x, self.y
-        )
+        cabinetInfo = self.getView().drawAgent("cabinet")
+        if cabinetInfo["unique"]:
+            if cabinetInfo["numberDrugs"] <= 1:
+                cX, cY = self.getView().findNearestPositionOfSomething(
+                    "cabinet", self.x, self.y
+                )
+                self.cabinets.append([cX, cY])
 
-        nearbyPositions = [
-            [self.x, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1],
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-        ]
+            if cabinetInfo["numberDrugs"] == cabinetInfo["maxCapacity"]:
+                self.cabinets = []
 
-        if [objX, objY] in nearbyPositions:
-            self.getController().openSomething(
-                "courier", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+        else:  # If we add more cabinets
+            pass
+
+        if len(self.cabinets) == 0:
+            self.needToRefill = False
+        else:
+            self.needToRefill = True
+
+    def goOutside(self) -> None:
+        """
+        Makes the courier go outside.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        if [self.x, self.y] != self.data["outsidePosition"]:
+            nextX, nextY = self.nextPosition(
+                self.x, self.y, *self.data["outsidePosition"]
             )
-            while self.getController().transferDrugs("courier", "courier", "cabinet", 1):
-                pass
+
+            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+                self.getController().closeSomething(self.name, eX=self.x, eY=self.y)
+                self.x = nextX
+                self.y = nextY
+            else:
+                self.getController().openSomething(self.name, eX=nextX, eY=nextY)
+
+    def refillCabinet(self) -> None:
+        """
+        Refills the cabinet.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        cX, cY = self.cabinets[0]
+        nearbyPositions = self.calculateNearbyPositions(cX, cY, 1)
+
+        if (self.x, self.y) in nearbyPositions:
+            self.getController().openSomething(
+                self.name, element="cabinet", opX=self.x, opY=self.y, eX=cX, eY=cY
+            )
+            self.getController().transferDrugs(self.name, self.name, "cabinet", 1)
             self.getController().closeSomething(
-                "courier", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+                self.name, element="cabinet", opX=self.x, opY=self.y, eX=cX, eY=cY
             )
 
         else:
-            nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
-            if self.getController().moveTo("courier", "courier", nextX, nextY):
+            nextX, nextY = self.nextPosition(self.x, self.y, cX, cY)
+            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+                self.getController().closeSomething(self.name, eX=self.x, eY=self.y)
                 self.x = nextX
                 self.y = nextY
             else:
-                self.getController().openSomething("courier", eX=nextX, eY=nextY)
-
-class LeaveCourier(Wrapper,Courier):
-    def main (self) -> None:
-        self.LeaveCourier()
-    
-    def LeaveCourier(self) -> None:
-        """
-        courier leaves the house.(cell 0,11)
-
-        Returns:
-            - None. This method does not return any value.
-        
-        Contributors:
-            - @Ventupentu
-        """
-        exit_position= [0,11]
-        if exit_position is not None:
-            exitX, exitY = exit_position
-            nextX, nextY = self.nextPosition(self.x, self.y, exitX, exitY)
-            if self.getController().moveTo("courier", "courier", nextX, nextY):
-                self.x = nextX
-                self.y = nextY
-            else:
-                self.getController().openSomething("courier", eX=nextX, eY=nextY)
-    
+                self.getController().openSomething(self.name, eX=nextX, eY=nextY)

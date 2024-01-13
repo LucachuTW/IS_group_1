@@ -111,7 +111,8 @@
             "auto": true,
             "mover": false,
             "moved": false
-        }
+        },
+        "outsidePosition": [12, 0]
     },
     "robotV2": {
         "unique": true,

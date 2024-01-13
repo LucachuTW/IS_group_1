@@ -16,7 +16,7 @@ def createHouse():
     time.sleep(2)  # Need to have this for graphical interface to work
     robot = Robot(control, view, "robot")
     robot2 = Robot(control, view, "robotV2")
-    # courier = Courier(control, view, "courier")
+    courier = Courier(control, view, "courier")
 
 
 if __name__ == "__main__":
