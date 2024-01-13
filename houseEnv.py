@@ -18,6 +18,19 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         - @LucachuTW
     """
 
+    def updateGhrapicalInterface(self) -> None:
+        """
+        This method updates the graphical interface.
+
+        Returns:
+            - None. This method does not return any value.
+
+        Contributors:
+            - @SantiagoRR2004
+        """
+        if hasattr(self, "view"):
+            self.getView().updateImage()
+
     def getFunctionsChangeModel(self) -> List:
         """
         Returns the list of functions to change the model.
@@ -205,7 +218,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
             model.addDrug(reciever, quantity)
             model.addDrug(giver, -quantity)
             toret = True
-            self.getView().updateImage()
+            self.updateGhrapicalInterface()
 
         return toret
 
@@ -339,7 +352,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                     model.getPosition(movedCoord[0], movedCoord[1]) / movedSymbol,
                 )
 
-            self.getView().updateImage()
+            self.updateGhrapicalInterface()
 
         return toret
 
@@ -452,7 +465,7 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         ):
             self.getModel().setOpenStatus(element, value, eX, eY)
             toret = True
-            self.getView().updateImage()
+            self.updateGhrapicalInterface()
 
         return toret
 
@@ -601,6 +614,6 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
                 model.setAttributeFromDict(element, stat, correctValue)
             model.addDrug(element, -quantity)
             toret = True
-            self.getView().updateImage()
+            self.updateGhrapicalInterface()
 
         return toret

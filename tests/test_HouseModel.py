@@ -1,5 +1,6 @@
 import unittest
 import houseModel
+import atexit
 
 
 class helpTestModel:
@@ -17,6 +18,7 @@ class helpTestModel:
             - @SantiagoRR2004
         """
         self.model = houseModel.HouseModel("environmentBackup.json")
+        atexit.unregister(self.model.saveToFile)
 
     def tearDown(self):
         """

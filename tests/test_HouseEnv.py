@@ -1,7 +1,7 @@
 import unittest
 import houseEnv
 import houseModel
-import houseView
+import atexit
 
 
 class helpTestController:
@@ -19,8 +19,8 @@ class helpTestController:
             - @SantiagoRR2004
         """
         self.model = houseModel.HouseModel("environmentBackup.json")
+        atexit.unregister(self.model.saveToFile)
         self.control = houseEnv.HouseEnv(self.model)
-        self.control.setView(houseView.HouseView(self.model))
 
     def tearDown(self):
         """

@@ -6,6 +6,7 @@ from robot import Robot, NormalRobot, EmergencyRobot
 import houseModel
 import houseEnv
 import houseView
+import atexit
 
 
 class helpTestRobot:
@@ -23,9 +24,9 @@ class helpTestRobot:
             - @SantiagoRR2004
         """
         self.model = houseModel.HouseModel("environmentBackup.json")
+        atexit.unregister(self.model.saveToFile)
         self.view = houseView.HouseView(self.model)
         self.control = houseEnv.HouseEnv(self.model)
-        self.control.setView(self.view)
 
         self.owner = Owner(self.control, self.view, "owner")
         self.robot = Robot(self.control, self.view, "robot")

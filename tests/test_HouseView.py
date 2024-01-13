@@ -1,6 +1,7 @@
 import unittest
 import houseView
 import houseModel
+import atexit
 
 
 class helpTestViewer:
@@ -18,6 +19,7 @@ class helpTestViewer:
             - @SantiagoRR2004
         """
         self.model = houseModel.HouseModel("environmentBackup.json")
+        atexit.unregister(self.model.saveToFile)
         self.view = houseView.HouseView(self.model)
 
     def tearDown(self):

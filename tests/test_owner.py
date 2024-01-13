@@ -5,6 +5,7 @@ import Context
 import houseModel
 import houseEnv
 import houseView
+import atexit
 
 
 class helpTestOwner:
@@ -22,9 +23,9 @@ class helpTestOwner:
             - @SantiagoRR2004
         """
         self.model = houseModel.HouseModel("environmentBackup.json")
+        atexit.unregister(self.model.saveToFile)
         self.view = houseView.HouseView(self.model)
         self.control = houseEnv.HouseEnv(self.model)
-        self.control.setView(self.view)
 
         self.owner = Owner(self.control, self.view, "owner")
 
