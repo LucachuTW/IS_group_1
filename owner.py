@@ -35,7 +35,7 @@ class Owner(AbstractUser):
             - @SantiagoRR2004
         """
         self.setContext(Context(NormalOwner, self))
-        self.data = self.getView().drawAgent("owner")
+        self.data = self.getView().drawAgent(self.name)
         self.setPosition()
 
     def getThreads(self) -> List:
@@ -207,7 +207,9 @@ class NormalOwner(Wrapper, Owner):
             - @SantiagoRR2004
         """
         direction = random.choice(self.calculateNearbyPositions(self.x, self.y, 1))
-        if self.getController().moveTo("owner", "owner", direction[0], direction[1]):
+        if self.getController().moveTo(
+            self.name, self.name, direction[0], direction[1]
+        ):
             self.x = direction[0]
             self.y = direction[1]
 
@@ -227,11 +229,11 @@ class NormalOwner(Wrapper, Owner):
 
         else:
             nextX, nextY = self.nextPosition(self.x, self.y, objectiveX, objectiveY)
-            if self.getController().moveTo("owner", "owner", nextX, nextY):
+            if self.getController().moveTo(self.name, self.name, nextX, nextY):
                 self.x = nextX
                 self.y = nextY
             else:  # We try to open what is in front of the owner
-                self.getController().openSomething("owner", eX=nextX, eY=nextY)
+                self.getController().openSomething(self.name, eX=nextX, eY=nextY)
 
     def choosePosition(self) -> Tuple[int, int]:
         """
@@ -274,7 +276,7 @@ class NormalOwner(Wrapper, Owner):
             "armchair", self.x, self.y
         )
         nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
-        if self.getController().moveTo("owner", "owner", nextX, nextY):
+        if self.getController().moveTo(self.name, self.name, nextX, nextY):
             self.x = nextX
             self.y = nextY
 
@@ -296,6 +298,6 @@ class EmergencyOwner(Wrapper, Owner):
             - @SantiagoRR2004
         """
         if self.getController().consumeDrugs(
-            "owner", 1, self.x, self.y, fixes={"pulse": 50, "health": 100}
+            self.name, 1, self.x, self.y, fixes={"pulse": 50, "health": 100}
         ):
             print("Owner has consumed drugs")

@@ -30,7 +30,7 @@ class Robot(AbstractUser):
             - @SantiagoRR2004
         """
         self.setContext(Context(NormalRobot, self))
-        self.data = self.getView().drawAgent("robot")
+        self.data = self.getView().drawAgent(self.name)
         self.setPosition()
 
     def getThreads(self) -> List:
@@ -103,7 +103,7 @@ class Robot(AbstractUser):
         """
         while self.exitNegativeFlag[0]:
             if self.getView().drawAgent("owner")["health"] <= 0:
-                print("Robot has detected owner's death")
+                print(f"{self.name} has detected owner's death")
                 self.__del__()
 
     def fillUp(self) -> None:
@@ -128,21 +128,23 @@ class Robot(AbstractUser):
 
         if (objX, objY) in nearbyPositions:
             self.getController().openSomething(
-                "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+                self.name, element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
-            if not self.getController().transferDrugs("robot", "cabinet", "robot", 1):
-                print("Problem, robot could not fill up")
+            if not self.getController().transferDrugs(
+                self.name, "cabinet", self.name, 1
+            ):
+                print(f"Problem, {self.name} could not fill up")
             self.getController().closeSomething(
-                "robot", element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
+                self.name, element="cabinet", opX=self.x, opY=self.y, eX=objX, eY=objY
             )
 
         else:
             nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
-            if self.getController().moveTo("robot", "robot", nextX, nextY):
+            if self.getController().moveTo(self.name, self.name, nextX, nextY):
                 self.x = nextX
                 self.y = nextY
             else:
-                self.getController().openSomething("robot", eX=nextX, eY=nextY)
+                self.getController().openSomething(self.name, eX=nextX, eY=nextY)
 
 
 class NormalRobot(Wrapper, Robot):
@@ -174,11 +176,11 @@ class NormalRobot(Wrapper, Robot):
 
         if (ownerX, ownerY) not in nearbyPositions:
             nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
-            if self.getController().moveTo("robot", "robot", nextX, nextY):
+            if self.getController().moveTo(self.name, self.name, nextX, nextY):
                 self.x = nextX
                 self.y = nextY
             else:
-                self.getController().openSomething("robot", eX=nextX, eY=nextY)
+                self.getController().openSomething(self.name, eX=nextX, eY=nextY)
 
 
 class EmergencyRobot(Wrapper, Robot):
@@ -225,11 +227,11 @@ class EmergencyRobot(Wrapper, Robot):
                 self.giveDrugs()
             else:
                 nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
-                if self.getController().moveTo("robot", "robot", nextX, nextY):
+                if self.getController().moveTo(self.name, self.name, nextX, nextY):
                     self.x = nextX
                     self.y = nextY
                 else:
-                    self.getController().openSomething("robot", eX=nextX, eY=nextY)
+                    self.getController().openSomething(self.name, eX=nextX, eY=nextY)
 
     def giveDrugs(self) -> None:
         """
@@ -241,4 +243,4 @@ class EmergencyRobot(Wrapper, Robot):
         Contributors:
             - @Ventupentu
         """
-        self.getController().transferDrugs("robot", "robot", "owner", 1)
+        self.getController().transferDrugs(self.name, self.name, "owner", 1)

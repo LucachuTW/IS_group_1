@@ -27,8 +27,8 @@ class helpTestRobot:
         self.control = houseEnv.HouseEnv(self.model)
         self.control.setView(self.view)
 
-        self.owner = Owner(self.control, self.view)
-        self.robot = Robot(self.control, self.view)
+        self.owner = Owner(self.control, self.view, "owner")
+        self.robot = Robot(self.control, self.view, "robot")
 
     def tearDown(self) -> None:
         """

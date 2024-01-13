@@ -26,7 +26,7 @@ class helpTestOwner:
         self.control = houseEnv.HouseEnv(self.model)
         self.control.setView(self.view)
 
-        self.owner = Owner(self.control, self.view)
+        self.owner = Owner(self.control, self.view, "owner")
 
     def tearDown(self) -> None:
         """

@@ -8,20 +8,23 @@ class AbstractUser(ABC):
     requiredData = {}
     exitNegativeFlag = [True]
 
-    def __init__(self, controller: Any, viewer: Any) -> None:
+    def __init__(self, controller: Any, viewer: Any, name: str) -> None:
         """
         Initializes an instance of the AbstractUser class.
         It needs a controller and a viewer to work.
+        The name is the name in the environment.
 
         Args:
-            controller (Any): The controller object.
-            viewer (Any): The viewer object.
+            - controller (Any): The controller object.
+            - viewer (Any): The viewer object.
+            - name (str): The name in the environment.
 
         Contributors:
             - @SantiagoRR2004
         """
         self.view = viewer
         self.controller = controller
+        self.name = name
         self.setup()
         self.checkData()
         self.setUpThreading()

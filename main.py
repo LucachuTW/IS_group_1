@@ -12,10 +12,10 @@ def createHouse():
     view = houseView.HouseView(model)
     control = houseEnv.HouseEnv(model)
     control.setView(view)
-    owner = Owner(control, view)
+    owner = Owner(control, view, "owner")
     time.sleep(2)  # Need to have this for graphical interface to work
-    robot = Robot(control, view)
-    courier = Courier(control, view)
+    robot = Robot(control, view, "robot")
+    # courier = Courier(control, view, "courier")
 
 
 if __name__ == "__main__":
