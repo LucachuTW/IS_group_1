@@ -38,7 +38,7 @@ class Context:
             - @SantiagoRR2004
         """
         if not isinstance(self._state, state):
-            print(f"Context: Transition to {state.__name__}")
+            # print(f"Context: Transition to {state.__name__}")
             self._state = state(self.user)
             self._state.context = self
 
