@@ -219,36 +219,6 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                             (index_j * self.GRID_SIZE, index_i * self.GRID_SIZE),
                         )
 
-    def move_robot(self, matrix: List, from_pos: List, to_pos: List) -> None:
-        """
-        Move the robot from one position to another in the matrix.
-
-        Args:
-            - matrix (List[List[str]]): The matrix representing the house view.
-            - from_pos (List[int]): The current position of the robot in the matrix.
-            - to_pos (List[int]): The target position where the robot should be moved.
-
-        Returns:
-            - None
-
-        Contributors:
-            - @antonvm2004
-        """
-        current_piece = matrix[from_pos[0]][from_pos[1]]
-
-        if 0 <= to_pos[0] < len(matrix) and 0 <= to_pos[1] < len(matrix[0]):
-            target_piece = matrix[to_pos[0]][to_pos[1]]
-
-            if current_piece == "11":
-                if target_piece == "3":
-                    matrix[to_pos[0]][to_pos[1]] = current_piece
-                    matrix[from_pos[0]][from_pos[1]] = "0"
-                elif target_piece == "0":
-                    matrix[to_pos[0]][to_pos[1]] = current_piece
-                    matrix[from_pos[0]][from_pos[1]] = "0"
-                else:
-                    matrix[from_pos[0]][from_pos[1]] = current_piece
-
     def preparePygame(self) -> None:
         """
         Prepare pygame.
