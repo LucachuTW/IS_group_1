@@ -319,7 +319,7 @@ class AbstractUser(ABC):
                 - @SantiagoRR2004
             """
             # Check if the move is within the bounds and the cell is traversable
-            return 0 <= x < len(graph) and 0 <= y < len(graph[0]) and graph[x][y] == 0
+            return 0 <= x < len(graph) and 0 <= y < len(graph[x]) and graph[x][y] == 0
 
         def findClosestNode(
             nodes: List[Tuple[Tuple[int, int], List]], goal: Tuple[int, int]
@@ -361,14 +361,13 @@ class AbstractUser(ABC):
         goalNode = (desX, desY)
 
         openSet.append((startNode, []))  # (node, path)
+        closedSet.add(startNode)
 
         while openSet:
             currentNode, currentPath = findClosestNode(openSet, goalNode)
 
             if currentNode == goalNode:
                 return currentPath + [currentNode]
-
-            closedSet.add(currentNode)
 
             x, y = currentNode
 
@@ -378,6 +377,7 @@ class AbstractUser(ABC):
             for neighbor in moves:
                 if is_valid_move(*neighbor, graph) and neighbor not in closedSet:
                     openSet.append((neighbor, currentPath + [currentNode]))
+                    closedSet.add(neighbor)
 
         return None  # No path found
 

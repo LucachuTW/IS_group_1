@@ -271,7 +271,9 @@ class HouseModel(AbstractHouseModel.AbstractHouseModel):
             rowNum += 1
 
         if not found:
-            warnings.warn(f"The value could no be found in the grid.")
+            warnings.warn(
+                f"The value {simbolValue} from {value} could no be found in the grid."
+            )
             # We set the default just in case
             position = [0, 0]
 

@@ -142,7 +142,14 @@ class Robot(AbstractUser):
 
         else:
             nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
-            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+            if self.getController().moveTo(
+                self.name,
+                self.name,
+                nextX,
+                nextY,
+                moverCoord=[self.x, self.y],
+                movedCoord=[self.x, self.y],
+            ):
                 self.x = nextX
                 self.y = nextY
             else:
@@ -176,7 +183,14 @@ class NormalRobot(Wrapper, Robot):
 
         if (ownerX, ownerY) not in nearbyPositions:
             nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
-            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+            if self.getController().moveTo(
+                self.name,
+                self.name,
+                nextX,
+                nextY,
+                moverCoord=[self.x, self.y],
+                movedCoord=[self.x, self.y],
+            ):
                 self.x = nextX
                 self.y = nextY
             else:
@@ -225,7 +239,14 @@ class EmergencyRobot(Wrapper, Robot):
                 self.giveDrugs()
             else:
                 nextX, nextY = self.nextPosition(self.x, self.y, ownerX, ownerY)
-                if self.getController().moveTo(self.name, self.name, nextX, nextY):
+                if self.getController().moveTo(
+                    self.name,
+                    self.name,
+                    nextX,
+                    nextY,
+                    moverCoord=[self.x, self.y],
+                    movedCoord=[self.x, self.y],
+                ):
                     self.x = nextX
                     self.y = nextY
                 else:

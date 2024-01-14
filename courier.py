@@ -86,8 +86,10 @@ class Courier(AbstractUser):
         """
         Starts the main process.
 
-        This method runs a loop while the exitNegativeFlag is True
-        and calls the doSomething method of the context object.
+        This method runs a loop while the exitNegativeFlag is True.
+        When a cabinet has less than 2 drugs, the courier will go
+        fill it up. If there are no cabinets that need to be refilled,
+        the courier will go outside.
 
         Returns:
             - None. This method does not return any value.
@@ -149,7 +151,14 @@ class Courier(AbstractUser):
                 self.x, self.y, *self.data["outsidePosition"]
             )
 
-            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+            if self.getController().moveTo(
+                self.name,
+                self.name,
+                nextX,
+                nextY,
+                moverCoord=[self.x, self.y],
+                movedCoord=[self.x, self.y],
+            ):
                 self.getController().closeSomething(self.name, eX=self.x, eY=self.y)
                 self.x = nextX
                 self.y = nextY
@@ -180,7 +189,14 @@ class Courier(AbstractUser):
 
         else:
             nextX, nextY = self.nextPosition(self.x, self.y, cX, cY)
-            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+            if self.getController().moveTo(
+                self.name,
+                self.name,
+                nextX,
+                nextY,
+                moverCoord=[self.x, self.y],
+                movedCoord=[self.x, self.y],
+            ):
                 self.getController().closeSomething(self.name, eX=self.x, eY=self.y)
                 self.x = nextX
                 self.y = nextY

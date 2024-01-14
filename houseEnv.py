@@ -278,20 +278,30 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
 
         return toret
 
-    def moveTo(self, mover: str, moved: str, x: int, y: int) -> bool:
+    def moveTo(
+        self,
+        mover: str,
+        moved: str,
+        x: int,
+        y: int,
+        moverCoord: List = None,
+        movedCoord: List = None,
+    ) -> bool:
         """
         Move an object to a specified position.
 
         This method moves a specified object to a specified position in the model, if certain conditions are met.
 
         Args:
-        - mover (str): The object that is moving.
-        - moved (str): The object that is being moved.
-        - x (int): The x-coordinate of the position to move to.
-        - y (int): The y-coordinate of the position to move to.
+            - mover (str): The object that is moving.
+            - moved (str): The object that is being moved.
+            - x (int): The x-coordinate of the position to move to.
+            - y (int): The y-coordinate of the position to move to.
+            - moverCoord (List, optional): The position of the mover. Defaults to None.
+            - movedCoord (List, optional): The position of the moved. Defaults to None.
 
         Returns:
-            bool: True if the move was successful, False otherwise.
+            - bool: True if the move was successful, False otherwise.
 
         Contributors:
             - @SantiagoRR2004
@@ -310,8 +320,11 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         moverSymbol = model.getAttributeFromDict(mover, "symbol")
         movedSymbol = model.getAttributeFromDict(moved, "symbol")
         movedToSymbol = model.getPosition(x, y)
-        moverCoord = model.getPositionOf(mover)
-        movedCoord = model.getPositionOf(moved)
+
+        if moverCoord is None:
+            moverCoord = model.getPositionOf(mover)
+        if movedCoord is None:
+            movedCoord = model.getPositionOf(moved)
 
         toret = True
 
@@ -327,10 +340,14 @@ class HouseEnv(AbstractHouseEnv.AbstractHouseEnv):
         ):
             toret = False
 
-        elif not self.areAdjacent(mover, moved):
+        elif not self.areAdjacent(
+            mover, moved, position1=moverCoord, position2=movedCoord
+        ):
             toret = False
 
-        elif not self.areAdjacent(moved, "None", position2=[x, y]):
+        elif not self.areAdjacent(
+            moved, "None", position1=movedCoord, position2=[x, y]
+        ):
             toret = False
 
         elif not self.checkIfShareable(moved) and movedToSymbol != 0:

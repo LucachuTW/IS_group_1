@@ -44,7 +44,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         model = self.getModel()
         grid = copy.deepcopy(model.getAttribute("grid"))
         for row in range(len(grid)):
-            for column in range(len(grid[0])):
+            for column in range(len(grid[row])):
                 valueToCheck = grid[row][column]
                 if valueToCheck != 0:
                     if self.getModel().checkIfPrime(valueToCheck):
@@ -288,7 +288,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
         WINDOW_HEIGHT = num_rows * self.GRID_SIZE
 
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Interface with Mobile Image")
+        pygame.display.set_caption("Casa domótica")
 
         self.load_images()
 

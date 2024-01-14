@@ -208,7 +208,12 @@ class NormalOwner(Wrapper, Owner):
         """
         direction = random.choice(self.calculateNearbyPositions(self.x, self.y, 1))
         if self.getController().moveTo(
-            self.name, self.name, direction[0], direction[1]
+            self.name,
+            self.name,
+            direction[0],
+            direction[1],
+            moverCoord=[self.x, self.y],
+            movedCoord=[self.x, self.y],
         ):
             self.x = direction[0]
             self.y = direction[1]
@@ -229,7 +234,14 @@ class NormalOwner(Wrapper, Owner):
 
         else:
             nextX, nextY = self.nextPosition(self.x, self.y, objectiveX, objectiveY)
-            if self.getController().moveTo(self.name, self.name, nextX, nextY):
+            if self.getController().moveTo(
+                self.name,
+                self.name,
+                nextX,
+                nextY,
+                moverCoord=[self.x, self.y],
+                movedCoord=[self.x, self.y],
+            ):
                 self.x = nextX
                 self.y = nextY
             else:  # We try to open what is in front of the owner
@@ -276,7 +288,14 @@ class NormalOwner(Wrapper, Owner):
             "armchair", self.x, self.y
         )
         nextX, nextY = self.nextPosition(self.x, self.y, objX, objY)
-        if self.getController().moveTo(self.name, self.name, nextX, nextY):
+        if self.getController().moveTo(
+            self.name,
+            self.name,
+            nextX,
+            nextY,
+            moverCoord=[self.x, self.y],
+            movedCoord=[self.x, self.y],
+        ):
             self.x = nextX
             self.y = nextY
 
