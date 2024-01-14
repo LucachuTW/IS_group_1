@@ -330,7 +330,7 @@ class HouseView(AbstractHouseView.AbstractHouseView):
                     ),
                 )
 
-        self.draw_grid()
+        # self.draw_grid()
         self.draw_pieces(matrix)
         pygame.display.flip()
 
