@@ -46,11 +46,9 @@ class Courier(AbstractUser):
             - @SantiagoRR2004
         """
         return [
-            # self.changePulse,
-            self.checkForDeath,
-            # self.changeState,
-            self.startMain,
-            self.refillItself,
+            {"target": self.checkForDeath, "name": f"{self.name} death"},
+            {"target": self.startMain, "name": f"{self.name} main"},
+            {"target": self.refillItself, "name": f"{self.name} refill itself"},
         ]
 
     def refillItself(self) -> None:

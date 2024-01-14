@@ -203,7 +203,7 @@ class AbstractUser(ABC):
         self.threads = []
         # threading.stack_size(1024 * 1024 * 1024)
         for th in threads:
-            self.threads.append(threading.Thread(target=th))
+            self.threads.append(threading.Thread(target=th["target"], name=th["name"]))
             self.threads[-1].start()
 
     def deleteThreads(self) -> None:

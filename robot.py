@@ -44,7 +44,11 @@ class Robot(AbstractUser):
         Contributors:
             - @SantiagoRR2004
         """
-        return [self.changeState, self.startMain, self.checkForDeath]
+        return [
+            {"target": self.changeState, "name": f"{self.name} change state"},
+            {"target": self.startMain, "name": f"{self.name} main"},
+            {"target": self.checkForDeath, "name": f"{self.name} death"},
+        ]
 
     def changeState(self) -> None:
         """

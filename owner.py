@@ -51,10 +51,10 @@ class Owner(AbstractUser):
             - @SantiagoRR2004
         """
         return [
-            self.changePulse,
-            self.checkForDeath,
-            self.changeState,
-            self.startMain,
+            {"target": self.changePulse, "name": f"{self.name} pulse"},
+            {"target": self.checkForDeath, "name": f"{self.name} death"},
+            {"target": self.changeState, "name": f"{self.name} change state"},
+            {"target": self.startMain, "name": f"{self.name} main"},
         ]
 
     def changePulse(self) -> None:
