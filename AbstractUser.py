@@ -115,24 +115,18 @@ class AbstractUser(ABC):
         """
         grid = self.getView().draw()
         symbol = self.data["symbol"]
-        found = False
-        rowNumber = 0
 
-        while not found and rowNumber <= len(grid) - 1:
-            columnNumber = 0
-            while not found and columnNumber <= len(grid[rowNumber]) - 1:
-                if grid[rowNumber][columnNumber] == symbol:
-                    self.x = rowNumber
-                    self.y = columnNumber
-                    found = True
-                columnNumber += 1
-            rowNumber += 1
+        position = self.getView().findNearestPositionOfSomething(self.name)
 
-        if not found:
+        if len(position) != 2:
             print(f"Trying to find {symbol} in:")
             for row in grid:
                 print(row)
             raise Exception("Couldn't find coordinates")
+
+        else:
+            self.x = position[0]
+            self.y = position[1]
 
     @abstractmethod
     def setup(self) -> None:
