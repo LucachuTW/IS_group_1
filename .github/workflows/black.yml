@@ -1,6 +1,10 @@
 name: Black Format
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build:
@@ -25,15 +29,16 @@ jobs:
       run: |
         black .
 
-    - name: Commit changes
+    - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        # Check if there are changes
-        if git diff --exit-code; then
-          echo "No changes to commit."
-        else
-          echo "Changes to commit."
+        if ! git diff --quiet; then
           git add .
           git commit -m "Auto-format code with Black"
+          git push
+        else
+          echo "No changes to push."
         fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
