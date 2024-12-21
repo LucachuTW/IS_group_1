@@ -25,7 +25,7 @@ class Robot(AbstractUser):
 		pass
 
 	def __init__(self):
-		self._requiredData = {"unique": {"type": bool, "default": }, "numberDrugs": {"type": int, "default": 0}, "maxCapacity": {"type": int, "default": 2}, "symbol": {"type": int, "default": 11}, "openable": {"type": bool, "default": }, "semisolid": {"type": bool, "default": }, "moving": {"type": dict, "default": {"auto": , "mover": , "moved": }}}
+		self._requiredData = {"unique": {"type": bool, "default": True}, "numberDrugs": {"type": int, "default": 0}, "maxCapacity": {"type": int, "default": 2}, "symbol": {"type": int, "default": 11}, "openable": {"type": bool, "default": False}, "semisolid": {"type": bool, "default": True}, "moving": {"type": dict, "default": {"auto": True, "mover": True, "moved": False}}}
 		self._data = self.getView().drawAgent("robot")
 		self._unnamed_EmergencyRobot_ : EmergencyRobot = None
 		"""# @AssociationKind Composition"""
