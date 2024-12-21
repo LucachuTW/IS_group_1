@@ -4,13 +4,13 @@ import Owner
 import Wrapper
 from typing import List
 
+
 class NormalOwner(Wrapper, Owner):
-	def main(self, aSelf):
-		pass
+    def main(self, aSelf):
+        pass
 
-	def moveRandomlyNearby(self, aSelf):
-		pass
+    def moveRandomlyNearby(self, aSelf):
+        pass
 
-	def __init__(self):
-		self._unnamed_Owner_ : Owner = None
-
+    def __init__(self):
+        self._unnamed_Owner_: Owner = None
