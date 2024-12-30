@@ -1,6 +1,6 @@
 # Información general
 
-Este es un proyecto de una asignatura llamada "Ingeniería del Software" que era un 30% de la nota final de la asignatura. Fue hecho entre 11 personas y eran tres entregas. La primera fue el domingo 26 de noviembre de 2024 y la nota fue un 6,5. La segunda fue el domingo 17 de diciembre de de 2024; la nota fue un 7. La entrega final el 14 de enero de 2024 y se le otorgó una puntuación de 6. La primera entrega valía 4,5% de la nota final. Las otras valían 7,5% y 18% respectivamente.
+Este es un proyecto de una asignatura llamada "Ingeniería del Software" que era un 30% de la nota final de la asignatura. Fue hecho entre 11 personas y eran tres entregas. La primera fue el domingo 26 de noviembre de 2023 y la nota fue un 6,5. La segunda fue el domingo 17 de diciembre de de 2023; la nota fue un 7. La entrega final fue el domingo 14 de enero de 2024 y se le otorgó una puntuación de 6. La primera entrega valía 4,5% de la nota final. Las otras valían 7,5% y 18% respectivamente.
 
 # Descripción del proyecto
 
