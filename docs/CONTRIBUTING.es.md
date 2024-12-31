@@ -1,9 +1,7 @@
-# Descripción del Proyecto en GitHub
+# Instrucciones para contribuir
 
-Este repositorio en GitHub servirá para consolidar el trabajo conjunto de diferentes equipos, permitiéndonos dividirnos y colaborar en cada aspecto del proyecto.
+Este es un proyecto universitario cuyo desarrollo ya ha finalizado. Si consideras que puedes corregir errores en el código o añadir nuevas funcionalidades, eres libre de hacerlo. Estamos abiertos a cualquier sugerencia y mejora.
 
-Nuestro enfoque estará en la resolución de issues. Dado que hay más equipos que partes del software en el proyecto, varios equipos trabajarán en las issues según su dificultad.
+Todo el código que escribas debe estar en inglés y bien documentado. Un requisito para este proyecto era que debíamos añadir quién contribuyó en cada función. Si modificas o añades una función, debes añadir tu nombre a la lista de contribuidores de esa función.
 
-A medida que el proyecto avance, evitaremos realizar commits directos en la rama principal (`main`). En su lugar, crearemos ramas específicas para cada cambio y usaremos pull requests. Estas solicitudes de incorporación serán revisadas y aceptadas por otros miembros del grupo.
-
-Todo el software deberá tener comentarios que indiquen su fecha de creación, creador, editores y una documentación apropiada
+Una manera muy sencilla de contribuir es añadir una nueva fila de idioma al archivo README.md. Si hablas un idioma que no está en la lista, puedes añadirlo. Debes traducir los archivos del inglés. No tiene que ser perfecto, pero debe tener toda la información que tienen los archivos en inglés. Si encuentras que la traducción no es correcta o no tiene toda la información, crea un issue y luego márcalo como resuelto en el pull request. No modifiques los archivos de la documentación que están en inglés.
