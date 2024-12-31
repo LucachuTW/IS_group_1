@@ -1,8 +1,7 @@
 # Project Collaboration Guidelines
 
-This repository will serve as a hub for consolidating contributions from different pairs, enabling us to coordinate and divide tasks efficiently.
-Our primary focus will revolve around addressing and completing the outlined issues. Given the diverse teams and various parts of the software within the project, multiple teams may collaborate on certain issues based on their complexity.
+This is a university project that has already been completed. If you feel that you can fix mistakes in the code or add new functionalities, it's up to you to do so. We are open to any suggestions and improvements.
 
-As the project progresses to a more advanced stage, we won't commit directly to the main branch. Instead, we'll create individual branches for our work and utilize pull requests. These pull requests will be reviewed and accepted by another member of the group.
+All the code that you write should be in English and well documented. A requirement for this project was that we had to add who contributed in each function. If you modify or add a function, you should add your name to the list of contributors of that function.
 
-All software should have comments indicating its creation date, creator, editor, and comprehensive documentation.
+A very easy way to contribute is to add a new language row to the README.md file. If you know a language that is not on the list you can add it. You should translate the English files. It doesn't have to be perfect, but it should have all the information that the English files have. If you find that the translation is not correct or it doesn't have all the information, create an issue and then mark it as fixed in the pull request. Don't modify the English files.
