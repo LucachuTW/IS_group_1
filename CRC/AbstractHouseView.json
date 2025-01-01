@@ -1,43 +1,42 @@
 {
-    "ClassName": "AbstractHouseView",
-    "SuperClasses": [],
-    "SubClasses": [],
-    "Description": "Representa una vista abstracta del entorno de la casa.",
-    "Attributes": [
-      {
-        "Name": "model",
-        "Description": "Representa el modelo del entorno de la casa."
-      },
-      {
-        "Name": "controller",
-        "Description": "Controlador del entorno de la casa."
-      }
-    ],
-    "Responsibilities": [
-      {
-        "Name": "Inicializar el entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Establecer el controlador del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Obtener el controlador del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Establecer el modelo del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Obtener el modelo del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Devolver una representación.",
-        "Collaborator": ""
-      }
-    ]
-  }
-  
+  "ClassName": "AbstractHouseView",
+  "SuperClasses": [],
+  "SubClasses": [],
+  "Description": "Representa una vista abstracta del entorno de la casa.",
+  "Attributes": [
+    {
+      "Name": "model",
+      "Description": "Representa el modelo del entorno de la casa."
+    },
+    {
+      "Name": "controller",
+      "Description": "Controlador del entorno de la casa."
+    }
+  ],
+  "Responsibilities": [
+    {
+      "Name": "Inicializar el entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Establecer el controlador del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Obtener el controlador del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Establecer el modelo del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Obtener el modelo del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Devolver una representación.",
+      "Collaborator": ""
+    }
+  ]
+}

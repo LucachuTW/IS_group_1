@@ -1,43 +1,42 @@
 {
-    "ClassName": "GridWorldModel",
-    "SuperClasses": [],
-    "SubClasses": [],
-    "Description": "Representa un modelo de cuadrícula para la visualización del entorno.",
-    "Attributes": [
-      {
-        "Name": "matrix",
-        "Description": "Representa la matriz que define el entorno."
-      },
-      {
-        "Name": "square",
-        "Description": "Representa el tamaño de los cuadrados que componen la cuadrícula."
-      },
-      {
-        "Name": "images",
-        "Description": "Almacena las imágenes utilizadas para representar los elementos del entorno."
-      }
-    ],
-    "Responsibilities": [
-      {
-        "Name": "Inicializar el entorno.",
-        "Collaborator": "json, tkinter"
-      },
-      {
-        "Name": "Cargar los datos del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Dibujar la cuadrícula en la interfaz gráfica.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Cargar las imágenes utilizadas para representar los elementos del entorno.",
-        "Collaborator": ""
-      },
-      {
-        "Name": "Mostrar los elementos del entorno en la interfaz gráfica.",
-        "Collaborator": ""
-      }
-    ]
-  }
-  
+  "ClassName": "GridWorldModel",
+  "SuperClasses": [],
+  "SubClasses": [],
+  "Description": "Representa un modelo de cuadrícula para la visualización del entorno.",
+  "Attributes": [
+    {
+      "Name": "matrix",
+      "Description": "Representa la matriz que define el entorno."
+    },
+    {
+      "Name": "square",
+      "Description": "Representa el tamaño de los cuadrados que componen la cuadrícula."
+    },
+    {
+      "Name": "images",
+      "Description": "Almacena las imágenes utilizadas para representar los elementos del entorno."
+    }
+  ],
+  "Responsibilities": [
+    {
+      "Name": "Inicializar el entorno.",
+      "Collaborator": "json, tkinter"
+    },
+    {
+      "Name": "Cargar los datos del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Dibujar la cuadrícula en la interfaz gráfica.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Cargar las imágenes utilizadas para representar los elementos del entorno.",
+      "Collaborator": ""
+    },
+    {
+      "Name": "Mostrar los elementos del entorno en la interfaz gráfica.",
+      "Collaborator": ""
+    }
+  ]
+}

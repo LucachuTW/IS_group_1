@@ -1,63 +1,62 @@
 {
-    "ClassName": "AbstractHouseModel",
-    "SuperClasses": [],
-    "SubClasses": [],
-    "Description": "Representa un modelo abstracto del entorno de la casa",
-    "Attributes": [
-      {
-        "Name": "model",
-        "Description": "Representa el modelo del entorno de la casa"
-      },
-      {
-        "Name": "view",
-        "Description": "Representa la vista del entorno de la casa"
-      },
-      {
-        "Name": "controller",
-        "Description": "Controlador del entorno de la casa"
-      }
-    ],
-    "Responsibilities": [
-      {
-        "Name": "Establecer",
-        "Collaborator": "las relaciones entre el entorno y la vista. environment"
-      },
-      {
-        "Name": "Obtener",
-        "Collaborator": "el controlador del entorno."
-      },
-      {
-        "Name": "Obtener",
-        "Collaborator": "la vista del entorno."
-      },
-      {
-        "Name": "Devolver",
-        "Collaborator": "una representación."
-      },
-      {
-        "Name": "Obtener",
-        "Collaborator": "un atributo específico."
-      },
-      {
-        "Name": "Establecer",
-        "Collaborator": "un atributo específico."
-      },
-      {
-        "Name": "Obtener",
-        "Collaborator": "un atributo específico de un diccionario."
-      },
-      {
-        "Name": "Establecer",
-        "Collaborator": "un atributo específico de un diccionario."
-      },
-      {
-        "Name": "Modificar",
-        "Collaborator": "un atributo numérico específico de un diccionario."
-      },
-      {
-        "Name": "Calcular",
-        "Collaborator": "la distancia entre dos puntos."
-      }
-    ]
-  }
-  
+  "ClassName": "AbstractHouseModel",
+  "SuperClasses": [],
+  "SubClasses": [],
+  "Description": "Representa un modelo abstracto del entorno de la casa",
+  "Attributes": [
+    {
+      "Name": "model",
+      "Description": "Representa el modelo del entorno de la casa"
+    },
+    {
+      "Name": "view",
+      "Description": "Representa la vista del entorno de la casa"
+    },
+    {
+      "Name": "controller",
+      "Description": "Controlador del entorno de la casa"
+    }
+  ],
+  "Responsibilities": [
+    {
+      "Name": "Establecer",
+      "Collaborator": "las relaciones entre el entorno y la vista. environment"
+    },
+    {
+      "Name": "Obtener",
+      "Collaborator": "el controlador del entorno."
+    },
+    {
+      "Name": "Obtener",
+      "Collaborator": "la vista del entorno."
+    },
+    {
+      "Name": "Devolver",
+      "Collaborator": "una representación."
+    },
+    {
+      "Name": "Obtener",
+      "Collaborator": "un atributo específico."
+    },
+    {
+      "Name": "Establecer",
+      "Collaborator": "un atributo específico."
+    },
+    {
+      "Name": "Obtener",
+      "Collaborator": "un atributo específico de un diccionario."
+    },
+    {
+      "Name": "Establecer",
+      "Collaborator": "un atributo específico de un diccionario."
+    },
+    {
+      "Name": "Modificar",
+      "Collaborator": "un atributo numérico específico de un diccionario."
+    },
+    {
+      "Name": "Calcular",
+      "Collaborator": "la distancia entre dos puntos."
+    }
+  ]
+}
