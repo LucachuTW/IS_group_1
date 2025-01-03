@@ -1,6 +1,6 @@
 # Overview
 
-This is a project for a subject called "Software Engineering" that accounted for 30% of the final grade. It was made by a team of 11 people and handed in three times. The first submission was on Sunday, the 26th of November of 2023, and received a grade of 6.5. The second submission was on Sunday, the 17th of December of 2023, with a grade of 7. The final submission took place on Sunday, the 14th of January of 2024, and earned a grade of 6. They were 4.5%, 7.5% and 18% of the final grade respectively.
+This is a project for a subject called "Ingeniería del Software" (Software Engineering) that accounted for 30% of the final grade. It was made by a team of 11 people and handed in three times. The first submission was on Sunday, the 26th of November of 2023, and received a grade of 6.5. The second submission was on Sunday, the 17th of December of 2023, with a grade of 7. The final submission took place on Sunday, the 14th of January of 2024, and earned a grade of 6. They were 4.5%, 7.5% and 18% of the final grade respectively.
 
 # Project Summary
 
